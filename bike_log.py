@@ -9,17 +9,8 @@ from miscellaneous import main_function
 from MySQLdb import connect as MySqlConnection
 from optparse import OptionParser as BaseOptionParser
 
-def log_ride(ride_date, bike_id, route, time_minutes, distance_miles):
-    """Log a ride to the database and Flotrack using the specified parameters."""
-    flotrack_password = prompt_for_password("Flotrack password: ")
-    with FlotrackConnection("karldickman", flotrack_password) as flotrack, \
-            new_connection() as database:
-        log_ride_to_database(database, ride_date, bike_id, route, time_minutes,
-                             distance_miles)
-        log_ride_to_flotrack(flotrack, ride_date, bike_id, route, time_minutes,
-                             distance_miles)
-
-def log_ride_to_database(database, ride_date, bike_id, route, time_minutes, distance_miles):
+def log_ride_to_database(database, ride_date, bike_id, route, time_minutes,
+                         distance_miles):
     """Log a ride to the database using the specified parameters."""
     query = """INSERT INTO rides
         (ride_date, time_minutes, bicycle_id)
@@ -47,8 +38,9 @@ def log_ride_to_database(database, ride_date, bike_id, route, time_minutes, dist
             VALUES
             (%s, %s)"""
         database.execute(query, (ride_id, distance_miles))
+    return ride_id
 
-def log_ride_to_flotrack(flotrack, ride_date, bike_id, route, time_minutes,
+def log_ride_to_flotrack(flotrack, ride_date, route, time_minutes,
                          distance_miles):
     """Log a ride to flotrack."""
     run_distance_miles = run_to_bike(distance_miles, time_minutes)
@@ -74,6 +66,15 @@ def parse_arguments(arguments):
     option_parser = OptionParser()
     return option_parser.parse_args(arguments)
 
+def parse_route(route_string):
+    """Convert a route string into route information."""
+    with new_connection() as database:
+        query = "SELECT route_id FROM routes WHERE route = %s"
+        if database.execute(query, route_string) > 0:
+            return Route(route_id=database.fetchone()[0])
+        else:
+            return Route(description=route_string)
+
 def run_to_bike(distance_miles, time_minutes):
     """Convert a bike ride to running miles."""
     time_hours = time_minutes / 60.0
@@ -83,11 +84,14 @@ def run_to_bike(distance_miles, time_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <route> <bike_id> <hh:mm>+[<hh:mm>]\
-                [<miles>[+<more_miles>]] [<yyyy-mm-dd>]"
+        usage_string = "%prog <route> <bike_id> <hh:mm>+[<hh:mm>] [<miles>[+<more_miles>]] [<yyyy-mm-dd>]"
         BaseOptionParser.__init__(self, usage=usage_string)
-        self.add_option("--flotrack", default=False, action="store_true",
+        self.add_option("-d", "--debug", default=False, action="store_true",
+                        help="Print SQL commands instead of executing them.")
+        self.add_option("-F", "--flotrack", default=False, action="store_true",
                         help="Upload ride to flotrack")
+        self.add_option("--print-id", default=False, action="store_true",
+                        help="Print the database ID of the recorded ride.")
 
     def parse_args(self, arguments):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
@@ -96,17 +100,16 @@ class OptionParser(BaseOptionParser):
         route_string = arguments[0]
         bike_string = arguments[1]
         time_string = arguments[2]
-        options.route = self.parse_route(route_string)
+        options.route = parse_route(route_string)
         options.bike_id = self.parse_bicycle(bike_string)
         options.time_minutes = self.parse_time(time_string)
-        if not hasattr(options, "distance_miles"):
-            if len(arguments) > 3:
-                distance_string = arguments[3]
-                options.distance_miles = self.parse_distance(distance_string)
-            elif options.route.route_id is None:
-                self.error("Ride distance not specified.")
-            else:
-                options.distance_miles = None
+        if options.route.route_id is None:
+            if len(arguments) <= 3:
+                self.error("No distance specified.")
+            distance_string = arguments[3]
+            options.distance_miles = self.parse_distance(distance_string)
+        else:
+            options.distance_miles = None
         # Parse date
         if len(arguments) == 5 \
                 or options.distance_miles is None and len(arguments) == 4:
@@ -120,6 +123,8 @@ class OptionParser(BaseOptionParser):
         else:
             ride_date = Date.today()
         options.date = ride_date
+        if options.debug and options.flotrack:
+            self.error("Options --debug and --flotrack are incompatible.")
         return options, []
 
     def parse_bicycle(self, bike_string):
@@ -143,14 +148,6 @@ class OptionParser(BaseOptionParser):
             self.error("Improperly formatted distance.")
         return distance
 
-    def parse_route(self, route_string):
-        """Convert a route string into route information."""
-        with new_connection() as database:
-            query = "SELECT route_id FROM routes WHERE route = %s"
-            if database.execute(query, route_string) > 0:
-                return Route(route_id=database.fetchone()[0])
-            else:
-                return Route(description=route_string)
 
     def parse_time(self, time_string):
         """Convert a time string into a decimal time."""
@@ -170,6 +167,46 @@ class OptionParser(BaseOptionParser):
             self.error("Improperly formatted time.")
         return time
 
+class DebugDatabase(object):
+    """Instead of executing SQL statements, writes them to the console."""
+
+    def __init__(self, database):
+        """Construct a new DebugDatabase"""
+        self.database = database
+
+    def execute(self, sql_to_execute, sql_parameters=None):
+        """Pretend to execute an SQL command"""
+        self.executed_query = sql_to_execute
+        if self.modifies_database(sql_to_execute):
+            print sql_to_execute % self.literals(sql_parameters)
+        else:
+            self.database.execute(sql_to_execute, sql_parameters)
+
+    def fetchone(self):
+        """Fetch a result from the database"""
+        if self.executed_query == "SELECT LAST_INSERT_ID()":
+            return LastInsertId(),
+        return self.database.fetchone()
+
+    @staticmethod
+    def literal(sql_parameter, sql_literal):
+        if isinstance(sql_parameter, LastInsertId):
+            return "LAST_INSERT_ID()"
+        return sql_literal
+
+    def literals(self, sql_parameters=None):
+        parameter_literals = self.database.connection.literal(sql_parameters)
+        return tuple(self.literal(p, l) for p, l in zip(sql_parameters, parameter_literals))
+
+    @staticmethod
+    def modifies_database(sql_to_execute):
+        """Determine if the specified SQL command modifies the database"""
+        return sql_to_execute.startswith("INSERT") \
+                or sql_to_execute.startswith("UPDATE")
+
+class LastInsertId(object):
+    pass
+
 class Route(object):
     """Represents information about the route that was taken."""
 
@@ -178,6 +215,8 @@ class Route(object):
         self.description = description
 
     def __repr__(self):
+        if self.route_id is None:
+            return "bike_log.Route(description='%s')" % repr(self.description)
         return "bike_log.Route(%d, %s)" % \
                 (self.route_id, repr(self.description))
 
@@ -185,14 +224,24 @@ class Route(object):
 def main(options, arguments):
     """Process command line arguments and use them to write to the log."""
     options.flotrack = False
-    if options.flotrack:
-        log_ride(options.date, options.bike_id, options.route,
-                options.time_minutes, options.distance_miles)
-    else:
-        with new_connection() as database:
-            log_ride_to_database(database, options.date, options.bike_id,
-                                 options.route, options.time_minutes,
-                                 options.distance_miles)
+    with new_connection() as sql_database:
+        database = sql_database
+        if options.debug:
+            database = DebugDatabase(sql_database)
+        ride_id = log_ride_to_database(database, options.date, options.bike_id,
+                                       options.route, options.time_minutes,
+                                       options.distance_miles)
+        if options.print_id:
+            print ride_id
+        if ride_id > 0 and options.flotrack:
+            flotrack_password = prompt_for_password("Flotrack password")
+            with FlotrackConnection("karldickman", flotrack_password) \
+                as flotrack:
+                log_ride_to_flotrack(flotrack, options.date,
+                                     options.route.description,
+                                     options.time_minutes,
+                                     options.distance_miles)
+
 
 if __name__ == "__main__":
     main()
