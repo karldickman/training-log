@@ -13,10 +13,10 @@ def log_ride_to_database(database, ride_date, bike_id, route, time_minutes,
                          distance_miles):
     """Log a ride to the database using the specified parameters."""
     query = """INSERT INTO rides
-        (ride_date, time_minutes, bicycle_id)
+        (ride_date, bicycle_id)
         VALUES
-        (%s, %s, %s)"""
-    database.execute(query, (ride_date, time_minutes, bike_id))
+        (%s, %s)"""
+    database.execute(query, (ride_date, bike_id))
     query = "SELECT LAST_INSERT_ID()"
     database.execute(query)
     ride_id = database.fetchone()[0]
@@ -32,6 +32,12 @@ def log_ride_to_database(database, ride_date, bike_id, route, time_minutes,
             VALUES
             (%s, %s)"""
         database.execute(query, (ride_id, route.description))
+    if time_minutes is not None:
+        query = """INSERT INTO ride_durations
+            (ride_id, duration_minutes)
+            VALUES
+            (%s, %s)"""
+        database.execute(query, (ride_id, time_minutes))
     if distance_miles is not None:
         query = """INSERT INTO ride_distances
             (ride_id, distance_miles)
@@ -84,9 +90,13 @@ def run_to_bike(distance_miles, time_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <route> <bike_id> <hh:mm>+[<hh:mm>] [<miles>[+<more_miles>]] [<yyyy-mm-dd>]"
+        usage_string = "%prog <route> <bike_id> [--time=][<hh:mm>+[<hh:mm>]] [--distance-miles=][<miles>[+<more_miles>]] [--date=][<yyyy-mm-dd>]"
         BaseOptionParser.__init__(self, usage=usage_string)
-        self.add_option("-d", "--debug", default=False, action="store_true",
+        self.add_option("--date", default=None,
+                        help="The date on which the ride occurred.")
+        self.add_option("--distance-miles", default=None,
+                        help="The length of the ride in miles.")
+        self.add_option("-V", "--preview", default=False, action="store_true",
                         help="Print SQL commands instead of executing them.")
         self.add_option("-F", "--flotrack", default=False, action="store_true",
                         help="Upload ride to flotrack")
@@ -95,36 +105,52 @@ class OptionParser(BaseOptionParser):
 
     def parse_args(self, arguments):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
-        if len(arguments) < 3:
+        if len(arguments) < 2 or len(arguments) > 5:
             self.error("Incorrect number of arguments.")
-        route_string = arguments[0]
-        bike_string = arguments[1]
-        time_string = arguments[2]
+        route_string = arguments.pop(0)
+        bike_string = arguments.pop(0)
         options.route = parse_route(route_string)
         options.bike_id = self.parse_bicycle(bike_string)
-        options.time_minutes = self.parse_time(time_string)
-        if options.route.route_id is None:
-            if len(arguments) <= 3:
-                self.error("No distance specified.")
-            distance_string = arguments[3]
-            options.distance_miles = self.parse_distance(distance_string)
+        if len(arguments) > 0:
+            time_string = arguments.pop(0)
+            options.time_minutes = self.parse_time(time_string)
         else:
-            options.distance_miles = None
+            options.time_minutes = None
+        if options.route.route_id is None or len(arguments) > 0:
+            if len(arguments) == 0:
+                self.error("No route named \"%s\"" % route_string)
+            distance_string = arguments.pop(0)
+            options.distance_miles = self.parse_distance(distance_string)
+        elif options.distance_miles is not None:
+            distance_string = options.distance_miles
+            options.distance_miles = self.parse_distance(distance_string)
         # Parse date
-        if len(arguments) == 5 \
-                or options.distance_miles is None and len(arguments) == 4:
-            date_string = arguments[-1]
+        date_needs_parse = False
+        if len(arguments) > 0:
+            date_string = arguments.pop(0)
+            date_needs_parse = True
+        elif isinstance(options.date, str):
+            date_string = options.date
+            date_needs_parse = True
+        if date_needs_parse:
             try:
-                year_string, month_string, day_string = date_string.split("-")
-                ride_date = Date(int(year_string), int(month_string), \
-                                 int(day_string))
+                date_components = date_string.split("-")
+                num_components = len(date_components)
+                if num_components > 3 or num_components < 2:
+                    self.error("Improperly formatted date.")
+                if num_components == 3:
+                    year_string, month_string, day_string = date_components
+                    year = int(year_string)
+                elif num_components == 2:
+                    month_string, day_string = date_components
+                    year = Date.today().year
+                options.date = Date(year, int(month_string), int(day_string))
             except ValueError:
                 self.error("Improperly formatted date.")
-        else:
-            ride_date = Date.today()
-        options.date = ride_date
-        if options.debug and options.flotrack:
-            self.error("Options --debug and --flotrack are incompatible.")
+        elif options.date is None:
+            options.date = Date.today()
+        if options.preview and options.flotrack:
+            self.error("Options --preview and --flotrack are incompatible.")
         return options, []
 
     def parse_bicycle(self, bike_string):
@@ -226,7 +252,7 @@ def main(options, arguments):
     options.flotrack = False
     with new_connection() as sql_database:
         database = sql_database
-        if options.debug:
+        if options.preview:
             database = DebugDatabase(sql_database)
         ride_id = log_ride_to_database(database, options.date, options.bike_id,
                                        options.route, options.time_minutes,
