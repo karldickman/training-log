@@ -90,7 +90,7 @@ def run_to_bike(distance_miles, time_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <route> <bike_id> [--time=][<hh:mm>+[<hh:mm>]] [--distance-miles=][<miles>[+<more_miles>]] [--date=][<yyyy-mm-dd>]"
+        usage_string = "%prog <route> <bike_id> [--time=][<[hh:]mm:ss>+[[<hh:]mm:ss>]] [--distance-miles=][<miles>[+<more_miles>]] [--date=][<yyyy-mm-dd>]"
         BaseOptionParser.__init__(self, usage=usage_string)
         self.add_option("--date", default=None,
                         help="The date on which the ride occurred.")
@@ -179,14 +179,18 @@ class OptionParser(BaseOptionParser):
             time = 0.0
             for minute_second_string in time_string.split("+"):
                 split_by_colon = minute_second_string.split(":")
-                if len(split_by_colon) > 2:
+                if len(split_by_colon) > 3:
                     self.error("Improperly formatted time.")
-                minutes_string = split_by_colon[0]
-                if len(split_by_colon) > 1:
-                    seconds_string = split_by_colon[1]
+                seconds = float(split_by_colon.pop())
+                if split_by_colon:
+                    minutes = float(split_by_colon.pop())
                 else:
-                    seconds_string = 0
-                time += float(minutes_string) + float(seconds_string) / 60.0
+                    minutes = 0
+                if split_by_colon:
+                    hours = float(split_by_colon.pop())
+                else:
+                    hours = 0
+                time += hours * 60.0 + minutes + seconds / 60.0
         except ValueError:
             self.error("Improperly formatted time.")
         return time
