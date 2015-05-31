@@ -39,7 +39,7 @@ def log_ride_to_database(database, ride_date, bike_id, route, time_minutes,
             (%s, %s)"""
         database.execute(query, (ride_id, time_minutes))
     if distance_miles is not None:
-        query = """INSERT INTO ride_distances
+        query = """INSERT INTO ride_non_route_distances
             (ride_id, distance_miles)
             VALUES
             (%s, %s)"""
@@ -117,12 +117,10 @@ class OptionParser(BaseOptionParser):
         else:
             options.time_minutes = None
         if options.route.route_id is None or len(arguments) > 0:
-            if len(arguments) == 0:
-                self.error("No route named \"%s\"" % route_string)
-            distance_string = arguments.pop(0)
-            options.distance_miles = self.parse_distance(distance_string)
-        elif options.distance_miles is not None:
-            distance_string = options.distance_miles
+            if any(arguments):
+                distance_string = arguments.pop(0)
+            else:
+                distance_string = options.distance_miles
             options.distance_miles = self.parse_distance(distance_string)
         # Parse date
         date_needs_parse = False
