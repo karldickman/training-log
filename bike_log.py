@@ -119,8 +119,11 @@ class OptionParser(BaseOptionParser):
         if options.route.route_id is None or len(arguments) > 0:
             if any(arguments):
                 distance_string = arguments.pop(0)
-            else:
+            elif options.distance_miles is not None:
                 distance_string = options.distance_miles
+            else:
+                self.error("Distance not specified for unknown route %s"
+                           % route_string)
             options.distance_miles = self.parse_distance(distance_string)
         # Parse date
         date_needs_parse = False
