@@ -61,11 +61,13 @@ def log_ride_to_flotrack(flotrack, ride_date, route, time_minutes,
     if not success:
         raise Exception("Could not write bike ride as run to Flotrack.")
 
-def new_connection():
+def new_connection(preview=False):
     """Open a new connection to the database."""
     database = MySqlConnection("localhost", "bike_log", "bike_log", "bike_log")
     database.autocommit(False)
-    return database
+    if not preview:
+        return database
+    return DebugDatabase(database)
 
 def parse_arguments(arguments):
     """Parse the command-line arguments."""
@@ -76,10 +78,9 @@ def parse_route(route_string):
     """Convert a route string into route information."""
     with new_connection() as database:
         query = "SELECT route_id FROM routes WHERE route = %s"
-        if database.execute(query, route_string) > 0:
+        if database.execute(query, [route_string]) > 0:
             return Route(route_id=database.fetchone()[0])
-        else:
-            return Route(description=route_string)
+        return Route(description=route_string)
 
 def run_to_bike(distance_miles, time_minutes):
     """Convert a bike ride to running miles."""
@@ -96,8 +97,8 @@ class OptionParser(BaseOptionParser):
                         help="The date on which the ride occurred.")
         self.add_option("--distance-miles", default=None,
                         help="The length of the ride in miles.")
-        self.add_option("-V", "--preview", default=False, action="store_true",
-                        help="Print SQL commands instead of executing them.")
+        #self.add_option("-V", "--preview", default=False, action="store_true",
+        #                help="Print SQL commands instead of executing them.")
         self.add_option("-F", "--flotrack", default=False, action="store_true",
                         help="Upload ride to flotrack")
         self.add_option("--print-id", default=False, action="store_true",
@@ -205,6 +206,12 @@ class DebugDatabase(object):
         """Construct a new DebugDatabase"""
         self.database = database
 
+    def __enter__(self):
+        return self.database.__enter__()
+
+    def __exit__(self, dd_type, value, traceback):
+        self.database.__exit__(dd_type, value, traceback)
+
     def execute(self, sql_to_execute, sql_parameters=None):
         """Pretend to execute an SQL command"""
         self.executed_query = sql_to_execute
@@ -255,10 +262,7 @@ class Route(object):
 def main(options, arguments):
     """Process command line arguments and use them to write to the log."""
     options.flotrack = False
-    with new_connection() as sql_database:
-        database = sql_database
-        if options.preview:
-            database = DebugDatabase(sql_database)
+    with new_connection(options.preview) as database:
         ride_id = log_ride_to_database(database, options.date, options.bike_id,
                                        options.route, options.time_minutes,
                                        options.distance_miles)
