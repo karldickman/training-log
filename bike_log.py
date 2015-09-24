@@ -151,15 +151,15 @@ class OptionParser(BaseOptionParser):
                 self.error("Improperly formatted date.")
         elif options.date is None:
             options.date = Date.today()
-        if options.preview and options.flotrack:
-            self.error("Options --preview and --flotrack are incompatible.")
+        #if options.preview and options.flotrack:
+            #self.error("Options --preview and --flotrack are incompatible.")
         return options, []
 
     def parse_bicycle(self, bike_string):
         """Convert a bicycle string into a bicycle id."""
         with new_connection() as database:
             query = "SELECT bicycle_id FROM bicycle_names WHERE bicycle = %s"
-            if database.execute(query, bike_string) > 0:
+            if database.execute(query, [bike_string]) > 0:
                 return database.fetchone()[0]
             try:
                 return int(bike_string)
@@ -262,7 +262,8 @@ class Route(object):
 def main(options, arguments):
     """Process command line arguments and use them to write to the log."""
     options.flotrack = False
-    with new_connection(options.preview) as database:
+    #with new_connection(options.preview) as database:
+    with new_connection() as database:
         ride_id = log_ride_to_database(database, options.date, options.bike_id,
                                        options.route, options.time_minutes,
                                        options.distance_miles)
