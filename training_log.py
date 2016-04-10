@@ -2,7 +2,6 @@
 """Your docstring here."""
 
 from datetime import date as Date
-from flotrack_upload import FlotrackConnection
 from getpass import getpass as prompt_for_password
 from math import floor
 from miscellaneous import main_function
@@ -46,28 +45,12 @@ def log_ride_to_database(database, ride_date, bike_id, route, time_minutes,
         database.execute(query, (ride_id, distance_miles))
     return ride_id
 
-def log_ride_to_flotrack(flotrack, ride_date, route, time_minutes,
-                         distance_miles):
-    """Log a ride to flotrack."""
-    run_distance_miles = run_to_bike(distance_miles, time_minutes)
-    run_time_minutes = run_distance_miles * 7.5
-    minutes_component = int(floor(time_minutes))
-    seconds_component = 60 * (time_minutes - minutes_component)
-    notes = "Route: %s\nMiles: %.2lf\nMinutes: %d:%05.2lf"
-    notes %= (route, distance_miles, minutes_component, seconds_component)
-    success = flotrack.record_run(ride_date, "Commute (Bike)",
-                                    run_distance_miles, run_time_minutes,
-                                    notes)
-    if not success:
-        raise Exception("Could not write bike ride as run to Flotrack.")
-
-def new_connection(preview=False):
+def new_connection():
     """Open a new connection to the database."""
-    database = MySqlConnection("localhost", "bike_log", "bike_log", "bike_log")
+    database = MySqlConnection("localhost", "training_log", "training_log",
+                               "pGJDwnnu5EqXHEKHfWU7")
     database.autocommit(False)
-    if not preview:
-        return database
-    return DebugDatabase(database)
+    return database
 
 def parse_arguments(arguments):
     """Parse the command-line arguments."""
@@ -97,10 +80,6 @@ class OptionParser(BaseOptionParser):
                         help="The date on which the ride occurred.")
         self.add_option("--distance-miles", default=None,
                         help="The length of the ride in miles.")
-        #self.add_option("-V", "--preview", default=False, action="store_true",
-        #                help="Print SQL commands instead of executing them.")
-        self.add_option("-F", "--flotrack", default=False, action="store_true",
-                        help="Upload ride to flotrack")
         self.add_option("--print-id", default=False, action="store_true",
                         help="Print the database ID of the recorded ride.")
 
@@ -151,8 +130,6 @@ class OptionParser(BaseOptionParser):
                 self.error("Improperly formatted date.")
         elif options.date is None:
             options.date = Date.today()
-        #if options.preview and options.flotrack:
-            #self.error("Options --preview and --flotrack are incompatible.")
         return options, []
 
     def parse_bicycle(self, bike_string):
@@ -199,52 +176,6 @@ class OptionParser(BaseOptionParser):
             self.error("Improperly formatted time.")
         return time
 
-class DebugDatabase(object):
-    """Instead of executing SQL statements, writes them to the console."""
-
-    def __init__(self, database):
-        """Construct a new DebugDatabase"""
-        self.database = database
-
-    def __enter__(self):
-        return self.database.__enter__()
-
-    def __exit__(self, dd_type, value, traceback):
-        self.database.__exit__(dd_type, value, traceback)
-
-    def execute(self, sql_to_execute, sql_parameters=None):
-        """Pretend to execute an SQL command"""
-        self.executed_query = sql_to_execute
-        if self.modifies_database(sql_to_execute):
-            print sql_to_execute % self.literals(sql_parameters)
-        else:
-            self.database.execute(sql_to_execute, sql_parameters)
-
-    def fetchone(self):
-        """Fetch a result from the database"""
-        if self.executed_query == "SELECT LAST_INSERT_ID()":
-            return LastInsertId(),
-        return self.database.fetchone()
-
-    @staticmethod
-    def literal(sql_parameter, sql_literal):
-        if isinstance(sql_parameter, LastInsertId):
-            return "LAST_INSERT_ID()"
-        return sql_literal
-
-    def literals(self, sql_parameters=None):
-        parameter_literals = self.database.connection.literal(sql_parameters)
-        return tuple(self.literal(p, l) for p, l in zip(sql_parameters, parameter_literals))
-
-    @staticmethod
-    def modifies_database(sql_to_execute):
-        """Determine if the specified SQL command modifies the database"""
-        return sql_to_execute.startswith("INSERT") \
-                or sql_to_execute.startswith("UPDATE")
-
-class LastInsertId(object):
-    pass
-
 class Route(object):
     """Represents information about the route that was taken."""
 
@@ -261,23 +192,12 @@ class Route(object):
 @main_function(parse_arguments)
 def main(options, arguments):
     """Process command line arguments and use them to write to the log."""
-    options.flotrack = False
-    #with new_connection(options.preview) as database:
     with new_connection() as database:
         ride_id = log_ride_to_database(database, options.date, options.bike_id,
                                        options.route, options.time_minutes,
                                        options.distance_miles)
         if options.print_id:
             print ride_id
-        if ride_id > 0 and options.flotrack:
-            flotrack_password = prompt_for_password("Flotrack password")
-            with FlotrackConnection("karldickman", flotrack_password) \
-                as flotrack:
-                log_ride_to_flotrack(flotrack, options.date,
-                                     options.route.description,
-                                     options.time_minutes,
-                                     options.distance_miles)
-
 
 if __name__ == "__main__":
     main()
