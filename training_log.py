@@ -1,5 +1,5 @@
 #!/usr/bin/python
-"""Your docstring here."""
+"""Command-line tool to log training to a database."""
 
 from datetime import date as Date
 from getpass import getpass as prompt_for_password
@@ -74,14 +74,19 @@ def run_to_bike(distance_miles, time_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <route> <bike_id> [--time=][<[hh:]mm:ss>+[[<hh:]mm:ss>]] [--distance-miles=][<miles>[+<more_miles>]] [--date=][<yyyy-mm-dd>]"
+        usage_string = "%prog <activity> <route> [<time hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>]"
         BaseOptionParser.__init__(self, usage=usage_string)
-        self.add_option("--date", default=None,
-                        help="The date on which the ride occurred.")
-        self.add_option("--distance-miles", default=None,
-                        help="The length of the ride in miles.")
+        self.add_option("-q", "--equipment", default=None,
+                        help="The equipment used for the session.")
+        self.add_option("-d", "--date", default=None,
+                        help="The date on which the session occurred.")
+        self.add_option("-m", "--distance-miles", default=None,
+                        help="The length of the session in miles.")
         self.add_option("--print-id", default=False, action="store_true",
-                        help="Print the database ID of the recorded ride.")
+                        help="Print the database ID of the recorded session.")
+        self.add_option("-t", "--time", default=None,
+                        help="The duration of the session.",
+                        metavar="[HH:]MM:SS")
 
     def parse_args(self, arguments):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
