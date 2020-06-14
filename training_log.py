@@ -76,7 +76,7 @@ class OptionParser(BaseOptionParser):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
         if len(arguments) < 2 or len(arguments) > 5:
             self.error("Incorrect number of arguments.")
-        arguments.pop(0)
+        options.activity = int(arguments.pop(0))
         route_string = arguments.pop(0)
         options.route = parse_route(route_string)
         if len(arguments) > 0:
@@ -90,8 +90,7 @@ class OptionParser(BaseOptionParser):
             elif options.distance_miles is not None:
                 distance_string = options.distance_miles
             else:
-                self.error("Distance not specified for unknown route %s"
-                           % route_string)
+                distance_string = None
             options.distance_miles = self.parse_distance(distance_string)
         # Parse date
         date_needs_parse = False
@@ -137,6 +136,8 @@ class OptionParser(BaseOptionParser):
 
     def parse_distance(self, distance_string):
         """Convert a distance string into a decimal distance."""
+        if distance_string is None:
+            return None
         try:
             distance = 0.0
             for segment_distance_string in distance_string.split("+"):
@@ -186,7 +187,7 @@ def main():
     option_parser = OptionParser()
     options, _ = option_parser.parse_args(argv)
     with new_connection() as database, database.cursor() as cursor:
-        ride_id = record_activity(cursor, options.date, 1, options.equipment_id, options.route,
+        ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
                 options.duration_minutes, options.distance_miles)
         if options.print_id:
             print(ride_id)
