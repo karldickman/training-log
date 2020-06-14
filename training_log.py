@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3.8
 """Command-line tool to log training to a database."""
 
 from configparser import ConfigParser
