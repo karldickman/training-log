@@ -66,8 +66,8 @@ class OptionParser(BaseOptionParser):
                         help="The date on which the session occurred.")
         self.add_option("--distance-miles", default=None,
                         help="The length of the session in miles.")
-        self.add_option("--print-id", default=False, action="store_true",
-                        help="Print the database ID of the recorded session.")
+        self.add_option("--quiet", default=False, action="store_true",
+                        help="Suppress output")
         self.add_option("--duration", default=None,
                         help="The duration of the session.",
                         metavar="[HH:]MM:SS")
@@ -189,7 +189,7 @@ def main():
     with new_connection() as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
                 options.duration_minutes, options.distance_miles)
-        if options.print_id:
+        if not options.quiet:
             print(ride_id)
 
 if __name__ == "__main__":
