@@ -1,3 +1,3 @@
 #!/bin/bash
 
-workout 2 $@
+workout 2 "$@"
