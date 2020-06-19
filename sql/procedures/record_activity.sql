@@ -39,6 +39,12 @@ BEGIN
 			VALUES
 			(activity_id, distance_miles);
 	END IF;
+	IF equipment_id IS NOT NULL THEN
+        INSERT INTO activity_equipment
+	        (activity_id, equipment_id)
+	        VALUES
+	        (activity_id, equipment_id);
+    END IF;
 	RETURN(activity_id);
 END;
 $$ LANGUAGE plpgsql;
