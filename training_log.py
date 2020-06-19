@@ -26,6 +26,7 @@ def config(filename="~/.workout.ini", section="postgresql"):
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
         route, duration_minutes, distance_miles):
     """Record an activity in the database using the specified parameters."""
+    route = parse_route(route)
     params = (activity_date, activity_type_id, equipment_id, route.route_id,
         route.description, duration_minutes, distance_miles)
     cursor.callproc("record_activity", params)
@@ -79,14 +80,13 @@ class OptionParser(BaseOptionParser):
         if len(arguments) < 2 or len(arguments) > 5:
             self.error("Incorrect number of arguments.")
         options.activity = int(arguments.pop(0))
-        route_string = arguments.pop(0)
-        options.route = parse_route(route_string)
+        options.route = arguments.pop(0)
         if len(arguments) > 0:
             duration_string = arguments.pop(0)
             options.duration_minutes = self.parse_duration(duration_string)
         else:
             options.duration_minutes = None
-        if options.route.route_id is None or len(arguments) > 0:
+        if len(arguments) > 0:
             if any(arguments):
                 distance_string = arguments.pop(0)
             elif options.distance_miles is not None:
