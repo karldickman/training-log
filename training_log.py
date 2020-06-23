@@ -33,8 +33,10 @@ def record_activity(cursor, activity_date, activity_type_id, equipment_id,
     (activity_id,) = cursor.fetchone()
     return activity_id
 
-def new_connection():
+def new_connection(preview=False):
     """Open a new connection to the database."""
+    if preview:
+        return PreviewDatabase()
     params = config()
     return connect(**params)
 
@@ -74,6 +76,8 @@ class OptionParser(BaseOptionParser):
         self.add_option("--duration", default=None,
                         help="The duration of the session.",
                         metavar="[HH:]MM:SS")
+        self.add_option("--preview", default=False, action="store_true",
+                        help="Show but do not execute database commands.")
 
     def parse_args(self, arguments):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
@@ -171,6 +175,30 @@ class OptionParser(BaseOptionParser):
             self.error("Improperly formatted duration.")
         return duration
 
+class PreviewCursor(object):
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass
+
+    def callproc(self, procedure, arguments):
+        arguments = ", ".join(map(str, arguments))
+        print(f"SELECT * FROM {procedure}({arguments})")
+
+    def fetchone(self):
+        return (None,)
+
+class PreviewDatabase(object):
+    def __enter__(self):
+        return self
+
+    def __exit__(self, exc_type, exc_value, exc_traceback):
+        pass
+
+    def cursor(self):
+        return PreviewCursor()
+
 class Route(object):
     """Represents information about the route that was taken."""
 
@@ -188,7 +216,7 @@ def main():
     """Process command line arguments and use them to write to the log."""
     option_parser = OptionParser()
     options, _ = option_parser.parse_args(argv)
-    with new_connection() as database, database.cursor() as cursor:
+    with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
                 options.duration_minutes, options.distance_miles)
         if not options.quiet:
