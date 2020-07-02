@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW equipment_labelled
+CREATE OR REPLACE VIEW activity_log
 AS
 SELECT equipment_id
      , COALESCE(equipment_label, equipment_model) AS equipment_label
@@ -14,4 +14,4 @@ SELECT equipment_id
         LEFT JOIN equipment_models
     USING (equipment_model_id);
 
-ALTER VIEW equipment_labelled OWNER TO postgres;
+ALTER VIEW activity_log OWNER TO postgres;
