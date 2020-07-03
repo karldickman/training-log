@@ -7,7 +7,11 @@ BEGIN
 	SELECT equipment_labelled.equipment_id INTO equipment_id
 		FROM equipment_labelled
 		WHERE equipment_label = "label"
-	        AND is_active;
+	        AND (is_active
+	            OR NOT is_active
+	                AND equipment_label NOT IN (SELECT equipment_label
+	                        FROM equipment_labelled
+	                        WHERE is_active));
 	RETURN(equipment_id);
 END;
 $$ LANGUAGE plpgsql;
