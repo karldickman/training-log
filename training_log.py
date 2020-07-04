@@ -63,7 +63,7 @@ def run_to_bike(distance_miles, duration_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>]"
+        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>] [equipment]"
         BaseOptionParser.__init__(self, usage=usage_string)
         self.add_option("--equipment", default=None,
                         help="The equipment used for the session.")
@@ -81,16 +81,16 @@ class OptionParser(BaseOptionParser):
 
     def parse_args(self, arguments):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
-        if len(arguments) < 2 or len(arguments) > 5:
+        if len(arguments) < 2 or len(arguments) > 6:
             self.error("Incorrect number of arguments.")
         options.activity = int(arguments.pop(0))
         options.route = arguments.pop(0)
-        if len(arguments) > 0:
+        if any(arguments):
             duration_string = arguments.pop(0)
             options.duration_minutes = self.parse_duration(duration_string)
         else:
             options.duration_minutes = None
-        if len(arguments) > 0:
+        if any(arguments):
             if any(arguments):
                 distance_string = arguments.pop(0)
             elif options.distance_miles is not None:
@@ -100,7 +100,7 @@ class OptionParser(BaseOptionParser):
             options.distance_miles = self.parse_distance(distance_string)
         # Parse date
         date_needs_parse = False
-        if len(arguments) > 0:
+        if any(arguments):
             date_string = arguments.pop(0)
             date_needs_parse = True
         elif isinstance(options.date, str):
@@ -123,7 +123,12 @@ class OptionParser(BaseOptionParser):
                 self.error("Improperly formatted date.")
         elif options.date is None:
             options.date = Date.today()
-        options.equipment_id = self.parse_equipment(options.equipment)
+        # Parse equipment
+        if any(arguments):
+            equipment_string = arguments.pop(0)
+        else:
+            equipment_string = options.equipment
+        options.equipment_id = self.parse_equipment(equipment_string)
         return options, arguments
 
     def parse_equipment(self, equipment_string):
