@@ -10,6 +10,14 @@
             "request": "launch",
             "program": "${file}",
             "console": "integratedTerminal"
+        },
+        {
+            "name": "training_log.py",
+            "type": "python",
+            "request": "launch",
+            "program": "import_flotrack.py",
+            "console": "integratedTerminal",
+            "args": ["20151129-running-logs.csv"]
         }
     ]
 }
