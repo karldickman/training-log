@@ -12,12 +12,27 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "training_log.py",
+            "name": "import_flotrack.py",
             "type": "python",
             "request": "launch",
             "program": "import_flotrack.py",
             "console": "integratedTerminal",
             "args": ["20151129-running-logs.csv"]
+        },
+        {
+            "name": "training_log.py",
+            "type": "python",
+            "request": "launch",
+            "program": "training_log.py",
+            "console": "integratedTerminal",
+            "args": [
+                "1",
+                "Iron Mountain (from my house)",
+                "--duration=3600.0",
+                "--distance-miles=\"8.0\"",
+                "--date=2009-05-25",
+                "--preview"
+            ]
         }
     ]
 }
