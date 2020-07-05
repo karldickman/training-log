@@ -5,16 +5,16 @@ from operator import itemgetter
 from sys import stdin
 
 class workout(object):
-    def __init__(self, activity, route, duration_minutes=None, distance_miles=None, date=None, equipment=None):
+    def __init__(self, activity, route, duration_minutes=None, distance_miles=None, date=None, notes=None):
         self.activity = activity
         self.route = route
         self.duration_minutes = duration_minutes
         self.distance_miles = distance_miles
         self.date = date
-        self.equipment = equipment
+        self.notes = notes
 
     def __str__(self):
-        keys = ["duration_minutes", "distance_miles", "date", "equipment",]
+        keys = ["duration_minutes", "distance_miles", "date", "notes",]
         options = " ".join(f"--{key}='{getattr(self, key)}'" for key in keys if getattr(self, key) is not None)
         return f"workout '{self.activity}' '{self.route}' {options}"
 
@@ -44,7 +44,8 @@ def parse_workout(row):
     duration_minutes = float(row["Minutes"]) + float(row["Seconds"]) / 60
     distance_miles = parse_distance(row["Distance"], row["Unit"])
     date = row["Date"]
-    return workout(activity_id, route, duration_minutes, distance_miles, date)
+    notes = row["Notes"] if row["Notes"] != "" else None
+    return workout(activity_id, route, duration_minutes, distance_miles, date, notes)
 
 def main():
     arg_parser = ArgumentParser()

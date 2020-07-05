@@ -63,7 +63,7 @@ def run_to_bike(distance_miles, duration_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>] [equipment]"
+        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>] [equipment] [notes]"
         BaseOptionParser.__init__(self, usage=usage_string)
         self.add_option("--duration", default=None,
                         help="The duration of the session.",
@@ -74,6 +74,8 @@ class OptionParser(BaseOptionParser):
                         help="The date on which the session occurred.")
         self.add_option("--equipment", default=None,
                         help="The equipment used for the session.")
+        self.add_option("--notes", default=None,
+                        help="Additional notes on the activity.")
         self.add_option("--quiet", default=False, action="store_true",
                         help="Suppress output")
         self.add_option("--preview", default=False, action="store_true",

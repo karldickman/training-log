@@ -1,3 +1,4 @@
+-- DROP FUNCTION record_activity;
 CREATE OR REPLACE FUNCTION record_activity (
 	activity_date date,
 	activity_type_id integer,
@@ -5,7 +6,8 @@ CREATE OR REPLACE FUNCTION record_activity (
 	route_id integer DEFAULT NULL,
 	route_description character varying DEFAULT NULL,
 	duration_minutes double precision DEFAULT NULL,
-	distance_miles double precision DEFAULT NULL)
+	distance_miles double precision DEFAULT NULL,
+	notes character varying DEFAULT NULL)
 RETURNS integer
 AS $$
 DECLARE activity_id integer;
@@ -44,6 +46,12 @@ BEGIN
 	        (activity_id, equipment_id)
 	        VALUES
 	        (activity_id, equipment_id);
+    END IF;
+	IF notes IS NOT NULL THEN
+        INSERT INTO activity_notes
+	        (activity_id, notes)
+	        VALUES
+	        (activity_id, notes);
     END IF;
 	RETURN(activity_id);
 END;
