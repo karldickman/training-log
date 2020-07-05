@@ -24,11 +24,11 @@ def config(filename="~/.workout.ini", section="postgresql"):
     return database
 
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
-        route, duration_minutes, distance_miles):
+        route, duration_minutes, distance_miles, notes):
     """Record an activity in the database using the specified parameters."""
     route = parse_route(route)
     params = (activity_date, activity_type_id, equipment_id, route.route_id,
-        route.description, duration_minutes, distance_miles)
+        route.description, duration_minutes, distance_miles, notes)
     cursor.callproc("record_activity", params)
     (activity_id,) = cursor.fetchone()
     return activity_id
@@ -225,7 +225,7 @@ def main():
     options, _ = option_parser.parse_args(argv)
     with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
-                options.duration_minutes, options.distance_miles)
+                options.duration_minutes, options.distance_miles, options.notes)
         if not options.quiet and ride_id is not None:
             print(ride_id)
 
