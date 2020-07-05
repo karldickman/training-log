@@ -19,13 +19,13 @@ class workout(object):
         return f"workout '{self.activity}' '{self.route}' {options}"
 
 activity_ids = {
-    "": -1,
-    "bike": -1,
-    "core": -1,
-    "hiking": -1,
-    "mountainbike": -1,
-    "skiing": -1,
-    "weights": -1,
+    "": 1,
+    "bike": 2,
+    "core": 7,
+    "hiking": 4,
+    "mountainbike": 8,
+    "skiing": 9,
+    "weights": 10,
 }
 
 def parse_distance(distance, units):
@@ -40,7 +40,7 @@ def parse_distance(distance, units):
 
 def parse_workout(row):
     activity_id = activity_ids[row["Cross Train Type"]]
-    route = row["Name"]
+    route = row["Name"].replace("\\", "")
     duration_minutes = float(row["Minutes"]) + float(row["Seconds"]) / 60
     distance_miles = parse_distance(row["Distance"], row["Unit"])
     date = row["Date"]
