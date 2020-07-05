@@ -1,4 +1,3 @@
-#!/bin/bash
 workout "1" "Iron mountain (from my house)" --duration="60.0" --distance-miles="8.0" --date="2009-05-25"
 workout "2" "Cross Train (bike)" --duration="0.0" --distance-miles="65.0" --date="2009-05-18"
 workout "1" "_" --duration="49.0" --distance-miles="6.5" --date="2009-05-08"
@@ -1610,9 +1609,7 @@ workout "1" "L&C Open Mile" --duration="4.733333333333333" --distance-miles="1.0
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="17.866666666666667" --distance-miles="2.38211" --date="2011-05-10"
 # Bike converted to run, skipping
-# workout "1" "Schaeffer (Bike)" --duration="78.26666666666667" --distance-miles="10.4363" --date="2011-05-10" --notes="http://www.mapmyfitness.com/routes/view/33997280/
-
-34 miles, 2 hr"
+# workout "1" "Schaeffer (Bike)" --duration="78.26666666666667" --distance-miles="10.4363" --date="2011-05-10" --notes="http://www.mapmyfitness.com/routes/view/33997280/  34 miles, 2 hr"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="17.766666666666666" --distance-miles="2.36894" --date="2011-05-11"
 # Bike converted to run, skipping
@@ -2829,8 +2826,7 @@ workout "7" "Cross Train (core)" --duration="30.0" --date="2013-02-11"
 workout "7" "Cross Train (core)" --duration="30.0" --date="2013-02-02"
 workout "1" "Firelane 1-Wild Cherry Loop" --duration="50.11666666666667" --distance-miles="6.96" --date="2013-02-09" --notes="http://www.mapmyrun.com/routes/view/172692600"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.383333333333333" --distance-miles="2.05048" --date="2013-02-11" --notes="Home -> Safeway -> Work: 25:8.99
-Work -> REI -> Laura's: 20:25.81"
+# workout "1" "Commute (Bike)" --duration="15.383333333333333" --distance-miles="2.05048" --date="2013-02-11" --notes="Home -> Safeway -> Work: 25:8.99 Work -> REI -> Laura's: 20:25.81"
 workout "1" "Mt. Scott Park" --duration="20.45" --date="2013-02-10"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="15.433333333333334" --distance-miles="2.05738" --date="2013-02-08" --notes="Work -> Home: 26:29.78"
@@ -2838,8 +2834,7 @@ workout "1" "Group Run" --duration="20.883333333333333" --distance-miles="3.0" -
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="9.616666666666667" --distance-miles="1.28171" --date="2013-02-06" --notes="Downtown -> Saburo's: 17:36.19"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="12.233333333333333" --distance-miles="1.6318" --date="2013-02-04" --notes="Laura's -> Work: 15:54.3
-Work -> Produce Row: 3:54.2"
+# workout "1" "Commute (Bike)" --duration="12.233333333333333" --distance-miles="1.6318" --date="2013-02-04" --notes="Laura's -> Work: 15:54.3 Work -> Produce Row: 3:54.2"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="35.36666666666667" --distance-miles="4.71599" --date="2013-02-13"
 # Bike converted to run, skipping
@@ -2847,16 +2842,13 @@ Work -> Produce Row: 3:54.2"
 workout "1" "East Lents Floodplain" --duration="38.93333333333333" --distance-miles="5.5886" --date="2013-02-16" --notes="http://www.gmap-pedometer.com/?r=5821868"
 workout "1" "Macleay-Alder" --duration="78.28333333333333" --distance-miles="10.77" --date="2013-02-17"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="6.416666666666667" --distance-miles="0.85532" --date="2013-02-17" --notes="Distance: 2.8876 mi
-Time: 10:38.9"
+# workout "1" "Commute (Bike)" --duration="6.416666666666667" --distance-miles="0.85532" --date="2013-02-17" --notes="Distance: 2.8876 mi Time: 10:38.9"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="26.133333333333333" --distance-miles="3.48532" --date="2013-02-18" --notes="Time: 15:13.97+22:54.46
-Distance: 11.157 mi"
+# workout "1" "Commute (Bike)" --duration="26.133333333333333" --distance-miles="3.48532" --date="2013-02-18" --notes="Time: 15:13.97+22:54.46 Distance: 11.157 mi"
 workout "1" "Sellwood Bridge" --duration="65.41666666666667" --distance-miles="9.3166" --date="2013-02-21" --notes="http://www.gmap-pedometer.com/?r=5827382"
 workout "1" "Woodstock Park" --duration="21.066666666666666" --distance-miles="2.7887" --date="2013-02-20" --notes="http://www.gmap-pedometer.com/?r=5827390"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.166666666666668" --distance-miles="4.022" --date="2013-02-20" --notes="25:24.08+23:30.32
-Round trip."
+# workout "1" "Commute (Bike)" --duration="30.166666666666668" --distance-miles="4.022" --date="2013-02-20" --notes="25:24.08+23:30.32 Round trip."
 workout "1" "Tabor" --duration="59.516666666666666" --distance-miles="8.2679" --date="2013-02-23" --notes="http://www.gmap-pedometer.com/?r=5829291"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="20.033333333333335" --distance-miles="2.67" --date="2013-02-25" --notes="14:58.39+15+50.09 (from and to Laura's house)"
@@ -2866,13 +2858,10 @@ workout "1" "Dogwood" --duration="68.95" --distance-miles="8.639" --date="2013-0
 workout "1" "Home -> Laura's" --duration="0.0" --date="2013-03-02" --notes="10.6028 mi, 6:20.92 + 32:44.27"
 workout "1" "Woodstock Park" --duration="19.533333333333335" --distance-miles="2.8789" --date="2013-03-02"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.933333333333334" --distance-miles="3.3246" --date="2013-03-04" --notes="Home, Work, Laura's
-15:05.02, 25:02.05"
+# workout "1" "Commute (Bike)" --duration="24.933333333333334" --distance-miles="3.3246" --date="2013-03-04" --notes="Home, Work, Laura's 15:05.02, 25:02.05"
 workout "1" "Fernhill Park" --duration="25.766666666666666" --distance-miles="3.5657" --date="2013-03-04"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.933333333333334" --distance-miles="2.7902" --date="2013-03-03" --notes="Holman to Tolman
-34:10.46
-9.3567 mi"
+# workout "1" "Commute (Bike)" --duration="20.933333333333334" --distance-miles="2.7902" --date="2013-03-03" --notes="Holman to Tolman 34:10.46 9.3567 mi"
 # Bike converted to run, skipping
 # workout "1" "Laura's -> Home (bike)" --duration="20.483333333333334" --distance-miles="2.7309" --date="2013-03-10"
 workout "9" "Cross Train (skiing)" --duration="0.0" --date="2013-03-10"
@@ -2915,10 +2904,7 @@ workout "1" "Waterfront" --duration="20.616666666666667" --distance-miles="2.936
 # workout "1" "Zipcar (Bike)" --duration="12.783333333333333" --distance-miles="1.7039" --date="2013-03-30"
 workout "1" "Springwater" --duration="47.266666666666666" --distance-miles="6.4976" --date="2013-03-30"
 # Bike converted to run, skipping
-# workout "1" "South Shore (Bike)" --duration="64.08333333333333" --distance-miles="8.545" --date="2013-03-31" --notes="Black Beauty
-28.6033 mi 1:44:09
-Surly
-1.807 mi 6:30.35"
+# workout "1" "South Shore (Bike)" --duration="64.08333333333333" --distance-miles="8.545" --date="2013-03-31" --notes="Black Beauty 28.6033 mi 1:44:09 Surly 1.807 mi 6:30.35"
 # Bike converted to run, skipping
 # workout "1" "Reed College (Bike)" --duration="4.116666666666666" --distance-miles="0.5493" --date="2013-03-31"
 # Bike converted to run, skipping
@@ -2944,18 +2930,14 @@ workout "1" "Tabor" --duration="34.96666666666667" --distance-miles="5.0291" --d
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="14.916666666666666" --distance-miles="1.9897" --date="2013-04-09"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="9.933333333333334" --distance-miles="1.325" --date="2013-04-18" --notes="Distance: 4.4039
-Time: 15:52.2"
+# workout "1" "Commute (Bike)" --duration="9.933333333333334" --distance-miles="1.325" --date="2013-04-18" --notes="Distance: 4.4039 Time: 15:52.2"
 workout "1" "Alberta Park" --duration="19.433333333333334" --distance-miles="2.614" --date="2013-04-18" --notes="http://www.gmap-pedometer.com/?r=5895587"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.416666666666668" --distance-miles="3.3884" --date="2013-04-17" --notes="Distance: 7.1841+4.3706
-Time: 28:25.54+14.50.09"
+# workout "1" "Commute (Bike)" --duration="25.416666666666668" --distance-miles="3.3884" --date="2013-04-17" --notes="Distance: 7.1841+4.3706 Time: 28:25.54+14.50.09"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.316666666666666" --distance-miles="2.0428" --date="2013-04-16" --notes="Distance: Home -> Work
-Time: 24:28.21"
+# workout "1" "Commute (Bike)" --duration="15.316666666666666" --distance-miles="2.0428" --date="2013-04-16" --notes="Distance: Home -> Work Time: 24:28.21"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.45" --distance-miles="3.2602" --date="2013-04-15" --notes="Distance: Work -> Home + 4.3706
-Time: 25:26.34+15.55.84"
+# workout "1" "Commute (Bike)" --duration="24.45" --distance-miles="3.2602" --date="2013-04-15" --notes="Distance: Work -> Home + 4.3706 Time: 25:26.34+15.55.84"
 workout "1" "Bank" --duration="14.833333333333334" --distance-miles="2.2427" --date="2013-04-15" --notes="http://www.gmap-pedometer.com/?r=5895595"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="30.333333333333332" --distance-miles="4.0447" --date="2013-04-12"
@@ -2980,36 +2962,28 @@ workout "1" "Mt. Scott Park" --duration="8.5" --distance-miles="1.2694" --date="
 workout "1" "Alberta Park" --duration="18.783333333333335" --distance-miles="2.2189" --date="2013-04-23"
 workout "1" "Brentwood-Woodstock-Mt. Scott" --duration="40.2" --distance-miles="6.067" --date="2013-04-28" --notes="http://www.gmap-pedometer.com/?r=5909202"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.366666666666667" --distance-miles="3.3833" --date="2013-05-01" --notes="Distance: 11.1753
-Time 15:11.73+24:42.93"
+# workout "1" "Commute (Bike)" --duration="25.366666666666667" --distance-miles="3.3833" --date="2013-05-01" --notes="Distance: 11.1753 Time 15:11.73+24:42.93"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.266666666666667" --distance-miles="2.0366" --date="2013-04-30" --notes="Distance: 6.82
-Time: 24:50.92"
+# workout "1" "Commute (Bike)" --duration="15.266666666666667" --distance-miles="2.0366" --date="2013-04-30" --notes="Distance: 6.82 Time: 24:50.92"
 workout "1" "Alberta Park" --duration="19.666666666666668" --distance-miles="2.22" --date="2013-04-29"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.016666666666666" --distance-miles="3.3346" --date="2013-04-29" --notes="Distance: 11.17
-Time: 26:07.18+14:35.68"
+# workout "1" "Commute (Bike)" --duration="25.016666666666666" --distance-miles="3.3346" --date="2013-04-29" --notes="Distance: 11.17 Time: 26:07.18+14:35.68"
 # Bike converted to run, skipping
-# workout "1" "Tolman to Holman (Bike)" --duration="22.066666666666666" --distance-miles="2.9426" --date="2013-04-28" --notes="Distance: 9.4799
-Time: 32:41.46"
+# workout "1" "Tolman to Holman (Bike)" --duration="22.066666666666666" --distance-miles="2.9426" --date="2013-04-28" --notes="Distance: 9.4799 Time: 32:41.46"
 workout "1" "Sellwood Foot Traffic" --duration="34.05" --distance-miles="4.8692" --date="2013-05-02" --notes="http://www.gmap-pedometer.com/?r=5915775"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="16.016666666666666" --distance-miles="2.1354" --date="2013-05-02"
 workout "1" "Mt. Scott -Woodstock" --duration="28.916666666666668" --distance-miles="3.35" --date="2013-05-05"
 # Bike converted to run, skipping
-# workout "1" "Safeway (Bike)" --duration="5.716666666666667" --distance-miles="0.76151" --date="2013-05-05" --notes="Distance: 2.8826
-Time: 12:55.64"
+# workout "1" "Safeway (Bike)" --duration="5.716666666666667" --distance-miles="0.76151" --date="2013-05-05" --notes="Distance: 2.8826 Time: 12:55.64"
 # Bike converted to run, skipping
-# workout "1" "Safeway (Bike)" --duration="5.366666666666666" --distance-miles="0.7151" --date="2013-05-04" --notes="Distance: 2.6821
-Time: 11:43.8"
+# workout "1" "Safeway (Bike)" --duration="5.366666666666666" --distance-miles="0.7151" --date="2013-05-04" --notes="Distance: 2.6821 Time: 11:43.8"
 workout "1" "Brentwood-Woodstock-Mt. Scott" --duration="40.2" --distance-miles="6.067" --date="2013-05-04" --notes="http://www.gmap-pedometer.com/?r=5909202"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="32.65" --distance-miles="4.3538" --date="2013-05-03" --notes="Distance: 14.4309
-Time: 17:22.7+10:17.51+24:07.55"
+# workout "1" "Commute (Bike)" --duration="32.65" --distance-miles="4.3538" --date="2013-05-03" --notes="Distance: 14.4309 Time: 17:22.7+10:17.51+24:07.55"
 workout "1" "Alberta Park" --duration="24.866666666666667" --distance-miles="3.18" --date="2013-05-06"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.066666666666666" --distance-miles="3.3417" --date="2013-05-06" --notes="Distance: 11.12
-Time: 15:53.09+24:15.40"
+# workout "1" "Commute (Bike)" --duration="25.066666666666666" --distance-miles="3.3417" --date="2013-05-06" --notes="Distance: 11.12 Time: 15:53.09+24:15.40"
 workout "1" "Woodstock-Mt. Scott" --duration="26.1" --distance-miles="3.8964" --date="2013-05-06"
 workout "1" "Woodstock Park" --duration="25.1" --distance-miles="2.8756" --date="2013-05-07"
 # Bike converted to run, skipping
@@ -3062,27 +3036,23 @@ workout "1" "Alberta Park" --duration="15.166666666666666" --distance-miles="2.8
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="28.15" --distance-miles="3.7538" --date="2013-06-05"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.9" --distance-miles="1.9873" --date="2013-06-12" --notes="Distance: 7.1376
-Time: 29:03.68"
+# workout "1" "Commute (Bike)" --duration="14.9" --distance-miles="1.9873" --date="2013-06-12" --notes="Distance: 7.1376 Time: 29:03.68"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="14.433333333333334" --distance-miles="1.9245" --date="2013-06-13"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="25.05" --distance-miles="3.3394" --date="2013-06-14"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="74.23333333333333" --distance-miles="6.4748" --date="2013-06-15" --notes="Time: 41:25.98
-Distance: 9.7294"
+# workout "1" "Commute (Bike)" --duration="74.23333333333333" --distance-miles="6.4748" --date="2013-06-15" --notes="Time: 41:25.98 Distance: 9.7294"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="30.066666666666666" --distance-miles="4.0098" --date="2013-06-17"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="20.183333333333334" --distance-miles="2.6903" --date="2013-06-16"
 workout "1" "Group Run" --duration="35.28333333333333" --distance-miles="4.6141" --date="2013-06-20" --notes="http://www.gmap-pedometer.com/?r=5976772"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="12.216666666666667" --distance-miles="1.6298" --date="2013-06-19" --notes="Distance: 5.6267 mi
-Time: 5:00.96+16:27.37"
+# workout "1" "Commute (Bike)" --duration="12.216666666666667" --distance-miles="1.6298" --date="2013-06-19" --notes="Distance: 5.6267 mi Time: 5:00.96+16:27.37"
 workout "1" "Alberta Park" --duration="26.833333333333332" --distance-miles="2.975" --date="2013-06-19"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="53.7" --distance-miles="7.1599" --date="2013-06-18" --notes="Distance: Home -> Work -> Home -> Laura's
-Time: 36:24.04+24:39.63+27:51.46"
+# workout "1" "Commute (Bike)" --duration="53.7" --distance-miles="7.1599" --date="2013-06-18" --notes="Distance: Home -> Work -> Home -> Laura's Time: 36:24.04+24:39.63+27:51.46"
 workout "1" "Mt. Scott Woodstock" --duration="27.916666666666668" --distance-miles="3.8116" --date="2013-06-18" --notes="http://www.gmap-pedometer.com/?r=5976778"
 workout "1" "Brentwood-Tideman Johnson-Berkley" --duration="39.78333333333333" --distance-miles="5.1265" --date="2013-06-22" --notes="http://www.gmap-pedometer.com/?r=5978469"
 workout "1" "Brentwood-Mt. Scott" --duration="20.7" --distance-miles="3.0157" --date="2013-06-21" --notes="http://www.gmap-pedometer.com/?r=5978474"
@@ -3090,8 +3060,7 @@ workout "1" "Brentwood-Mt. Scott" --duration="20.7" --distance-miles="3.0157" --
 # workout "1" "Commute (Bike)" --duration="14.733333333333333" --distance-miles="1.9635" --date="2013-06-21"
 workout "1" "Forest Park" --duration="45.46666666666667" --distance-miles="5.77" --date="2013-06-23" --notes="http://www.gmap-pedometer.com/?r=5979525"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="9.316666666666666" --distance-miles="1.2425" --date="2013-06-22" --notes="Distance: 3.7923
-Time: 12:10.9"
+# workout "1" "Commute (Bike)" --duration="9.316666666666666" --distance-miles="1.2425" --date="2013-06-22" --notes="Distance: 3.7923 Time: 12:10.9"
 workout "1" "Woodstock Park" --duration="24.583333333333332" --distance-miles="2.8718" --date="2013-06-24" --notes="http://www.gmap-pedometer.com/?r=5981297"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="15.0" --distance-miles="2.0011" --date="2013-06-24"
@@ -3101,19 +3070,15 @@ workout "1" "Woodstock Park" --duration="24.583333333333332" --distance-miles="2
 # workout "1" "Commute (Bike)" --duration="24.45" --distance-miles="3.2593" --date="2013-06-26"
 workout "1" "Woodstock Park 2 loops" --duration="30.333333333333332" --distance-miles="3.5896" --date="2013-07-01"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.316666666666666" --distance-miles="1.9083" --date="2013-07-01" --notes="Work -> Safeway -> Home
-27:18.89"
+# workout "1" "Commute (Bike)" --duration="14.316666666666666" --distance-miles="1.9083" --date="2013-07-01" --notes="Work -> Safeway -> Home 27:18.89"
 workout "1" "Mt. Scott Woodstock" --duration="29.816666666666666" --distance-miles="3.8117" --date="2013-07-02"
 workout "1" "Forest Park" --duration="43.083333333333336" --distance-miles="5.5012" --date="2013-06-30"
 workout "1" "Holman to Tolman" --duration="19.4" --distance-miles="2.586" --date="2013-06-29" --notes="40:01"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.733333333333333" --distance-miles="2.09683" --date="2013-06-28" --notes="Home -> Work
-23:29.91"
+# workout "1" "Commute (Bike)" --duration="15.733333333333333" --distance-miles="2.09683" --date="2013-06-28" --notes="Home -> Work 23:29.91"
 workout "1" "Brentwood Mt. Scott" --duration="25.9" --distance-miles="2.9933" --date="2013-06-28"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.55" --distance-miles="3.9411" --date="2013-06-27" --notes="Home -> Work -> Fred's -> Home
-25:02.92
-29:08.8"
+# workout "1" "Commute (Bike)" --duration="29.55" --distance-miles="3.9411" --date="2013-06-27" --notes="Home -> Work -> Fred's -> Home 25:02.92 29:08.8"
 workout "1" "Zipcar" --duration="8.833333333333334" --distance-miles="1.2223" --date="2013-06-27"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="24.3" --distance-miles="3.2405" --date="2013-07-03"
@@ -3121,19 +3086,14 @@ workout "1" "Alberta Park" --duration="24.433333333333334" --distance-miles="2.8
 workout "1" "Alberta Park, Fernhill Par" --duration="41.13333333333333" --distance-miles="4.96" --date="2013-07-07"
 workout "1" "Tolman to Holman" --duration="19.683333333333334" --distance-miles="2.6238" --date="2013-07-06" --notes="39"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="57.65" --distance-miles="7.6862" --date="2013-07-05" --notes="Laura's, LC, Home, Apex, Home
-28.0183
-??+20:49.44+30:01.84+41:13.31"
+# workout "1" "Commute (Bike)" --duration="57.65" --distance-miles="7.6862" --date="2013-07-05" --notes="Laura's, LC, Home, Apex, Home 28.0183 ??+20:49.44+30:01.84+41:13.31"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="18.583333333333332" --distance-miles="2.4782" --date="2013-07-04" --notes="Home -> HUB
-33:54.58
-8.6816"
+# workout "1" "Commute (Bike)" --duration="18.583333333333332" --distance-miles="2.4782" --date="2013-07-04" --notes="Home -> HUB 33:54.58 8.6816"
 workout "1" "Iron Mountain, Cedar Trail" --duration="53.266666666666666" --distance-miles="5.9687" --date="2013-07-05"
 workout "1" "Commute (Run)" --duration="48.7" --distance-miles="6.8584" --date="2013-07-09" --notes="Hot as fuck."
 workout "1" "Woodstock, Mt. Scott" --duration="32.333333333333336" --distance-miles="3.858" --date="2013-07-10" --notes="http://www.gmap-pedometer.com/?r=5999678"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.333333333333332" --distance-miles="3.2438" --date="2013-07-10" --notes="Home -> Work -> Laura's
-15:57.52+25:37.88"
+# workout "1" "Commute (Bike)" --duration="24.333333333333332" --distance-miles="3.2438" --date="2013-07-10" --notes="Home -> Work -> Laura's 15:57.52+25:37.88"
 workout "1" "Alberta, Fernhill" --duration="35.96666666666667" --distance-miles="4.9754" --date="2013-07-11" --notes="http://www.gmap-pedometer.com/?r=6000516"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="10.033333333333333" --distance-miles="1.3371" --date="2013-07-11"
@@ -3149,8 +3109,7 @@ workout "1" "Peninsula Park/Commute" --duration="52.0" --distance-miles="6.7608"
 # workout "1" "Commute (Bike)" --duration="14.75" --distance-miles="1.9668" --date="2013-07-16"
 workout "1" "Alberta Park" --duration="19.066666666666666" --distance-miles="2.31" --date="2013-07-17"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.783333333333335" --distance-miles="3.1716" --date="2013-07-17" --notes="Home -> Work -> Laura's (via Steel Bridge)
-18:17.94+26:08.57"
+# workout "1" "Commute (Bike)" --duration="23.783333333333335" --distance-miles="3.1716" --date="2013-07-17" --notes="Home -> Work -> Laura's (via Steel Bridge) 18:17.94+26:08.57"
 workout "1" "Holman/Ainsworth" --duration="31.783333333333335" --distance-miles="3.5804" --date="2013-07-18"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="14.8" --distance-miles="1.9736" --date="2013-07-18"
@@ -3184,9 +3143,7 @@ workout "1" "Mt. Scott-Brentwood" --duration="26.583333333333332" --distance-mil
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="19.55" --distance-miles="2.6059" --date="2013-08-04"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="32.31666666666667" --distance-miles="4.30921" --date="2013-08-05" --notes="http://www.gmap-pedometer.com/?r=6032506
-Home -> Work -> Fred's -> Laura's
-15.4841 mi, 37:06.49+25:59.26"
+# workout "1" "Commute (Bike)" --duration="32.31666666666667" --distance-miles="4.30921" --date="2013-08-05" --notes="http://www.gmap-pedometer.com/?r=6032506 Home -> Work -> Fred's -> Laura's 15.4841 mi, 37:06.49+25:59.26"
 workout "1" "Tidman Johnson-Berkley" --duration="42.5" --distance-miles="4.7098" --date="2013-08-11"
 workout "1" "Mt. Scott" --duration="16.05" --distance-miles="1.9872" --date="2013-08-07"
 # Bike converted to run, skipping
@@ -3241,246 +3198,132 @@ workout "1" "20 minute tempo" --duration="51.9" --distance-miles="7.1611" --date
 workout "1" "Aerobic 200s" --duration="30.116666666666667" --distance-miles="6.47823" --date="2013-09-21"
 workout "1" "Reed College" --duration="39.8" --distance-miles="4.4825" --date="2013-09-22"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.2" --distance-miles="3.22812" --date="2013-09-25" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 41:54.05"
+# workout "1" "Commute (Bike)" --duration="24.2" --distance-miles="3.22812" --date="2013-09-25" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 41:54.05"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.4" --distance-miles="3.25493" --date="2013-09-24" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 40:56.19"
+# workout "1" "Commute (Bike)" --duration="24.4" --distance-miles="3.25493" --date="2013-09-24" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 40:56.19"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.866666666666667" --distance-miles="3.31656" --date="2013-09-23" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 40:13.71"
+# workout "1" "Commute (Bike)" --duration="24.866666666666667" --distance-miles="3.31656" --date="2013-09-23" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 40:13.71"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.033333333333335" --distance-miles="3.07208" --date="2013-08-26" --notes="Route: Home -> Work -> Foot Traffic -> Laura's
-Miles: 11.36
-Minutes: 48:42.04"
+# workout "1" "Commute (Bike)" --duration="23.033333333333335" --distance-miles="3.07208" --date="2013-08-26" --notes="Route: Home -> Work -> Foot Traffic -> Laura's Miles: 11.36 Minutes: 48:42.04"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.166666666666668" --distance-miles="2.69086" --date="2013-08-27" --notes="Route: Laura's -> Work -> Laura's
-Miles: 8.75
-Minutes: 30:33.88"
+# workout "1" "Commute (Bike)" --duration="20.166666666666668" --distance-miles="2.69086" --date="2013-08-27" --notes="Route: Laura's -> Work -> Laura's Miles: 8.75 Minutes: 30:33.88"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.133333333333333" --distance-miles="3.35201" --date="2013-08-28" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 39:36.73"
+# workout "1" "Commute (Bike)" --duration="25.133333333333333" --distance-miles="3.35201" --date="2013-08-28" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 39:36.73"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.866666666666667" --distance-miles="4.11648" --date="2013-08-29" --notes="Route: Home -> Work -> Home
-Miles: 13.36
-Minutes: 46:34.17"
+# workout "1" "Commute (Bike)" --duration="30.866666666666667" --distance-miles="4.11648" --date="2013-08-29" --notes="Route: Home -> Work -> Home Miles: 13.36 Minutes: 46:34.17"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="8.5" --distance-miles="1.13514" --date="2013-08-30" --notes="Route: Home -> Westmoreland
-Miles: 3.49
-Minutes: 11:20.93"
+# workout "1" "Commute (Bike)" --duration="8.5" --distance-miles="1.13514" --date="2013-08-30" --notes="Route: Home -> Westmoreland Miles: 3.49 Minutes: 11:20.93"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="21.283333333333335" --distance-miles="2.83832" --date="2013-09-02" --notes="Route: Tolman -> Fred's -> Holman
-Miles: 9.97
-Minutes: 39:06.82"
+# workout "1" "Commute (Bike)" --duration="21.283333333333335" --distance-miles="2.83832" --date="2013-09-02" --notes="Route: Tolman -> Fred's -> Holman Miles: 9.97 Minutes: 39:06.82"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.733333333333334" --distance-miles="3.29868" --date="2013-09-03" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 40:33.03"
+# workout "1" "Commute (Bike)" --duration="24.733333333333334" --distance-miles="3.29868" --date="2013-09-03" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 40:33.03"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.7" --distance-miles="3.29491" --date="2013-09-04" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 40:09.98"
+# workout "1" "Commute (Bike)" --duration="24.7" --distance-miles="3.29491" --date="2013-09-04" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 40:09.98"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.933333333333334" --distance-miles="3.1933" --date="2013-09-05" --notes="Route: Laura's -> Work -> Fred's -> Home
-Miles: 11.37
-Minutes: 45:37.07"
+# workout "1" "Commute (Bike)" --duration="23.933333333333334" --distance-miles="3.1933" --date="2013-09-05" --notes="Route: Laura's -> Work -> Fred's -> Home Miles: 11.37 Minutes: 45:37.07"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.266666666666666" --distance-miles="2.70407" --date="2013-09-07" --notes="Route: Tolman to Holman
-Miles: 9.48
-Minutes: 37:04.45"
+# workout "1" "Commute (Bike)" --duration="20.266666666666666" --distance-miles="2.70407" --date="2013-09-07" --notes="Route: Tolman to Holman Miles: 9.48 Minutes: 37:04.45"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.05" --distance-miles="2.67379" --date="2013-09-08" --notes="Route: Holman to Tolman (via Extracto)
-Miles: 9.50
-Minutes: 37:58.76"
+# workout "1" "Commute (Bike)" --duration="20.05" --distance-miles="2.67379" --date="2013-09-08" --notes="Route: Holman to Tolman (via Extracto) Miles: 9.50 Minutes: 37:58.76"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.416666666666668" --distance-miles="3.25704" --date="2013-09-11" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 40:51.84"
+# workout "1" "Commute (Bike)" --duration="24.416666666666668" --distance-miles="3.25704" --date="2013-09-11" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 40:51.84"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.316666666666666" --distance-miles="3.3769" --date="2013-09-12" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 39:11.76"
+# workout "1" "Commute (Bike)" --duration="25.316666666666666" --distance-miles="3.3769" --date="2013-09-12" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 39:11.76"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.383333333333333" --distance-miles="3.38505" --date="2013-09-16" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 38:38.39"
+# workout "1" "Commute (Bike)" --duration="25.383333333333333" --distance-miles="3.38505" --date="2013-09-16" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 38:38.39"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="10.766666666666667" --distance-miles="1.43661" --date="2013-09-17" --notes="Route: Laura's -> Work
-Miles: 4.40
-Minutes: 14:11.77"
+# workout "1" "Commute (Bike)" --duration="10.766666666666667" --distance-miles="1.43661" --date="2013-09-17" --notes="Route: Laura's -> Work Miles: 4.40 Minutes: 14:11.77"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="10.75" --distance-miles="1.43368" --date="2013-09-18" --notes="Route: Work -> Asa's
-Miles: 4.79
-Minutes: 17:21.54"
+# workout "1" "Commute (Bike)" --duration="10.75" --distance-miles="1.43368" --date="2013-09-18" --notes="Route: Work -> Asa's Miles: 4.79 Minutes: 17:21.54"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.6" --distance-miles="1.94756" --date="2013-10-03" --notes="Route: Work -> Home
-Miles: 6.69
-Minutes: 25:19.78"
+# workout "1" "Commute (Bike)" --duration="14.6" --distance-miles="1.94756" --date="2013-10-03" --notes="Route: Work -> Home Miles: 6.69 Minutes: 25:19.78"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.066666666666666" --distance-miles="3.20936" --date="2013-10-08" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 42:16.99"
+# workout "1" "Commute (Bike)" --duration="24.066666666666666" --distance-miles="3.20936" --date="2013-10-08" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 42:16.99"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.483333333333334" --distance-miles="2.73231" --date="2013-10-07" --notes="Route: Tolman to Holman
-Miles: 9.48
-Minutes: 36:27.70"
+# workout "1" "Commute (Bike)" --duration="20.483333333333334" --distance-miles="2.73231" --date="2013-10-07" --notes="Route: Tolman to Holman Miles: 9.48 Minutes: 36:27.70"
 workout "1" "Woodstock Park" --duration="26.366666666666667" --distance-miles="2.983" --date="2013-10-06"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.616666666666667" --distance-miles="2.08358" --date="2013-10-05" --notes="Route: Foot Traffic -> Fred's -> Home
-Miles: 7.52
-Minutes: 30:53.49"
+# workout "1" "Commute (Bike)" --duration="15.616666666666667" --distance-miles="2.08358" --date="2013-10-05" --notes="Route: Foot Traffic -> Fred's -> Home Miles: 7.52 Minutes: 30:53.49"
 workout "1" "Mark Women's Academy Course" --duration="37.13333333333333" --distance-miles="3.7503" --date="2013-10-05"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.916666666666668" --distance-miles="3.18892" --date="2013-10-04" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 42:12.96"
+# workout "1" "Commute (Bike)" --duration="23.916666666666668" --distance-miles="3.18892" --date="2013-10-04" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 42:12.96"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.95" --distance-miles="3.32704" --date="2013-10-15" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 40:02.60"
+# workout "1" "Commute (Bike)" --duration="24.95" --distance-miles="3.32704" --date="2013-10-15" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 40:02.60"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.2" --distance-miles="3.22689" --date="2013-10-14" --notes="Route: Home -> Fred's -> Work -> Laura's
-Miles: 11.51
-Minutes: 46:19.06"
+# workout "1" "Commute (Bike)" --duration="24.2" --distance-miles="3.22689" --date="2013-10-14" --notes="Route: Home -> Fred's -> Work -> Laura's Miles: 11.51 Minutes: 46:19.06"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="9.566666666666666" --distance-miles="1.27596" --date="2013-10-11" --notes="Route: Work -> Laura's
-Miles: 4.38
-Minutes: 16:33.99"
+# workout "1" "Commute (Bike)" --duration="9.566666666666666" --distance-miles="1.27596" --date="2013-10-11" --notes="Route: Work -> Laura's Miles: 4.38 Minutes: 16:33.99"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="10.283333333333333" --distance-miles="1.37282" --date="2013-10-10" --notes="Route: Laura's -> Work
-Miles: 4.40
-Minutes: 15:04.00"
+# workout "1" "Commute (Bike)" --duration="10.283333333333333" --distance-miles="1.37282" --date="2013-10-10" --notes="Route: Laura's -> Work Miles: 4.40 Minutes: 15:04.00"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.65" --distance-miles="1.95489" --date="2013-10-09" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 24:49.02"
+# workout "1" "Commute (Bike)" --duration="14.65" --distance-miles="1.95489" --date="2013-10-09" --notes="Route: Home -> Work Miles: 6.65 Minutes: 24:49.02"
 workout "1" "Alberta Park" --duration="18.9" --distance-miles="2.4936" --date="2013-10-14"
 workout "1" "Albert a Park" --duration="20.333333333333332" --distance-miles="2.2212" --date="2013-10-10"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.216666666666665" --distance-miles="3.22911" --date="2013-10-16" --notes="Route: Home -> Work -> Laurra's
-Miles: 11.03
-Minutes: 41:24.15"
+# workout "1" "Commute (Bike)" --duration="24.216666666666665" --distance-miles="3.22911" --date="2013-10-16" --notes="Route: Home -> Work -> Laurra's Miles: 11.03 Minutes: 41:24.15"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.483333333333334" --distance-miles="3.26565" --date="2013-11-05" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 41:09.97"
+# workout "1" "Commute (Bike)" --duration="24.483333333333334" --distance-miles="3.26565" --date="2013-11-05" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 41:09.97"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.033333333333333" --distance-miles="2.00487" --date="2013-10-31" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 23:53.60"
+# workout "1" "Commute (Bike)" --duration="15.033333333333333" --distance-miles="2.00487" --date="2013-10-31" --notes="Route: Home -> Work Miles: 6.65 Minutes: 23:53.60"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.333333333333332" --distance-miles="3.24606" --date="2013-10-30" --notes="Route: Laura's -> Work -> Fred's -> Home
-Miles: 11.37
-Minutes: 44:24.09"
+# workout "1" "Commute (Bike)" --duration="24.333333333333332" --distance-miles="3.24606" --date="2013-10-30" --notes="Route: Laura's -> Work -> Fred's -> Home Miles: 11.37 Minutes: 44:24.09"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.266666666666666" --distance-miles="3.23587" --date="2013-10-29" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 41:16.21"
+# workout "1" "Commute (Bike)" --duration="24.266666666666666" --distance-miles="3.23587" --date="2013-10-29" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 41:16.21"
 workout "1" "Oaks Bottom" --duration="40.016666666666666" --distance-miles="4.6198" --date="2013-11-03"
 workout "1" "Lewis & Clark Invitational" --duration="54.71666666666667" --distance-miles="8.15986" --date="2013-10-19"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="28.933333333333334" --distance-miles="3.85781" --date="2013-11-06" --notes="Route: Commute
-Miles: 13.36
-Minutes: 51:13.98"
+# workout "1" "Commute (Bike)" --duration="28.933333333333334" --distance-miles="3.85781" --date="2013-11-06" --notes="Route: Commute Miles: 13.36 Minutes: 51:13.98"
 workout "1" "Brentwood-Woodstock" --duration="29.083333333333332" --distance-miles="3.9464" --date="2013-11-16" --notes="http://www.gmap-pedometer.com/?r=6140958"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.45" --distance-miles="2.7271" --date="2013-11-16" --notes="Route: Holman to Tolman
-Miles: 9.48
-Minutes: 36:34.34"
+# workout "1" "Commute (Bike)" --duration="20.45" --distance-miles="2.7271" --date="2013-11-16" --notes="Route: Holman to Tolman Miles: 9.48 Minutes: 36:34.34"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.033333333333333" --distance-miles="2.00564" --date="2013-11-15" --notes="Route: Home -> Work
-Miles: 6.69
-Minutes: 24:12.06"
+# workout "1" "Commute (Bike)" --duration="15.033333333333333" --distance-miles="2.00564" --date="2013-11-15" --notes="Route: Home -> Work Miles: 6.69 Minutes: 24:12.06"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.433333333333334" --distance-miles="3.2594" --date="2013-11-13" --notes="Route: Home -> Work -> Laura's
-Miles: 11.08
-Minutes: 41:17.15"
+# workout "1" "Commute (Bike)" --duration="24.433333333333334" --distance-miles="3.2594" --date="2013-11-13" --notes="Route: Home -> Work -> Laura's Miles: 11.08 Minutes: 41:17.15"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="28.916666666666668" --distance-miles="3.85741" --date="2013-11-12" --notes="Route: Commute
-Miles: 13.36
-Minutes: 51:14.48"
+# workout "1" "Commute (Bike)" --duration="28.916666666666668" --distance-miles="3.85741" --date="2013-11-12" --notes="Route: Commute Miles: 13.36 Minutes: 51:14.48"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.733333333333333" --distance-miles="1.96542" --date="2013-11-11" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 24:36.24"
+# workout "1" "Commute (Bike)" --duration="14.733333333333333" --distance-miles="1.96542" --date="2013-11-11" --notes="Route: Home -> Work Miles: 6.65 Minutes: 24:36.24"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="19.65" --distance-miles="2.62067" --date="2013-11-10" --notes="Route: Holman to Tolman
-Miles: 9.48
-Minutes: 39:04.83"
+# workout "1" "Commute (Bike)" --duration="19.65" --distance-miles="2.62067" --date="2013-11-10" --notes="Route: Holman to Tolman Miles: 9.48 Minutes: 39:04.83"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="19.783333333333335" --distance-miles="2.63831" --date="2013-11-09" --notes="Route: Tolman to Holman
-Miles: 9.48
-Minutes: 38:37.74"
+# workout "1" "Commute (Bike)" --duration="19.783333333333335" --distance-miles="2.63831" --date="2013-11-09" --notes="Route: Tolman to Holman Miles: 9.48 Minutes: 38:37.74"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.483333333333334" --distance-miles="3.9325" --date="2013-11-08" --notes="Route: Commute
-Miles: 13.36
-Minutes: 49:44.13"
+# workout "1" "Commute (Bike)" --duration="29.483333333333334" --distance-miles="3.9325" --date="2013-11-08" --notes="Route: Commute Miles: 13.36 Minutes: 49:44.13"
 workout "1" "Woodstock" --duration="26.2" --distance-miles="2.9817" --date="2013-11-17" --notes="http://www.gmap-pedometer.com/?r=6141062"
 workout "1" "Woodstock" --duration="26.333333333333332" --distance-miles="2.9933" --date="2013-12-01"
 workout "1" "Shevlin Park" --duration="39.96666666666667" --distance-miles="4.5412" --date="2013-11-29"
 workout "1" "Alberta Park" --duration="20.433333333333334" --distance-miles="2.25" --date="2013-11-24"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="21.666666666666668" --distance-miles="2.88978" --date="2013-11-23" --notes="Route: Tolman to Holman
-Miles: 9.48
-Minutes: 33:31.64"
+# workout "1" "Commute (Bike)" --duration="21.666666666666668" --distance-miles="2.88978" --date="2013-11-23" --notes="Route: Tolman to Holman Miles: 9.48 Minutes: 33:31.64"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.716666666666665" --distance-miles="3.16222" --date="2013-11-22" --notes="Route: Laura's -> Work -> Fred's -> Home
-Miles: 11.37
-Minutes: 46:22.96"
+# workout "1" "Commute (Bike)" --duration="23.716666666666665" --distance-miles="3.16222" --date="2013-11-22" --notes="Route: Laura's -> Work -> Fred's -> Home Miles: 11.37 Minutes: 46:22.96"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.533333333333333" --distance-miles="1.93911" --date="2013-11-21" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 25:06.89"
+# workout "1" "Commute (Bike)" --duration="14.533333333333333" --distance-miles="1.93911" --date="2013-11-21" --notes="Route: Home -> Work Miles: 6.65 Minutes: 25:06.89"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.033333333333335" --distance-miles="3.3398" --date="2013-11-20" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 39:49.27"
+# workout "1" "Commute (Bike)" --duration="25.033333333333335" --distance-miles="3.3398" --date="2013-11-20" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 39:49.27"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.25" --distance-miles="3.10036" --date="2013-11-19" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 44:11.55"
+# workout "1" "Commute (Bike)" --duration="23.25" --distance-miles="3.10036" --date="2013-11-19" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 44:11.55"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.233333333333334" --distance-miles="3.36547" --date="2013-12-03" --notes="Route: Laura's -> Work -> Home
-Miles: 11.08
-Minutes: 39:25.20"
+# workout "1" "Commute (Bike)" --duration="25.233333333333334" --distance-miles="3.36547" --date="2013-12-03" --notes="Route: Laura's -> Work -> Home Miles: 11.08 Minutes: 39:25.20"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.5" --distance-miles="3.26772" --date="2013-12-02" --notes="Route: Home -> Fred's -> Work -> Laura's
-Miles: 11.51
-Minutes: 45:21.55"
+# workout "1" "Commute (Bike)" --duration="24.5" --distance-miles="3.26772" --date="2013-12-02" --notes="Route: Home -> Fred's -> Work -> Laura's Miles: 11.51 Minutes: 45:21.55"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.75" --distance-miles="3.30188" --date="2013-12-05" --notes="Route: Laura's -> Work -> Fred's -> Home
-Miles: 11.37
-Minutes: 43:12.90"
+# workout "1" "Commute (Bike)" --duration="24.75" --distance-miles="3.30188" --date="2013-12-05" --notes="Route: Laura's -> Work -> Fred's -> Home Miles: 11.37 Minutes: 43:12.90"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.033333333333335" --distance-miles="3.20624" --date="2013-12-04" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 41:51.58"
+# workout "1" "Commute (Bike)" --duration="24.033333333333335" --distance-miles="3.20624" --date="2013-12-04" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 41:51.58"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="28.45" --distance-miles="3.79484" --date="2013-12-10" --notes="Route: Home -> Work -> Home
-Miles: 13.47
-Minutes: 53:44.46"
+# workout "1" "Commute (Bike)" --duration="28.45" --distance-miles="3.79484" --date="2013-12-10" --notes="Route: Home -> Work -> Home Miles: 13.47 Minutes: 53:44.46"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="9.616666666666667" --distance-miles="1.2842" --date="2013-12-18" --notes="Route: Laura's -> Work
-Miles: 4.40
-Minutes: 16:35.63"
+# workout "1" "Commute (Bike)" --duration="9.616666666666667" --distance-miles="1.2842" --date="2013-12-18" --notes="Route: Laura's -> Work Miles: 4.40 Minutes: 16:35.63"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.0" --distance-miles="1.86861" --date="2013-12-17" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 26:39.48"
+# workout "1" "Commute (Bike)" --duration="14.0" --distance-miles="1.86861" --date="2013-12-17" --notes="Route: Home -> Work Miles: 6.65 Minutes: 26:39.48"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.033333333333335" --distance-miles="3.87209" --date="2013-12-16" --notes="Route: Commute
-Miles: 13.36
-Minutes: 50:56.17"
+# workout "1" "Commute (Bike)" --duration="29.033333333333335" --distance-miles="3.87209" --date="2013-12-16" --notes="Route: Commute Miles: 13.36 Minutes: 50:56.17"
 workout "1" "Woodstock" --duration="21.85" --distance-miles="2.9882" --date="2013-12-25"
 workout "1" "Woodstock" --duration="24.7" --distance-miles="2.9882" --date="2013-12-24"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="5.65" --distance-miles="0.753894" --date="2013-12-24" --notes="Route: Safeway
-Miles: 2.58
-Minutes: 9:42.57"
+# workout "1" "Commute (Bike)" --duration="5.65" --distance-miles="0.753894" --date="2013-12-24" --notes="Route: Safeway Miles: 2.58 Minutes: 9:42.57"
 workout "1" "Woodstock" --duration="25.083333333333332" --distance-miles="2.99" --date="2013-12-26"
 workout "1" "Woodstock-Creston" --duration="45.31666666666667" --distance-miles="5.0995" --date="2013-12-29" --notes="http://www.gmap-pedometer.com/?r=6166216 
 
@@ -3490,120 +3333,76 @@ workout "1" "Woodstock" --duration="26.3" --distance-miles="3.0018" --date="2014
 workout "1" "Brentwood" --duration="18.816666666666666" --distance-miles="2.0718" --date="2014-01-03"
 workout "1" "Brentwood-Woodstock" --duration="33.233333333333334" --distance-miles="3.8275" --date="2014-01-04"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.65" --distance-miles="1.95519" --date="2014-01-03" --notes="Route: Home -> Work
-Miles: 6.66
-Minutes: 24:56.30"
+# workout "1" "Commute (Bike)" --duration="14.65" --distance-miles="1.95519" --date="2014-01-03" --notes="Route: Home -> Work Miles: 6.66 Minutes: 24:56.30"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.216666666666665" --distance-miles="3.89714" --date="2014-01-02" --notes="Route: Commute
-Miles: 13.43
-Minutes: 51:03.74"
+# workout "1" "Commute (Bike)" --duration="29.216666666666665" --distance-miles="3.89714" --date="2014-01-02" --notes="Route: Commute Miles: 13.43 Minutes: 51:03.74"
 workout "1" "Irving Park" --duration="41.833333333333336" --distance-miles="4.7303" --date="2014-01-05" --notes="http://www.gmap-pedometer.com/?r=6171658"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.5" --distance-miles="2.73494" --date="2014-01-05" --notes="Route: Laura's -> Fred's -> Safeway -> Home
-Miles: 10.04
-Minutes: 42:26.29"
+# workout "1" "Commute (Bike)" --duration="20.5" --distance-miles="2.73494" --date="2014-01-05" --notes="Route: Laura's -> Fred's -> Safeway -> Home Miles: 10.04 Minutes: 42:26.29"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.233333333333334" --distance-miles="2.69914" --date="2014-01-04" --notes="Route: Tolman to Holman
-Miles: 9.48
-Minutes: 37:11.06"
+# workout "1" "Commute (Bike)" --duration="20.233333333333334" --distance-miles="2.69914" --date="2014-01-04" --notes="Route: Tolman to Holman Miles: 9.48 Minutes: 37:11.06"
 workout "1" "Brentwood-Woodstock" --duration="27.633333333333333" --distance-miles="3.83" --date="2014-01-06"
 workout "1" "Alberta-Fernhill" --duration="30.0" --distance-miles="4.1129" --date="2014-01-07"
 workout "1" "Mt. Scott" --duration="9.866666666666667" --distance-miles="1.3629" --date="2014-01-08"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.283333333333335" --distance-miles="3.23953" --date="2014-01-08" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 41:51.88"
+# workout "1" "Commute (Bike)" --duration="24.283333333333335" --distance-miles="3.23953" --date="2014-01-08" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 41:51.88"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.416666666666668" --distance-miles="3.25628" --date="2014-01-07" --notes="Route: Home -> Work -> Laura's
-Miles: 11.08
-Minutes: 41:20.76"
+# workout "1" "Commute (Bike)" --duration="24.416666666666668" --distance-miles="3.25628" --date="2014-01-07" --notes="Route: Home -> Work -> Laura's Miles: 11.08 Minutes: 41:20.76"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.3" --distance-miles="3.90703" --date="2014-01-06" --notes="Route: Commute
-Miles: 13.43
-Minutes: 50:54.23"
+# workout "1" "Commute (Bike)" --duration="29.3" --distance-miles="3.90703" --date="2014-01-06" --notes="Route: Commute Miles: 13.43 Minutes: 50:54.23"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.116666666666667" --distance-miles="3.8824" --date="2014-01-09" --notes="Route: Home -> Fred's -> Work -> Home
-Miles: 13.95
-Minutes: 56:47.82"
+# workout "1" "Commute (Bike)" --duration="29.116666666666667" --distance-miles="3.8824" --date="2014-01-09" --notes="Route: Home -> Fred's -> Work -> Home Miles: 13.95 Minutes: 56:47.82"
 workout "1" "Woodstock-Mt. Scott" --duration="28.366666666666667" --distance-miles="4.1044" --date="2014-01-09"
 workout "1" "Brentwood" --duration="14.516666666666667" --distance-miles="1.6194" --date="2014-01-10"
 workout "1" "Brentwood-Woodstock-Mt. Scott" --duration="33.516666666666666" --distance-miles="4.8153" --date="2014-01-11" --notes="http://www.gmap-pedometer.com/?r=6176900"
 workout "1" "Tideman Johnson-Berkley-Reed-Woodstock" --duration="61.583333333333336" --distance-miles="6.8204" --date="2014-01-12" --notes="http://www.gmap-pedometer.com/?r=6178011"
 workout "1" "Brentwood-Woodstock" --duration="26.9" --distance-miles="3.83" --date="2014-01-13"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.116666666666667" --distance-miles="1.88279" --date="2014-01-13" --notes="Route: Work -> Home
-Miles: 6.71
-Minutes: 26:54.75"
+# workout "1" "Commute (Bike)" --duration="14.116666666666667" --distance-miles="1.88279" --date="2014-01-13" --notes="Route: Work -> Home Miles: 6.71 Minutes: 26:54.75"
 workout "1" "Woodstock-Mt. Scott" --duration="30.8" --distance-miles="3.8614" --date="2014-01-14" --notes="http://www.gmap-pedometer.com?r=6179602"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.316666666666666" --distance-miles="3.90975" --date="2014-01-14" --notes="Route: Commute
-Miles: 13.43
-Minutes: 50:50.93"
+# workout "1" "Commute (Bike)" --duration="29.316666666666666" --distance-miles="3.90975" --date="2014-01-14" --notes="Route: Commute Miles: 13.43 Minutes: 50:50.93"
 workout "1" "Mt. Scott" --duration="9.6" --distance-miles="1.3809" --date="2014-01-16"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="10.316666666666666" --distance-miles="1.377" --date="2014-01-16" --notes="Route: Laura's -> Work
-Miles: 4.40
-Minutes: 15:00.28"
+# workout "1" "Commute (Bike)" --duration="10.316666666666666" --distance-miles="1.377" --date="2014-01-16" --notes="Route: Laura's -> Work Miles: 4.40 Minutes: 15:00.28"
 workout "1" "Alberta Park" --duration="17.35" --distance-miles="2.3325" --date="2014-01-15"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.0" --distance-miles="3.20035" --date="2014-01-15" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 41:58.79"
+# workout "1" "Commute (Bike)" --duration="24.0" --distance-miles="3.20035" --date="2014-01-15" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 41:58.79"
 workout "1" "Woodstock" --duration="24.8" --distance-miles="2.9782" --date="2014-01-17"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.45" --distance-miles="3.92758" --date="2014-01-17" --notes="Route: Home -> Work -> Fred's -> Home
-Miles: 13.83
-Minutes: 54:28.46"
+# workout "1" "Commute (Bike)" --duration="29.45" --distance-miles="3.92758" --date="2014-01-17" --notes="Route: Home -> Work -> Fred's -> Home Miles: 13.83 Minutes: 54:28.46"
 workout "1" "Mt Scott" --duration="25.233333333333334" --distance-miles="2.9342" --date="2014-01-18"
 workout "9" "Cross Train (skiing)" --duration="0.0" --distance-miles="5.2249" --date="2014-01-18"
 workout "1" "Rich Man's" --duration="83.71666666666667" --distance-miles="11.4884" --date="2014-01-19"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="16.15" --distance-miles="2.15338" --date="2014-01-19" --notes="Route: Asa's
-Miles: 6.81
-Minutes: 22:55.79"
+# workout "1" "Commute (Bike)" --duration="16.15" --distance-miles="2.15338" --date="2014-01-19" --notes="Route: Asa's Miles: 6.81 Minutes: 22:55.79"
 workout "1" "Mt Scott" --duration="9.266666666666667" --distance-miles="1.3635" --date="2014-01-20"
 workout "1" "Alberta-Fernhill" --duration="39.06666666666667" --distance-miles="5.2478" --date="2014-01-21" --notes="http://www.gmap-pedometer.com?r=6187164"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.866666666666667" --distance-miles="3.18321" --date="2014-01-22" --notes="Route: Laura's -> Work -> Fred's -> Home
-Miles: 11.37
-Minutes: 45:51.72"
+# workout "1" "Commute (Bike)" --duration="23.866666666666667" --distance-miles="3.18321" --date="2014-01-22" --notes="Route: Laura's -> Work -> Fred's -> Home Miles: 11.37 Minutes: 45:51.72"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.216666666666665" --distance-miles="3.09752" --date="2014-01-21" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 44:15.64"
+# workout "1" "Commute (Bike)" --duration="23.216666666666665" --distance-miles="3.09752" --date="2014-01-21" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 44:15.64"
 workout "1" "Brentwood" --duration="16.366666666666667" --distance-miles="2.3441" --date="2014-01-22"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.933333333333334" --distance-miles="1.99146" --date="2014-01-23" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 24:07.67"
+# workout "1" "Commute (Bike)" --duration="14.933333333333334" --distance-miles="1.99146" --date="2014-01-23" --notes="Route: Home -> Work Miles: 6.65 Minutes: 24:07.67"
 workout "1" "Foot Traffic Group Run" --duration="43.3" --distance-miles="5.4737" --date="2014-01-23"
 workout "1" "Woodstock" --duration="25.116666666666667" --distance-miles="2.9851" --date="2014-01-24"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="26.45" --distance-miles="3.52858" --date="2014-01-24" --notes="Route: Home -> Work -> Laurelwood
-Miles: 11.57
-Minutes: 40:55.97"
+# workout "1" "Commute (Bike)" --duration="26.45" --distance-miles="3.52858" --date="2014-01-24" --notes="Route: Home -> Work -> Laurelwood Miles: 11.57 Minutes: 40:55.97"
 workout "1" "Woodstock" --duration="23.583333333333332" --distance-miles="2.99" --date="2014-01-25"
 workout "1" "Laurelhurst-Tabor" --duration="69.25" --distance-miles="10.1668" --date="2014-01-26" --notes="http://www.gmap-pedometer.com/?r=6191522"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="18.133333333333333" --distance-miles="2.41961" --date="2014-01-26" --notes="Route: Home -> Pete's -> Fred's -> Home
-Miles: 8.92
-Minutes: 38:02.56"
+# workout "1" "Commute (Bike)" --duration="18.133333333333333" --distance-miles="2.41961" --date="2014-01-26" --notes="Route: Home -> Pete's -> Fred's -> Home Miles: 8.92 Minutes: 38:02.56"
 workout "1" "Mt. Scott" --duration="9.8" --distance-miles="1.36" --date="2014-01-27"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="28.433333333333334" --distance-miles="3.79126" --date="2014-01-28" --notes="Route: Commute
-Miles: 13.43
-Minutes: 53:25.37"
+# workout "1" "Commute (Bike)" --duration="28.433333333333334" --distance-miles="3.79126" --date="2014-01-28" --notes="Route: Commute Miles: 13.43 Minutes: 53:25.37"
 workout "1" "Mt. Scott" --duration="12.166666666666666" --distance-miles="1.3635" --date="2014-01-28"
 workout "1" "NE 15th" --duration="9.283333333333333" --distance-miles="1.16" --date="2014-01-29"
 workout "1" "Terwilliger" --duration="48.06666666666667" --distance-miles="5.1518" --date="2014-01-30" --notes="http://www.gmap-pedometer.com/?r=6194835"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.55" --distance-miles="3.2735" --date="2014-01-29" --notes="Route: Home -> Work  Fred's -> Work -> Laura's
-Miles: 11.51
-Minutes: 45:13.69"
+# workout "1" "Commute (Bike)" --duration="24.55" --distance-miles="3.2735" --date="2014-01-29" --notes="Route: Home -> Work  Fred's -> Work -> Laura's Miles: 11.51 Minutes: 45:13.69"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="19.616666666666667" --distance-miles="2.61704" --date="2014-02-01" --notes="Route: Holman to Tolman
-Miles: 9.48
-Minutes: 39:10.52"
+# workout "1" "Commute (Bike)" --duration="19.616666666666667" --distance-miles="2.61704" --date="2014-02-01" --notes="Route: Holman to Tolman Miles: 9.48 Minutes: 39:10.52"
 workout "1" "Brentwood" --duration="19.233333333333334" --distance-miles="2.1886" --date="2014-01-31"
 workout "1" "Mt. Scott-Woodstock" --duration="28.9" --distance-miles="4.1498" --date="2014-02-01"
 workout "1" "Childs-Rosemont" --duration="84.06666666666666" --distance-miles="11.2099" --date="2014-02-02" --notes="http://www.gmap-pedometer.com/?r=6197486
@@ -3614,121 +3413,71 @@ workout "1" "Peninsula Park" --duration="25.283333333333335" --distance-miles="3
 workout "1" "Woodstock-Creston" --duration="42.71666666666667" --distance-miles="5.1449" --date="2014-02-04" --notes="http://www.gmap-pedometer.com/?r=6198782"
 workout "1" "Mt. Scott" --duration="9.466666666666667" --distance-miles="1.3881" --date="2014-02-06"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="9.983333333333333" --distance-miles="1.3313" --date="2014-02-06" --notes="Route: Laura's -> Work
-Miles: 4.37
-Minutes: 15:28.00"
+# workout "1" "Commute (Bike)" --duration="9.983333333333333" --distance-miles="1.3313" --date="2014-02-06" --notes="Route: Laura's -> Work Miles: 4.37 Minutes: 15:28.00"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="18.966666666666665" --distance-miles="2.53036" --date="2014-02-05" --notes="Route: Laura's -> Work -> Laura's
-Miles: 8.76
-Minutes: 33:36.36"
+# workout "1" "Commute (Bike)" --duration="18.966666666666665" --distance-miles="2.53036" --date="2014-02-05" --notes="Route: Laura's -> Work -> Laura's Miles: 8.76 Minutes: 33:36.36"
 workout "1" "Alberta Park" --duration="19.433333333333334" --distance-miles="2.2198" --date="2014-02-05"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.616666666666667" --distance-miles="3.1491" --date="2014-02-04" --notes="Route: Home -> Work -> Laura's
-Miles: 11.10
-Minutes: 43:48.82"
+# workout "1" "Commute (Bike)" --duration="23.616666666666667" --distance-miles="3.1491" --date="2014-02-04" --notes="Route: Home -> Work -> Laura's Miles: 11.10 Minutes: 43:48.82"
 workout "1" "Mt Scott" --duration="14.583333333333334" --distance-miles="1.4108" --date="2014-02-07"
 workout "1" "Carlton-Tolman" --duration="5.1" --distance-miles="0.6237" --date="2014-02-09"
 workout "1" "Play in Snow" --duration="47.21666666666667" --distance-miles="5.7015" --date="2014-02-08"
 workout "1" "Carlton-Tolman" --duration="5.066666666666666" --distance-miles="0.62" --date="2014-02-10"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.033333333333333" --distance-miles="1.87123" --date="2014-02-12" --notes="Route: Work -> Home
-Miles: 6.72
-Minutes: 27:21.39"
+# workout "1" "Commute (Bike)" --duration="14.033333333333333" --distance-miles="1.87123" --date="2014-02-12" --notes="Route: Work -> Home Miles: 6.72 Minutes: 27:21.39"
 workout "1" "Brentwood" --duration="23.766666666666666" --distance-miles="2.6794" --date="2014-02-13"
 workout "1" "Mt. Tabor" --duration="53.35" --distance-miles="6.2419" --date="2014-02-16" --notes="http://www.gmap-pedometer.com/?r=6209132"
 workout "1" "Springwater" --duration="43.28333333333333" --distance-miles="5.9941" --date="2014-02-15" --notes="http://www.gmap-pedometer.com/?r=6209136"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.683333333333334" --distance-miles="2.09176" --date="2014-02-15" --notes="Route: Home -> Asa's -> Green Dragon
-Miles: 7.30
-Minutes: 28:20.01"
+# workout "1" "Commute (Bike)" --duration="15.683333333333334" --distance-miles="2.09176" --date="2014-02-15" --notes="Route: Home -> Asa's -> Green Dragon Miles: 7.30 Minutes: 28:20.01"
 workout "1" "Woodstock-Creston" --duration="41.06666666666667" --distance-miles="4.8148" --date="2014-02-18" --notes="http://www.gmap-pedometer.com/?r=6210601"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.516666666666666" --distance-miles="3.13743" --date="2014-02-19" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 44:03.77"
+# workout "1" "Commute (Bike)" --duration="23.516666666666666" --distance-miles="3.13743" --date="2014-02-19" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 44:03.77"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.4" --distance-miles="3.12147" --date="2014-02-18" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 43:41.78"
+# workout "1" "Commute (Bike)" --duration="23.4" --distance-miles="3.12147" --date="2014-02-18" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 43:41.78"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.5" --distance-miles="1.93528" --date="2014-02-20" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 25:11.52"
+# workout "1" "Commute (Bike)" --duration="14.5" --distance-miles="1.93528" --date="2014-02-20" --notes="Route: Home -> Work Miles: 6.65 Minutes: 25:11.52"
 workout "1" "Brentwood" --duration="16.3" --distance-miles="1.8675" --date="2014-02-22"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.833333333333332" --distance-miles="4.11204" --date="2014-03-04" --notes="Route: Home -> Fred's -> Work -> Home
-Miles: 13.95
-Minutes: 51:46.94"
+# workout "1" "Commute (Bike)" --duration="30.833333333333332" --distance-miles="4.11204" --date="2014-03-04" --notes="Route: Home -> Fred's -> Work -> Home Miles: 13.95 Minutes: 51:46.94"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.033333333333335" --distance-miles="3.20592" --date="2014-02-26" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 41:51.97"
+# workout "1" "Commute (Bike)" --duration="24.033333333333335" --distance-miles="3.20592" --date="2014-02-26" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 41:51.97"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.766666666666666" --distance-miles="2.76903" --date="2014-02-23" --notes="Route: Holman -> Fred's -> Tolman
-Miles: 9.97
-Minutes: 40:46.11"
+# workout "1" "Commute (Bike)" --duration="20.766666666666666" --distance-miles="2.76903" --date="2014-02-23" --notes="Route: Holman -> Fred's -> Tolman Miles: 9.97 Minutes: 40:46.11"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="20.466666666666665" --distance-miles="2.73083" --date="2014-02-22" --notes="Route: Tolman to Holman
-Miles: 9.48
-Minutes: 36:29.58"
+# workout "1" "Commute (Bike)" --duration="20.466666666666665" --distance-miles="2.73083" --date="2014-02-22" --notes="Route: Tolman to Holman Miles: 9.48 Minutes: 36:29.58"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.083333333333332" --distance-miles="3.21239" --date="2014-02-27" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 42:25.01"
+# workout "1" "Commute (Bike)" --duration="24.083333333333332" --distance-miles="3.21239" --date="2014-02-27" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 42:25.01"
 workout "1" "Down the Deschutes" --duration="30.05" --distance-miles="3.0739" --date="2014-03-01" --notes="http://www.gmap-pedometer.com/?r=6224637"
 workout "1" "Up the Deschutes" --duration="36.166666666666664" --distance-miles="3.8507" --date="2014-03-02" --notes="http://www.gmap-pedometer.com/?r=6224638"
 workout "1" "Woodstock-Creston-Mt. Scott" --duration="56.03333333333333" --distance-miles="6.4672" --date="2014-03-16" --notes="http://www.gmap-pedometer.com/?r=6237887"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="8.75" --distance-miles="1.16768" --date="2014-03-16" --notes="Route: Sellwood New Seasons
-Miles: 3.90
-Minutes: 14:09.81"
+# workout "1" "Commute (Bike)" --duration="8.75" --distance-miles="1.16768" --date="2014-03-16" --notes="Route: Sellwood New Seasons Miles: 3.90 Minutes: 14:09.81"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="17.35" --distance-miles="2.31379" --date="2014-03-14" --notes="Route: Laura's -> Work -> Laura's
-Miles: 8.76
-Minutes: 39:17.88"
+# workout "1" "Commute (Bike)" --duration="17.35" --distance-miles="2.31379" --date="2014-03-14" --notes="Route: Laura's -> Work -> Laura's Miles: 8.76 Minutes: 39:17.88"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="15.6" --distance-miles="2.08079" --date="2014-03-13" --notes="Route: Home -> Fred's -> Work -> Foot Traffic
-Miles: 7.44
-Minutes: 30:00.56"
+# workout "1" "Commute (Bike)" --duration="15.6" --distance-miles="2.08079" --date="2014-03-13" --notes="Route: Home -> Fred's -> Work -> Foot Traffic Miles: 7.44 Minutes: 30:00.56"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.133333333333333" --distance-miles="3.2182" --date="2014-03-11" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 42:17.80"
+# workout "1" "Commute (Bike)" --duration="24.133333333333333" --distance-miles="3.2182" --date="2014-03-11" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 42:17.80"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.416666666666668" --distance-miles="3.12408" --date="2014-03-10" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 43:38.16"
+# workout "1" "Commute (Bike)" --duration="23.416666666666668" --distance-miles="3.12408" --date="2014-03-10" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 43:38.16"
 workout "1" "Down the Deschutes" --duration="33.666666666666664" --distance-miles="3.92" --date="2014-03-08" --notes="http://www.gmap-pedometer.com/?r=6240371"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="22.6" --distance-miles="3.015" --date="2014-03-06" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 47:13.17"
+# workout "1" "Commute (Bike)" --duration="22.6" --distance-miles="3.015" --date="2014-03-06" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 47:13.17"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="24.4" --distance-miles="3.25403" --date="2014-03-05" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 41:34.71"
+# workout "1" "Commute (Bike)" --duration="24.4" --distance-miles="3.25403" --date="2014-03-05" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 41:34.71"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="22.25" --distance-miles="2.9687" --date="2014-03-20" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 48:36.17"
+# workout "1" "Commute (Bike)" --duration="22.25" --distance-miles="2.9687" --date="2014-03-20" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 48:36.17"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.616666666666667" --distance-miles="3.15004" --date="2014-03-19" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 43:03.03"
+# workout "1" "Commute (Bike)" --duration="23.616666666666667" --distance-miles="3.15004" --date="2014-03-19" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 43:03.03"
 workout "1" "Greenway Trail" --duration="51.65" --distance-miles="6.9663" --date="2014-03-20"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="28.766666666666666" --distance-miles="3.83637" --date="2014-03-21" --notes="Route: Home -> Fred's -> Work -> Home
-Miles: 13.95
-Minutes: 58:02.14"
+# workout "1" "Commute (Bike)" --duration="28.766666666666666" --distance-miles="3.83637" --date="2014-03-21" --notes="Route: Home -> Fred's -> Work -> Home Miles: 13.95 Minutes: 58:02.14"
 workout "1" "Woodstock-Creston-Tabor" --duration="66.36666666666666" --distance-miles="7.544" --date="2014-03-23" --notes="http://www.gmap-pedometer.com/?r=6245847"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="13.966666666666667" --distance-miles="1.86432" --date="2014-03-25" --notes="Route: Laura's -> Work -> Eastbank Commerce Center; Delta Cafe -> Home
-Miles: 6.59
-Minutes: 26:09.95"
+# workout "1" "Commute (Bike)" --duration="13.966666666666667" --distance-miles="1.86432" --date="2014-03-25" --notes="Route: Laura's -> Work -> Eastbank Commerce Center; Delta Cafe -> Home Miles: 6.59 Minutes: 26:09.95"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="22.383333333333333" --distance-miles="2.98507" --date="2014-03-24" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 47:14.23"
+# workout "1" "Commute (Bike)" --duration="22.383333333333333" --distance-miles="2.98507" --date="2014-03-24" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 47:14.23"
 workout "1" "Tideman Johnson-Westmoreland" --duration="66.7" --distance-miles="7.501" --date="2014-03-30" --notes="http://www.gmap-pedometer.com/?r=6253329"
 workout "1" "Woodstock" --duration="26.066666666666666" --distance-miles="2.9938" --date="2014-04-01" --notes="http://www.gmap-pedometer.com/?r=6255454"
 # Bike converted to run, skipping
@@ -3736,110 +3485,60 @@ workout "1" "Woodstock" --duration="26.066666666666666" --distance-miles="2.9938
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration="5.733333333333333" --distance-miles="0.7637" --date="2014-03-26"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.766666666666666" --distance-miles="4.10286" --date="2014-04-02" --notes="Route: Home -> Work -> Fred's -> Home
-Miles: 14.01
-Minutes: 52:32.30"
+# workout "1" "Commute (Bike)" --duration="30.766666666666666" --distance-miles="4.10286" --date="2014-04-02" --notes="Route: Home -> Work -> Fred's -> Home Miles: 14.01 Minutes: 52:32.30"
 workout "1" "Tideman Johnson-Berkley" --duration="45.75" --distance-miles="5.21" --date="2014-04-06"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.533333333333335" --distance-miles="3.93898" --date="2014-04-10" --notes="Route: Home -> Work -> Home
-Miles: 13.38
-Minutes: 49:47.91"
+# workout "1" "Commute (Bike)" --duration="29.533333333333335" --distance-miles="3.93898" --date="2014-04-10" --notes="Route: Home -> Work -> Home Miles: 13.38 Minutes: 49:47.91"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="14.916666666666666" --distance-miles="1.99049" --date="2014-04-08" --notes="Route: Home -> Work
-Miles: 6.65
-Minutes: 24:08.71"
+# workout "1" "Commute (Bike)" --duration="14.916666666666666" --distance-miles="1.99049" --date="2014-04-08" --notes="Route: Home -> Work Miles: 6.65 Minutes: 24:08.71"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="74.58333333333333" --distance-miles="9.94454" --date="2014-04-13" --notes="Route: Springwater Corridor
-Miles: 32.34
-Minutes: 113:00.00"
+# workout "1" "Commute (Bike)" --duration="74.58333333333333" --distance-miles="9.94454" --date="2014-04-13" --notes="Route: Springwater Corridor Miles: 32.34 Minutes: 113:00.00"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="23.083333333333332" --distance-miles="3.07986" --date="2014-04-23" --notes="Route: Laura's -> Work -> Home
-Miles: 11.10
-Minutes: 45:27.95"
+# workout "1" "Commute (Bike)" --duration="23.083333333333332" --distance-miles="3.07986" --date="2014-04-23" --notes="Route: Laura's -> Work -> Home Miles: 11.10 Minutes: 45:27.95"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="22.633333333333333" --distance-miles="3.01974" --date="2014-04-22" --notes="Route: Home -> Work -> Laura's
-Miles: 11.03
-Minutes: 46:15.37"
+# workout "1" "Commute (Bike)" --duration="22.633333333333333" --distance-miles="3.01974" --date="2014-04-22" --notes="Route: Home -> Work -> Laura's Miles: 11.03 Minutes: 46:15.37"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.283333333333335" --distance-miles="3.90542" --date="2014-04-18" --notes="Route: Home -> Work -> Home
-Miles: 13.38
-Minutes: 50:27.27"
+# workout "1" "Commute (Bike)" --duration="29.283333333333335" --distance-miles="3.90542" --date="2014-04-18" --notes="Route: Home -> Work -> Home Miles: 13.38 Minutes: 50:27.27"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.583333333333332" --distance-miles="3.9454" --date="2014-04-17" --notes="Route: Home -> Work -> Fred's -> Home
-Miles: 14.00
-Minutes: 55:50.96"
+# workout "1" "Commute (Bike)" --duration="29.583333333333332" --distance-miles="3.9454" --date="2014-04-17" --notes="Route: Home -> Work -> Fred's -> Home Miles: 14.00 Minutes: 55:50.96"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="31.6" --distance-miles="4.21394" --date="2014-04-15" --notes="Route: Home -> Fred's -> Work -> Home
-Miles: 14.22
-Minutes: 52:26.24"
+# workout "1" "Commute (Bike)" --duration="31.6" --distance-miles="4.21394" --date="2014-04-15" --notes="Route: Home -> Fred's -> Work -> Home Miles: 14.22 Minutes: 52:26.24"
 workout "1" "Mt Scott" --duration="13.3" --distance-miles="1.5883" --date="2014-05-04" --notes="http://www.gmap-pedometer.com/?r=6294314"
 workout "1" "Johnson-Westmoreland-Berkley" --duration="71.05" --distance-miles="7.9817" --date="2014-05-18" --notes="http://www.gmap-pedometer.com/?r=6314318"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.0" --distance-miles="4.00027" --date="2014-05-22" --notes="Route: Clinton/Clinton Commute
-Miles: 14.25
-Minutes: 57:14.25"
+# workout "1" "Commute (Bike)" --duration="30.0" --distance-miles="4.00027" --date="2014-05-22" --notes="Route: Clinton/Clinton Commute Miles: 14.25 Minutes: 57:14.25"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.183333333333334" --distance-miles="4.02446" --date="2014-05-20" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 48:14.21"
+# workout "1" "Commute (Bike)" --duration="30.183333333333334" --distance-miles="4.02446" --date="2014-05-20" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 48:14.21"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="26.783333333333335" --distance-miles="3.57187" --date="2014-05-19" --notes="Route: Home -> Fred's -> Work -> Trader Joe's -> Home
-Miles: 13.81
-Minutes: 64:40.54"
+# workout "1" "Commute (Bike)" --duration="26.783333333333335" --distance-miles="3.57187" --date="2014-05-19" --notes="Route: Home -> Fred's -> Work -> Trader Joe's -> Home Miles: 13.81 Minutes: 64:40.54"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.783333333333335" --distance-miles="3.9728" --date="2014-05-16" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 49:09.76"
+# workout "1" "Commute (Bike)" --duration="29.783333333333335" --distance-miles="3.9728" --date="2014-05-16" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 49:09.76"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="28.05" --distance-miles="3.74216" --date="2014-05-15" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 54:03.72"
+# workout "1" "Commute (Bike)" --duration="28.05" --distance-miles="3.74216" --date="2014-05-15" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 54:03.72"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.266666666666666" --distance-miles="3.90425" --date="2014-05-14" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 50:28.67"
+# workout "1" "Commute (Bike)" --duration="29.266666666666666" --distance-miles="3.90425" --date="2014-05-14" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 50:28.67"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.383333333333333" --distance-miles="3.91836" --date="2014-05-13" --notes="Route: Home -> Fred's -> Work -> Home
-Miles: 13.95
-Minutes: 55:57.48"
+# workout "1" "Commute (Bike)" --duration="29.383333333333333" --distance-miles="3.91836" --date="2014-05-13" --notes="Route: Home -> Fred's -> Work -> Home Miles: 13.95 Minutes: 55:57.48"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="27.75" --distance-miles="3.70019" --date="2014-05-12" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 55:07.29"
+# workout "1" "Commute (Bike)" --duration="27.75" --distance-miles="3.70019" --date="2014-05-12" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 55:07.29"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="29.15" --distance-miles="3.88744" --date="2014-05-06" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 50:49.01"
+# workout "1" "Commute (Bike)" --duration="29.15" --distance-miles="3.88744" --date="2014-05-06" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 50:49.01"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.016666666666666" --distance-miles="4.00234" --date="2014-05-07" --notes="Route: Home -> Work -> Fred's -> Home
-Miles: 14.00
-Minutes: 54:33.13"
+# workout "1" "Commute (Bike)" --duration="30.016666666666666" --distance-miles="4.00234" --date="2014-05-07" --notes="Route: Home -> Work -> Fred's -> Home Miles: 14.00 Minutes: 54:33.13"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="5.5" --distance-miles="0.733627" --date="2014-05-05" --notes="Route: Safeway
-Miles: 3.09
-Minutes: 17:49.21"
+# workout "1" "Commute (Bike)" --duration="5.5" --distance-miles="0.733627" --date="2014-05-05" --notes="Route: Safeway Miles: 3.09 Minutes: 17:49.21"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="30.283333333333335" --distance-miles="4.03919" --date="2014-05-11" --notes="Route: OMSI, Safeay
-Miles: 14.26
-Minutes: 56:24.31"
+# workout "1" "Commute (Bike)" --duration="30.283333333333335" --distance-miles="4.03919" --date="2014-05-11" --notes="Route: OMSI, Safeay Miles: 14.26 Minutes: 56:24.31"
 workout "1" "Waterfront" --duration="39.56666666666667" --distance-miles="5.1618" --date="2014-05-11" --notes="http://www.gmap-pedometer.com/?r=6314333"
 workout "1" "Mt. Tabor" --duration="37.2" --distance-miles="4.311" --date="2014-05-26" --notes="http://www.gmap-pedometer.com/?r=6318123"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="25.633333333333333" --distance-miles="3.41782" --date="2014-06-02" --notes="Route: Clinton/Clinton Commute
-Miles: 13.43
-Minutes: 65:10.10"
+# workout "1" "Commute (Bike)" --duration="25.633333333333333" --distance-miles="3.41782" --date="2014-06-02" --notes="Route: Clinton/Clinton Commute Miles: 13.43 Minutes: 65:10.10"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="5.716666666666667" --distance-miles="0.762855" --date="2014-05-31" --notes="Route: Safeway
-Miles: 2.56
-Minutes: 9:18.77"
+# workout "1" "Commute (Bike)" --duration="5.716666666666667" --distance-miles="0.762855" --date="2014-05-31" --notes="Route: Safeway Miles: 2.56 Minutes: 9:18.77"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="27.283333333333335" --distance-miles="3.63895" --date="2014-05-30" --notes="Route: Steele/Clinton Commute
-Miles: 13.38
-Minutes: 56:47.14"
+# workout "1" "Commute (Bike)" --duration="27.283333333333335" --distance-miles="3.63895" --date="2014-05-30" --notes="Route: Steele/Clinton Commute Miles: 13.38 Minutes: 56:47.14"
 # Bike converted to run, skipping
-# workout "1" "Commute (Bike)" --duration="31.066666666666666" --distance-miles="4.14288" --date="2014-05-28" --notes="Route: Home -> Work -> Fred's -> Home
-Miles: 14.00
-Minutes: 51:42.07"
+# workout "1" "Commute (Bike)" --duration="31.066666666666666" --distance-miles="4.14288" --date="2014-05-28" --notes="Route: Home -> Work -> Fred's -> Home Miles: 14.00 Minutes: 51:42.07"
 workout "1" "Brentwood Mt. Scott" --duration="30.65" --distance-miles="3.3227" --date="2014-06-15"
 workout "1" "Woodstock-Creston" --duration="40.75" --distance-miles="4.5588" --date="2014-06-29" --notes="http://www.gmap-pedometer.com/?r=6354393"
 workout "1" "Brentwood" --duration="19.866666666666667" --distance-miles="2.1896" --date="2014-07-09"

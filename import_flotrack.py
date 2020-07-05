@@ -67,6 +67,7 @@ def main():
         for row in reader:
             command = str(parse_workout(row))
             if row["Cross Train Type"] == "" and is_bike(row["Name"]):
+                command = command.replace("\n", " ")
                 command = f"# Bike converted to run, skipping\n# {command}"
             print(command)
 
