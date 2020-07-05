@@ -63,11 +63,12 @@ def main():
     arg_parser.add_argument("--preview", default=False, action="store_true",
                             help="Show but do not execute database commands.")
     args = arg_parser.parse_args()
+    is_bike = lambda name: "(bike)" in name.lower() or name.lower() in ["bike", "bike commute", "bike cross train", "work, bike shop, richie's, home"]
     with open(args.file_name, "r") as log_file:
         reader = csv.DictReader(log_file)
         for row in reader:
             command = str(parse_workout(row, args.preview))
-            if "(bike)" in row["Name"].lower() and row["Cross Train Type"] == "":
+            if row["Cross Train Type"] == "" and is_bike(row["Name"]):
                 command = f"# Bike converted to run, skipping\n# {command}"
             print(command)
 
