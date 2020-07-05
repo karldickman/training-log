@@ -8,7 +8,7 @@ class workout(object):
     def __init__(self, activity, route, duration_minutes=None, distance_miles=None, date=None, notes=None):
         self.activity = activity
         self.route = route
-        self.duration_minutes = duration_minutes
+        self.duration = duration_minutes
         self.distance_miles = distance_miles
         self.date = date
         self.notes = notes
@@ -16,14 +16,16 @@ class workout(object):
     def __str__(self):
         bash = lambda string: string.replace('"', '\\"')
         route = bash(self.route)
-        def option_value(key):
+        def option(key):
             value = getattr(self, key)
             try:
-                return bash(value)
+                value = bash(value)
             except AttributeError:
-                return value
-        keys = ["duration_minutes", "distance_miles", "date", "notes",]
-        options = " ".join(f'--{key}="{option_value(key)}"' for key in keys if getattr(self, key) is not None)
+                pass
+            key = key.replace("_", "-")
+            return f'--{key}="{value}"'
+        keys = ["duration", "distance_miles", "date", "notes",]
+        options = " ".join(option(key) for key in keys if getattr(self, key) is not None)
         return f'workout "{self.activity}" "{route}" {options}'
 
 activity_ids = {
