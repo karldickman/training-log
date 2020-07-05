@@ -5,14 +5,13 @@ from operator import itemgetter
 from sys import stdin
 
 class workout(object):
-    def __init__(self, activity, route, duration_minutes=None, distance_miles=None, date=None, notes=None, preview=False):
+    def __init__(self, activity, route, duration_minutes=None, distance_miles=None, date=None, notes=None):
         self.activity = activity
         self.route = route
         self.duration_minutes = duration_minutes
         self.distance_miles = distance_miles
         self.date = date
         self.notes = notes
-        self.preview = preview
 
     def __str__(self):
         bash = lambda string: string.replace('"', '\\"')
@@ -25,8 +24,7 @@ class workout(object):
                 return value
         keys = ["duration_minutes", "distance_miles", "date", "notes",]
         options = " ".join(f'--{key}="{option_value(key)}"' for key in keys if getattr(self, key) is not None)
-        preview = " --preview" if self.preview else ""
-        return f'workout "{self.activity}" "{route}" {options}{preview}'
+        return f'workout "{self.activity}" "{route}" {options}'
 
 activity_ids = {
     "": 1,
@@ -48,26 +46,24 @@ def parse_distance(distance, units):
         raise Exception(f"Unknown units {units}")
     return distance
 
-def parse_workout(row, preview):
+def parse_workout(row):
     activity_id = activity_ids[row["Cross Train Type"].strip()]
     route = row["Name"].replace("\\", "").strip()
     duration_minutes = float(row["Minutes"]) + float(row["Seconds"]) / 60
     distance_miles = parse_distance(row["Distance"], row["Unit"])
     date = row["Date"].strip()
     notes = row["Notes"].strip() if row["Notes"] != "" else None
-    return workout(activity_id, route, duration_minutes, distance_miles, date, notes, preview)
+    return workout(activity_id, route, duration_minutes, distance_miles, date, notes)
 
 def main():
     arg_parser = ArgumentParser()
     arg_parser.add_argument("file_name")
-    arg_parser.add_argument("--preview", default=False, action="store_true",
-                            help="Show but do not execute database commands.")
     args = arg_parser.parse_args()
     is_bike = lambda name: "(bike)" in name.lower() or name.lower() in ["bike", "bike commute", "bike cross train", "work, bike shop, richie's, home"]
     with open(args.file_name, "r") as log_file:
         reader = csv.DictReader(log_file)
         for row in reader:
-            command = str(parse_workout(row, args.preview))
+            command = str(parse_workout(row))
             if row["Cross Train Type"] == "" and is_bike(row["Name"]):
                 command = f"# Bike converted to run, skipping\n# {command}"
             print(command)
