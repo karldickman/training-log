@@ -58,7 +58,10 @@ def main():
     with open(args.file_name, "r") as log_file:
         reader = csv.DictReader(log_file)
         for row in reader:
-            print(str(parse_workout(row, args.preview)))
+            command = str(parse_workout(row, args.preview))
+            if "(bike)" in row["Name"].lower() and row["Cross Train Type"] == "":
+                command = f"# Bike converted to run, skipping\n# {command}"
+            print(command)
 
 if __name__ == "__main__":
     main()
