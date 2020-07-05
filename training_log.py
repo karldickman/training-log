@@ -226,7 +226,7 @@ def main():
     with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
                 options.duration_minutes, options.distance_miles)
-        if not options.quiet:
+        if not options.quiet and ride_id is not None:
             print(ride_id)
 
 if __name__ == "__main__":
