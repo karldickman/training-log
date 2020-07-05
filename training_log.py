@@ -65,17 +65,17 @@ class OptionParser(BaseOptionParser):
     def __init__(self):
         usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>] [equipment]"
         BaseOptionParser.__init__(self, usage=usage_string)
-        self.add_option("--equipment", default=None,
-                        help="The equipment used for the session.")
-        self.add_option("--date", default=None,
-                        help="The date on which the session occurred.")
-        self.add_option("--distance-miles", default=None,
-                        help="The length of the session in miles.")
-        self.add_option("--quiet", default=False, action="store_true",
-                        help="Suppress output")
         self.add_option("--duration", default=None,
                         help="The duration of the session.",
                         metavar="[HH:]MM:SS")
+        self.add_option("--distance-miles", default=None,
+                        help="The length of the session in miles.")
+        self.add_option("--date", default=None,
+                        help="The date on which the session occurred.")
+        self.add_option("--equipment", default=None,
+                        help="The equipment used for the session.")
+        self.add_option("--quiet", default=False, action="store_true",
+                        help="Suppress output")
         self.add_option("--preview", default=False, action="store_true",
                         help="Show but do not execute database commands.")
 
