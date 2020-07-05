@@ -91,7 +91,7 @@ class OptionParser(BaseOptionParser):
             duration_string = arguments.pop(0)
             options.duration_minutes = self.parse_duration(duration_string)
         else:
-            options.duration_minutes = None
+            options.duration_minutes = self.parse_duration(options.duration)
         if any(arguments):
             if any(arguments):
                 distance_string = arguments.pop(0)
