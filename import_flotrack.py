@@ -39,12 +39,12 @@ def parse_distance(distance, units):
     return distance
 
 def parse_workout(row):
-    activity_id = activity_ids[row["Cross Train Type"]]
-    route = row["Name"].replace("\\", "")
+    activity_id = activity_ids[row["Cross Train Type"].strip()]
+    route = row["Name"].replace("\\", "").strip()
     duration_minutes = float(row["Minutes"]) + float(row["Seconds"]) / 60
     distance_miles = parse_distance(row["Distance"], row["Unit"])
-    date = row["Date"]
-    notes = row["Notes"] if row["Notes"] != "" else None
+    date = row["Date"].strip()
+    notes = row["Notes"].strip() if row["Notes"] != "" else None
     return workout(activity_id, route, duration_minutes, distance_miles, date, notes)
 
 def main():
