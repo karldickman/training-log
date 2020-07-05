@@ -15,10 +15,18 @@ class workout(object):
         self.preview = preview
 
     def __str__(self):
+        bash = lambda string: string.replace('"', '\\"')
+        route = bash(self.route)
+        def option_value(key):
+            value = getattr(self, key)
+            try:
+                return bash(value)
+            except AttributeError:
+                return value
         keys = ["duration_minutes", "distance_miles", "date", "notes",]
-        options = " ".join(f"--{key}='{getattr(self, key)}'" for key in keys if getattr(self, key) is not None)
+        options = " ".join(f'--{key}="{option_value(key)}"' for key in keys if getattr(self, key) is not None)
         preview = " --preview" if self.preview else ""
-        return f"workout '{self.activity}' '{self.route}' {options}{preview}"
+        return f'workout "{self.activity}" "{route}" {options}{preview}'
 
 activity_ids = {
     "": 1,
