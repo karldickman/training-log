@@ -569,17 +569,24 @@ workout "2" "Cross Train (bike)" --duration_minutes="15.0" --distance_miles="4.5
 workout "2" "Cross Train (bike)" --duration_minutes="205.0" --distance_miles="39.3" --date="2010-08-04" --notes="http://beta.mapmyride.com/route/detail/20786260/"
 workout "2" "Cross Train (bike)" --duration_minutes="0.0" --distance_miles="17.92" --date="2010-08-05" --notes="http://beta.mapmyfitness.com/route/detail/20990430/"
 workout "2" "Cross Train (bike)" --duration_minutes="0.0" --distance_miles="12.4" --date="2010-08-06"
-workout "1" "Bike commute" --duration_minutes="21.0" --distance_miles="2.87" --date="2010-06-21"
-workout "1" "Bike commute" --duration_minutes="21.0" --distance_miles="2.87" --date="2010-06-22"
-workout "1" "Bike commute" --duration_minutes="22.0" --distance_miles="3.0" --date="2010-06-23"
-workout "1" "Bike commute" --duration_minutes="38.0" --distance_miles="5.08" --date="2010-06-24"
-workout "1" "Bike commute" --duration_minutes="28.0" --distance_miles="3.68" --date="2010-06-25"
-workout "1" "Bike Cross Train" --duration_minutes="18.0" --distance_miles="2.4" --date="2010-05-01"
+# Bike converted to run, skipping
+# workout "1" "Bike commute" --duration_minutes="21.0" --distance_miles="2.87" --date="2010-06-21"
+# Bike converted to run, skipping
+# workout "1" "Bike commute" --duration_minutes="21.0" --distance_miles="2.87" --date="2010-06-22"
+# Bike converted to run, skipping
+# workout "1" "Bike commute" --duration_minutes="22.0" --distance_miles="3.0" --date="2010-06-23"
+# Bike converted to run, skipping
+# workout "1" "Bike commute" --duration_minutes="38.0" --distance_miles="5.08" --date="2010-06-24"
+# Bike converted to run, skipping
+# workout "1" "Bike commute" --duration_minutes="28.0" --distance_miles="3.68" --date="2010-06-25"
+# Bike converted to run, skipping
+# workout "1" "Bike Cross Train" --duration_minutes="18.0" --distance_miles="2.4" --date="2010-05-01"
 # Bike converted to run, skipping
 # workout "1" "Pete's Mountain (Bike)" --duration_minutes="84.0" --distance_miles="11.19" --date="2010-05-08"
 # Bike converted to run, skipping
 # workout "1" "Pete's Mountain (Bike)" --duration_minutes="73.0" --distance_miles="9.75" --date="2010-05-13"
-workout "1" "Bike" --duration_minutes="29.0" --distance_miles="3.82" --date="2010-05-16"
+# Bike converted to run, skipping
+# workout "1" "Bike" --duration_minutes="29.0" --distance_miles="3.82" --date="2010-05-16"
 # Bike converted to run, skipping
 # workout "1" "Deschutes Market (Bike)" --duration_minutes="49.0" --distance_miles="6.58" --date="2010-05-31"
 # Bike converted to run, skipping
@@ -611,7 +618,8 @@ workout "1" "Bike" --duration_minutes="29.0" --distance_miles="3.82" --date="201
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration_minutes="23.0" --distance_miles="3.0" --date="2010-07-15"
 workout "1" "Pool run" --duration_minutes="27.0" --distance_miles="3.56" --date="2010-07-16"
-workout "1" "Bike" --duration_minutes="22.0" --distance_miles="3.1" --date="2010-07-17"
+# Bike converted to run, skipping
+# workout "1" "Bike" --duration_minutes="22.0" --distance_miles="3.1" --date="2010-07-17"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration_minutes="27.0" --distance_miles="3.56" --date="2010-07-19"
 # Bike converted to run, skipping
@@ -622,7 +630,8 @@ workout "1" "Bike" --duration_minutes="22.0" --distance_miles="3.1" --date="2010
 # workout "1" "Commute (Bike)" --duration_minutes="43.0" --distance_miles="5.71" --date="2010-07-22"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration_minutes="42.0" --distance_miles="5.58" --date="2010-07-23"
-workout "1" "Bike" --duration_minutes="17.0" --distance_miles="2.29" --date="2010-07-24"
+# Bike converted to run, skipping
+# workout "1" "Bike" --duration_minutes="17.0" --distance_miles="2.29" --date="2010-07-24"
 # Bike converted to run, skipping
 # workout "1" "To Freddie's and Fix's (Bike)" --duration_minutes="6.0" --distance_miles="0.76" --date="2010-07-25"
 # Bike converted to run, skipping
@@ -991,7 +1000,8 @@ workout "1" "Stride" --duration_minutes="1.0166666666666666" --distance_miles="0
 workout "1" "Hawthorne" --duration_minutes="90.0" --distance_miles="13.43" --date="2010-10-29" --notes="http://www.mapmyride.com/route/us/or/portland/472126213465957875"
 workout "2" "Cross Train (bike)" --duration_minutes="17.0" --distance_miles="3.2" --date="2010-10-29"
 workout "10" "Cross Train (weights)" --duration_minutes="0.0" --date="2010-10-29"
-workout "1" "Bike cross train" --duration_minutes="6.0" --distance_miles="0.79" --date="2010-10-29"
+# Bike converted to run, skipping
+# workout "1" "Bike cross train" --duration_minutes="6.0" --distance_miles="0.79" --date="2010-10-29"
 workout "2" "Cross Train (bike)" --duration_minutes="16.0" --distance_miles="3.2" --date="2010-10-30"
 workout "1" "Spectating" --duration_minutes="3.75" --distance_miles="0.5" --date="2010-10-30"
 # Bike converted to run, skipping
@@ -1695,7 +1705,8 @@ workout "1" "Iron Mountain + Cedar Trail" --duration_minutes="51.06666666666667"
 workout "1" "Pool run" --duration_minutes="14.0" --distance_miles="1.86667" --date="2011-06-22"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration_minutes="33.11666666666667" --distance_miles="4.41657" --date="2011-06-23"
-workout "1" "Bike" --duration_minutes="38.05" --distance_miles="5.07251" --date="2009-12-04"
+# Bike converted to run, skipping
+# workout "1" "Bike" --duration_minutes="38.05" --distance_miles="5.07251" --date="2009-12-04"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration_minutes="31.583333333333332" --distance_miles="4.212" --date="2011-06-24"
 workout "10" "Cross Train (weights)" --duration_minutes="30.0" --date="2011-06-24"
@@ -1737,7 +1748,8 @@ workout "1" "Hawthorne" --duration_minutes="85.96666666666667" --distance_miles=
 # Bike converted to run, skipping
 # workout "1" "Errands (Bike)" --duration_minutes="20.016666666666666" --distance_miles="2.669" --date="2011-07-09"
 workout "1" "Gabriel Park, Pendleton St" --duration_minutes="27.116666666666667" --distance_miles="3.7462" --date="2011-07-09"
-workout "1" "Bike" --duration_minutes="40.666666666666664" --distance_miles="5.42188" --date="2011-07-10"
+# Bike converted to run, skipping
+# workout "1" "Bike" --duration_minutes="40.666666666666664" --distance_miles="5.42188" --date="2011-07-10"
 # Bike converted to run, skipping
 # workout "1" "Commute (Bike)" --duration_minutes="39.416666666666664" --distance_miles="5.25646" --date="2011-07-11"
 workout "1" "Foot Traffic to Mary S. Young Out + Back" --duration_minutes="38.56666666666667" --distance_miles="5.6356" --date="2011-07-11"
@@ -2452,7 +2464,8 @@ workout "1" "Pendleton St., Gabriel Park" --duration_minutes="25.5" --distance_m
 # workout "1" "Laura->Work->Realtor->REI->Home (Bike)" --duration_minutes="28.783333333333335" --distance_miles="3.861" --date="2012-06-05"
 workout "1" "Apt -> Laura's" --duration_minutes="20.716666666666665" --distance_miles="2.7626" --date="2012-06-04"
 workout "1" "Hawthorne, Pittock, Macleay" --duration_minutes="106.71666666666667" --distance_miles="12.31" --date="2012-06-10"
-workout "1" "Work, Bike Shop, Richie's, Home" --duration_minutes="22.85" --distance_miles="3.0475" --date="2012-06-10"
+# Bike converted to run, skipping
+# workout "1" "Work, Bike Shop, Richie's, Home" --duration_minutes="22.85" --distance_miles="3.0475" --date="2012-06-10"
 workout "1" "Apartment to Lewis & Clark" --duration_minutes="7.583333333333333" --distance_miles="1.01034" --date="2012-06-09"
 workout "1" "Nature Center" --duration_minutes="27.533333333333335" --distance_miles="3.7385" --date="2012-06-08"
 workout "1" "Partial Ride to Work" --duration_minutes="3.95" --distance_miles="0.525797" --date="2012-06-08"
