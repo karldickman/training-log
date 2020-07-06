@@ -5,8 +5,8 @@ SELECT activity_id
         , activities.activity_date AS date
         , activity_description AS description
         , activity_type AS type
-        , activity_durations.duration_minutes
-        , activity_distances.distance_miles
+        , TO_CHAR((activity_durations.duration_minutes || ' minute')::INTERVAL, 'HH24:MI:SS') AS duration
+        , TO_CHAR(activity_distances.distance_miles, '999.9') AS distance
         , CASE
             WHEN activity_type = 'bike'
                 THEN TO_CHAR(speed_miles_per_hour, '99.9') || ' mph'
