@@ -133,6 +133,8 @@ class OptionParser(BaseOptionParser):
         else:
             equipment_string = options.equipment
         options.equipment_id = self.parse_equipment(equipment_string)
+        if any(arguments):
+            options.notes = arguments.pop()
         return options, arguments
 
     def parse_equipment(self, equipment_string):
