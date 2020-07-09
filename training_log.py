@@ -217,9 +217,8 @@ class Route(object):
 
     def __repr__(self):
         if self.route_id is None:
-            return "bike_log.Route(description='%s')" % repr(self.description)
-        return "bike_log.Route(%d, %s)" % \
-                (self.route_id, repr(self.description))
+            return f"bike_log.Route(description='{self.description}')"
+        return f"bike_log.Route({self.route_id}, {self.description})"
 
 def main():
     """Process command line arguments and use them to write to the log."""
