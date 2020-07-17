@@ -11,6 +11,7 @@ SELECT equipment_id
             THEN purchase_date
         ELSE inactive_date
         END AS is_active_since
+     , equipment_type_id
     FROM equipment
     LEFT JOIN equipment_labels USING (equipment_id)
     LEFT JOIN equipment_costs USING (equipment_id)
