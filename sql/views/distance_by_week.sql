@@ -1,5 +1,5 @@
--- DROP VIEW miles_by_week;
-CREATE OR REPLACE VIEW miles_by_week
+-- DROP VIEW distance_by_week;
+CREATE OR REPLACE VIEW distance_by_week
 AS
 SELECT monday AS week_start, SUM(distance_miles) AS distance_miles
     FROM week_boundaries
@@ -9,4 +9,4 @@ SELECT monday AS week_start, SUM(distance_miles) AS distance_miles
     GROUP BY monday
     ORDER BY monday DESC;
 
-ALTER VIEW miles_by_week OWNER TO postgres;
+ALTER VIEW distance_by_week OWNER TO postgres;
