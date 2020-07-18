@@ -1,7 +1,7 @@
 -- DROP VIEW equivalent_distance_by_year;
 CREATE OR REPLACE VIEW equivalent_distance_by_year
 AS
-SELECT DATE_PART('year', activity_date) AS year
+SELECT CAST(DATE_PART('year', activity_date) AS INT) AS year
         , activity_type_id
         , distance_equivalent_id
         , SUM(distance_miles) AS distance_miles
