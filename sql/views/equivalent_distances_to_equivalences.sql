@@ -6,11 +6,11 @@ SELECT activity_id
         , distance_miles
         , activity_type_id
         , equivalent_activity_type_id
-        , distance_equivalent_id
-        , distance_equivalent
+        , activity_equivalence_id
+        , activity_equivalence
         , source
-        , distance_equivalent_activity_type_id
+        , activity_equivalence_activity_type_id
     FROM equivalent_distances
-    JOIN all_distance_equivalent_activity_types USING (activity_type_id, equivalent_activity_type_id);
+    JOIN all_activity_equivalence_activity_types USING (activity_type_id, equivalent_activity_type_id);
 
 ALTER VIEW equivalent_distances_to_equivalences OWNER TO postgres;
