@@ -1,5 +1,5 @@
--- DROP VIEW equivalent_run_distance_by_week;
-CREATE OR REPLACE VIEW equivalent_run_distance_by_week
+-- DROP VIEW pretty.equivalent_run_distance_by_week;
+CREATE OR REPLACE VIEW pretty.equivalent_run_distance_by_week
 AS
 SELECT monday, strict, "elevated heart rate", loose
     FROM CROSSTAB('SELECT week_start
@@ -20,4 +20,4 @@ SELECT monday, strict, "elevated heart rate", loose
     AS equivalent_distance_by_week(monday DATE, strict NUMERIC, "elevated heart rate" NUMERIC, loose NUMERIC)
     ORDER BY monday DESC;
 
-ALTER VIEW equivalent_run_distance_by_week OWNER TO postgres;
+ALTER VIEW pretty.equivalent_run_distance_by_week OWNER TO postgres;
