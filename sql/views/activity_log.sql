@@ -13,9 +13,11 @@ SELECT activity_id
             ELSE TO_CHAR((pace_minutes_per_mile || ' minute')::INTERVAL, 'MI:SS')
             END AS pace
         , equipment_label AS equipment
+        , notes
     FROM activities
     JOIN activity_types USING (activity_type_id)
     LEFT JOIN activities_labelled USING (activity_id)
+    LEFT JOIN activity_notes USING (activity_id)
     LEFT JOIN activity_durations USING (activity_id)
     LEFT JOIN activity_distances USING (activity_id)
     LEFT JOIN activity_paces USING (activity_id)
