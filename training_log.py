@@ -24,11 +24,11 @@ def config(filename="~/.workout.ini", section="postgresql"):
     return database
 
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
-        route, duration_minutes, distance_miles, notes):
+        route, duration_minutes, distance_miles, notes, heart_rate_avg, heart_rate_max):
     """Record an activity in the database using the specified parameters."""
     route = parse_route(route)
     params = (activity_date, activity_type_id, equipment_id, route.route_id,
-        route.description, duration_minutes, distance_miles, notes)
+        route.description, duration_minutes, distance_miles, notes, heart_rate_avg, heart_rate_max)
     cursor.callproc("record_activity", params)
     (activity_id,) = cursor.fetchone()
     return activity_id
@@ -74,6 +74,8 @@ class OptionParser(BaseOptionParser):
                         help="The date on which the session occurred.")
         self.add_option("--equipment", default=None,
                         help="The equipment used for the session.")
+        self.add_option("--heart-rate-avg", default=None, type=float, help="Average heart rate.")
+        self.add_option("--heart-rate-max", default=None, type=float, help="Maximum heart rate.")
         self.add_option("--notes", default=None,
                         help="Additional notes on the activity.")
         self.add_option("--quiet", default=False, action="store_true",
@@ -228,7 +230,7 @@ def main():
     options, _ = option_parser.parse_args(argv)
     with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
-                options.duration_minutes, options.distance_miles, options.notes)
+                options.duration_minutes, options.distance_miles, options.notes, options.heart_rate_avg, options.heart_rate_max)
         if not options.quiet and ride_id is not None:
             print(ride_id)
 

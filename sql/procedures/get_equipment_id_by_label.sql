@@ -14,6 +14,7 @@ BEGIN
 	                        WHERE is_active));
 	RETURN(equipment_id);
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public;
 
 ALTER FUNCTION get_equipment_id_by_label OWNER TO postgres;

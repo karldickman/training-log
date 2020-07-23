@@ -1,4 +1,4 @@
--- DROP FUNCTION record_activity;
+-- DROP FUNCTION record_activity(date, integer, integer, integer, character varying, double precision, double precision, character varying, double precision, double precision);
 CREATE OR REPLACE FUNCTION record_activity (
 	activity_date date,
 	activity_type_id integer,
@@ -7,7 +7,9 @@ CREATE OR REPLACE FUNCTION record_activity (
 	route_description character varying DEFAULT NULL,
 	duration_minutes double precision DEFAULT NULL,
 	distance_miles double precision DEFAULT NULL,
-	notes character varying DEFAULT NULL)
+	notes character varying DEFAULT NULL,
+	average_heart_rate double precision DEFAULT NULL,
+	max_heart_rate double precision DEFAULT NULL)
 RETURNS integer
 AS $$
 DECLARE activity_id integer;
@@ -53,8 +55,15 @@ BEGIN
 	        VALUES
 	        (activity_id, notes);
     END IF;
+	IF average_heart_rate IS NOT NULL OR max_heart_rate IS NOT NULL THEN
+	    INSERT INTO activity_heart_rate
+	        (activity_id, average_heart_rate, max_heart_rate)
+	        VALUES
+	        (activity_id, average_heart_rate, max_heart_rate);
+    END IF;
 	RETURN(activity_id);
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public;
 
 ALTER FUNCTION record_activity OWNER TO postgres;
