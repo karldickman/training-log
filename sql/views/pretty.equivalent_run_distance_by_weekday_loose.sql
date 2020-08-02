@@ -1,7 +1,14 @@
 -- DROP VIEW pretty.equivalent_run_distance_by_weekday_loose
 CREATE OR REPLACE VIEW pretty.equivalent_run_distance_by_weekday_loose
 AS
-SELECT week_start, monday, tuesday, wednesday, thursday, friday, saturday, sunday
+WITH equivalent_run_distance_by_week AS (SELECT week_start
+            , activity_type_id
+            , activity_equivalence_id
+            , distance_miles
+        FROM equivalent_distance_by_week
+        WHERE equivalent_distance_by_week.activity_type_id = 1 -- run
+            AND activity_equivalence_id = 3), -- loose
+"crosstab" AS (SELECT week_start, monday, tuesday, wednesday, thursday, friday, saturday, sunday
     FROM CROSSTAB('WITH equivalent_run_distance_by_day AS (SELECT activity_date
             , activity_type_id
             , activity_equivalence_id
@@ -18,7 +25,10 @@ SELECT week_start, monday, tuesday, wednesday, thursday, friday, saturday, sunda
             AND activity_date < next_monday
         ORDER BY week_start, day',
         'SELECT DISTINCT DATE_PART(''isodow'', date) AS dow FROM days ORDER BY dow')
-    AS (week_start DATE, monday NUMERIC, tuesday NUMERIC, wednesday NUMERIC, thursday NUMERIC, friday NUMERIC, saturday NUMERIC, sunday NUMERIC)
+    AS (week_start DATE, monday NUMERIC, tuesday NUMERIC, wednesday NUMERIC, thursday NUMERIC, friday NUMERIC, saturday NUMERIC, sunday NUMERIC))
+SELECT week_start, monday, tuesday, wednesday, thursday, friday, saturday, sunday, ROUND(CAST(distance_miles AS NUMERIC), 1) AS total
+    FROM "crosstab"
+    LEFT JOIN equivalent_run_distance_by_week USING (week_start)
     ORDER BY week_start DESC;
 
 ALTER VIEW pretty.equivalent_run_distance_by_weekday_loose OWNER TO postgres;
