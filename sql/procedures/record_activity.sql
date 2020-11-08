@@ -55,11 +55,17 @@ BEGIN
 	        VALUES
 	        (activity_id, notes);
     END IF;
-	IF average_heart_rate IS NOT NULL OR max_heart_rate IS NOT NULL THEN
+	IF average_heart_rate IS NOT NULL THEN
 	    INSERT INTO activity_heart_rate
-	        (activity_id, average_heart_rate, max_heart_rate)
+	        (activity_id, heart_rate_bpm, summary_statistic_id)
 	        VALUES
-	        (activity_id, average_heart_rate, max_heart_rate);
+	        (activity_id, average_heart_rate, 1); -- 1 = mean
+    END IF;
+	IF max_heart_rate IS NOT NULL THEN
+	    INSERT INTO activity_heart_rate
+	        (activity_id, heart_rate_bpm, summary_statistic_id)
+	        VALUES
+	        (activity_id, max_heart_rate, 2); -- 2 = maximum
     END IF;
 	RETURN(activity_id);
 END;
