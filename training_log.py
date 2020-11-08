@@ -90,11 +90,7 @@ class OptionParser(BaseOptionParser):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
         if len(arguments) < 2 or len(arguments) > 6:
             self.error("Incorrect number of arguments.")
-        activity_id = arguments.pop(0)
-        try:
-            options.activity = int(activity_id)
-        except ValueError:
-            self.error(f"Invalid activity id {repr(activity_id)}, must be integer and correspond to database identifier.")
+        options.activity = self.parse_activity_type(arguments.pop(0))
         options.route = arguments.pop(0)
         if any(arguments):
             duration_string = arguments.pop(0)
@@ -145,6 +141,18 @@ class OptionParser(BaseOptionParser):
         if any(arguments):
             options.notes = arguments.pop()
         return options, arguments
+
+    def parse_activity_type(self, activity_type):
+        """Convert an activity type string into a database identifier."""
+        try:
+            return int(activity_type)
+        except ValueError:
+            with new_connection() as database, database.cursor() as cursor:
+                cursor.callproc("get_activity_type_id_by_name", (activity_type,))
+                (activity_type_id,) = cursor.fetchone()
+                if activity_type_id is None:
+                    self.error(f"No activity type found in database matching {repr(activity_type)}")
+                return activity_type_id
 
     def parse_equipment(self, equipment_string):
         """Convert an equipment string into an equipment id."""
