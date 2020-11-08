@@ -24,11 +24,13 @@ def config(filename="~/.workout.ini", section="postgresql"):
     return database
 
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
-        route, duration_minutes, distance_miles, notes, heart_rate_avg, heart_rate_max):
+        route, route_url, duration_minutes, distance_miles, notes,
+        heart_rate_avg, heart_rate_max):
     """Record an activity in the database using the specified parameters."""
-    route = parse_route(route)
+    route = parse_route(route, route_url)
     params = (activity_date, activity_type_id, equipment_id, route.route_id,
-        route.description, duration_minutes, distance_miles, notes, heart_rate_avg, heart_rate_max)
+        route.description, route.url, duration_minutes, distance_miles, notes,
+        heart_rate_avg, heart_rate_max)
     cursor.callproc("record_activity", params)
     (activity_id,) = cursor.fetchone()
     return activity_id
@@ -45,14 +47,14 @@ def parse_arguments(arguments):
     option_parser = OptionParser()
     return option_parser.parse_args(arguments)
 
-def parse_route(route_string):
+def parse_route(route_string, route_url):
     """Convert a route string into route information."""
     with new_connection() as database, database.cursor() as cursor:
         cursor.callproc("get_route_id_by_name", (route_string,))
         (route_id,) = cursor.fetchone()
         if route_id is None:
-            return Route(description=route_string)
-        return Route(route_id=route_id)
+            return Route(description=route_string, url=route_url)
+        return Route(route_id=route_id, url=route_url)
 
 def run_to_bike(distance_miles, duration_minutes):
     """Convert a bike ride to running miles."""
@@ -78,6 +80,7 @@ class OptionParser(BaseOptionParser):
         self.add_option("--heart-rate-max", default=None, type=float, help="Maximum heart rate.")
         self.add_option("--notes", default=None,
                         help="Additional notes on the activity.")
+        self.add_option("--url", default=None, help="URL to route map")
         self.add_option("--quiet", default=False, action="store_true",
                         help="Suppress output")
         self.add_option("--preview", default=False, action="store_true",
@@ -87,7 +90,11 @@ class OptionParser(BaseOptionParser):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
         if len(arguments) < 2 or len(arguments) > 6:
             self.error("Incorrect number of arguments.")
-        options.activity = int(arguments.pop(0))
+        activity_id = arguments.pop(0)
+        try:
+            options.activity = int(activity_id)
+        except ValueError:
+            self.error(f"Invalid activity id {repr(activity_id)}, must be integer and correspond to database identifier.")
         options.route = arguments.pop(0)
         if any(arguments):
             duration_string = arguments.pop(0)
@@ -196,11 +203,18 @@ class PreviewCursor(object):
         pass
 
     def callproc(self, procedure, arguments):
-        arguments = ", ".join(map(str, arguments))
+        arguments = ", ".join(map(self.db_value, arguments))
         print(f"SELECT * FROM {procedure}({arguments})")
 
     def fetchone(self):
         return (None,)
+
+    def db_value(self, value):
+        if value is None:
+            return "NULL"
+        if isinstance(value, Date):
+            return repr(value.strftime("%Y-%m-%d"))
+        return repr(value)
 
 class PreviewDatabase(object):
     def __enter__(self):
@@ -215,14 +229,16 @@ class PreviewDatabase(object):
 class Route(object):
     """Represents information about the route that was taken."""
 
-    def __init__(self, route_id=None, description=None):
+    def __init__(self, route_id=None, description=None, url=None):
         self.route_id = route_id
         self.description = description
+        self.url = url
 
     def __repr__(self):
-        if self.route_id is None:
-            return f"bike_log.Route(description='{self.description}')"
-        return f"bike_log.Route({self.route_id}, {self.description})"
+        properties = ("route_id", "description", "url")
+        property_values = map(lambda prop: (prop, getattr(self, prop)), properties)
+        arguments = ", ".join(f"{prop}={repr(value)}" for (prop, value) in property_values if value is not None)
+        return f"bike_log.Route({arguments})"
 
 def main():
     """Process command line arguments and use them to write to the log."""
@@ -230,7 +246,8 @@ def main():
     options, _ = option_parser.parse_args(argv)
     with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
-                options.duration_minutes, options.distance_miles, options.notes, options.heart_rate_avg, options.heart_rate_max)
+                options.url, options.duration_minutes, options.distance_miles, options.notes,
+                options.heart_rate_avg, options.heart_rate_max)
         if not options.quiet and ride_id is not None:
             print(ride_id)
 

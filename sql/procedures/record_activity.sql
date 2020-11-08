@@ -1,10 +1,11 @@
--- DROP FUNCTION record_activity(date, integer, integer, integer, character varying, double precision, double precision, character varying, double precision, double precision);
+-- DROP FUNCTION record_activity(date, integer, integer, integer, character varying, character varying, double precision, double precision, character varying, double precision, double precision);
 CREATE OR REPLACE FUNCTION record_activity (
     activity_date date,
     activity_type_id integer,
     equipment_id integer DEFAULT NULL,
     route_id integer DEFAULT NULL,
     route_description character varying DEFAULT NULL,
+    route_url character varying DEFAULT NULL,
     duration_minutes double precision DEFAULT NULL,
     distance_miles double precision DEFAULT NULL,
     notes character varying DEFAULT NULL,
@@ -30,6 +31,12 @@ BEGIN
             (activity_id, activity_description)
             VALUES
             (activity_id, route_description);
+    END IF;
+    IF route_url IS NOT NULL THEN
+        INSERT INTO activity_route_urls
+            (activity_id, "url")
+            VALUES
+            (activity_id, route_url);
     END IF;
     IF duration_minutes IS NOT NULL THEN
         INSERT INTO activity_durations
