@@ -15,6 +15,7 @@ SELECT equipment_id
     FROM equipment
     LEFT JOIN equipment_labels USING (equipment_id)
     LEFT JOIN equipment_costs USING (equipment_id)
+    LEFT JOIN equipment_purchase_dates USING (equipment_id)
     LEFT JOIN equipment_model_assignments USING (equipment_id)
     LEFT JOIN equipment_models USING (equipment_model_id)
     LEFT JOIN equipment_inactive_dates USING (equipment_id);
