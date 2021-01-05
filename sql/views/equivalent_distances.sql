@@ -16,6 +16,14 @@ SELECT activity_id
 UNION
 SELECT activity_id
         , activity_date
+        , distance_miles
+        , parent_activity_type_id AS activity_type_id
+        , activity_type_id AS equivalent_activity_type_id
+    FROM activity_distances
+    JOIN activity_type_hierarchy USING (activity_type_id)
+UNION
+SELECT activity_id
+        , activity_date
         , run_distance_miles AS distance_miles
         , 1 AS activity_type_id -- run
         , activity_type_id AS equivalent_activity_type_id
