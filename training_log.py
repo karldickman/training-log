@@ -76,8 +76,8 @@ class OptionParser(BaseOptionParser):
                         help="The date on which the session occurred.")
         self.add_option("--equipment", default=None,
                         help="The equipment used for the session.")
-        self.add_option("--heart-rate-avg", default=None, type=float, help="Average heart rate.")
-        self.add_option("--heart-rate-max", default=None, type=float, help="Maximum heart rate.")
+        self.add_option("--hr-avg", default=None, type=float, help="Average heart rate.")
+        self.add_option("--hr-max", default=None, type=float, help="Maximum heart rate.")
         self.add_option("--notes", default=None,
                         help="Additional notes on the activity.")
         self.add_option("--url", default=None, help="URL to route map")
@@ -255,7 +255,7 @@ def main():
     with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
                 options.url, options.duration_minutes, options.distance_miles, options.notes,
-                options.heart_rate_avg, options.heart_rate_max)
+                options.hr_avg, options.hr_max)
         if not options.quiet and ride_id is not None:
             print(ride_id)
 
