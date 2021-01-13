@@ -3,8 +3,10 @@ CREATE OR REPLACE VIEW missing_distances
 AS
 WITH no_distances AS (SELECT *
     FROM activity_descriptions
+    JOIN activities USING (activity_id)
     LEFT JOIN activity_durations USING (activity_id)
-    WHERE activity_id NOT IN (SELECT activity_id
+    WHERE activity_type_id NOT IN (10) -- Strength
+        AND activity_id NOT IN (SELECT activity_id
             FROM activity_distances)
         AND activity_description NOT IN ('Cazadero Trail')),
 summaries AS (SELECT activity_description, SUM(duration_minutes), COUNT(activity_id)
