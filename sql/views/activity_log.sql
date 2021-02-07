@@ -14,6 +14,7 @@ SELECT activity_id
             END AS pace
         , equipment_label AS equipment
         , notes
+        , url
     FROM activities
     JOIN activity_types USING (activity_type_id)
     LEFT JOIN activities_labelled USING (activity_id)
@@ -23,6 +24,7 @@ SELECT activity_id
     LEFT JOIN activity_paces USING (activity_id)
     LEFT JOIN activity_equipment USING (activity_id)
     LEFT JOIN equipment_labelled USING (equipment_id)
+    LEFT JOIN activity_route_urls USING (activity_id)
     ORDER BY activities.activity_date DESC, activities.activity_id DESC;
 
 ALTER TABLE activity_log OWNER TO postgres;
