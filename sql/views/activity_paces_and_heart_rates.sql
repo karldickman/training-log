@@ -20,7 +20,6 @@ SELECT activity_id
     LEFT JOIN activities_labelled USING (activity_id)
     JOIN activity_heart_rate USING (activity_id)
     WHERE activity_type_id = 1 -- Run
-        AND (activity_description NOT LIKE '%stride%'
-            OR activity_description IS NULL);
+        AND distance_miles > 0.5; -- Takes about half a mile to hit modal heart rate
 
 ALTER VIEW activity_paces_and_heart_rates OWNER TO postgres;
