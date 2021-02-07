@@ -11,7 +11,9 @@ WITH run_duration_by_week AS (SELECT week_start
             , SUM(duration_minutes) AS duration_minutes
         FROM activities
         JOIN activity_durations USING (activity_id)
+        LEFT JOIN activity_type_hierarchy USING (activity_type_id)
         WHERE activity_type_id = 1
+            OR parent_activity_type_id = 1
         GROUP BY activity_date) -- run
     SELECT monday AS week_start
             , DATE_PART(''isodow'', activity_date) AS day
