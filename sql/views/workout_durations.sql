@@ -1,10 +1,14 @@
 -- DROP VIEW workout_durations;
 CREATE OR REPLACE VIEW workout_durations
 AS
-SELECT workout_id, SUM(duration_minutes) AS duration_minutes, workout_id NOT IN (SELECT workout_id
+SELECT workout_id
+        , SUM(duration_minutes) AS duration_minutes
+        , workout_id NOT IN (SELECT workout_id
             FROM activity_workouts
-            WHERE activity_id NOT IN (SELECT activity_id
-                    FROM activity_durations)) AS valid_sum
+            JOIN activities USING (activity_id)
+            WHERE activity_type_id != 13 -- strides
+                AND activity_id NOT IN (SELECT activity_id
+                        FROM activity_durations)) AS valid_sum
     FROM workouts
     JOIN activity_workouts USING (workout_id)
     JOIN activity_durations USING (activity_id)
