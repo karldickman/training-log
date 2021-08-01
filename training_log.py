@@ -65,7 +65,7 @@ def run_to_bike(distance_miles, duration_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [<yyyy-mm-dd>] [equipment] [notes]"
+        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [equipment] [<yyyy-mm-dd>] [notes]"
         BaseOptionParser.__init__(self, usage=usage_string)
         self.add_option("--duration", default=None,
                         help="The duration of the session.",
@@ -107,6 +107,12 @@ class OptionParser(BaseOptionParser):
             else:
                 distance_string = None
             options.distance_miles = self.parse_distance(distance_string)
+        # Parse equipment
+        if any(arguments):
+            equipment_string = arguments.pop(0)
+        else:
+            equipment_string = options.equipment
+        options.equipment_id = self.parse_equipment(equipment_string)
         # Parse date
         date_needs_parse = False
         if any(arguments):
@@ -132,12 +138,7 @@ class OptionParser(BaseOptionParser):
                 self.error("Improperly formatted date.")
         elif options.date is None:
             options.date = Date.today()
-        # Parse equipment
-        if any(arguments):
-            equipment_string = arguments.pop(0)
-        else:
-            equipment_string = options.equipment
-        options.equipment_id = self.parse_equipment(equipment_string)
+        # Parse notes
         if any(arguments):
             options.notes = arguments.pop()
         return options, arguments
