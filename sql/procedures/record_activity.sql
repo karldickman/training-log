@@ -1,4 +1,4 @@
--- DROP FUNCTION record_activity(date, integer, integer, integer, character varying, character varying, double precision, double precision, character varying, double precision, double precision);
+-- DROP FUNCTION record_activity(date, integer, integer, integer, character varying, character varying, double precision, double precision, character varying, double precision, double precision, bool);
 CREATE OR REPLACE FUNCTION record_activity (
     activity_date date,
     activity_type_id integer,
@@ -10,7 +10,8 @@ CREATE OR REPLACE FUNCTION record_activity (
     distance_miles double precision DEFAULT NULL,
     notes character varying DEFAULT NULL,
     average_heart_rate double precision DEFAULT NULL,
-    max_heart_rate double precision DEFAULT NULL)
+    max_heart_rate double precision DEFAULT NULL,
+    inhaler bool DEFAULT NULL)
 RETURNS integer
 AS $$
 DECLARE activity_id integer;
@@ -73,6 +74,12 @@ BEGIN
             (activity_id, heart_rate_bpm, summary_statistic_id)
             VALUES
             (activity_id, max_heart_rate, 2); -- 2 = maximum
+    END IF;
+    IF inhaler IS NOT NULL THEN
+        INSERT INTO activity_inhaler
+            (activity_id, inhaler)
+            VALUES
+            (activity_id, inhaler);
     END IF;
     RETURN(activity_id);
 END;
