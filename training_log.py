@@ -25,12 +25,12 @@ def config(filename="~/.workout.ini", section="postgresql"):
 
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
         route, route_url, duration_minutes, distance_miles, notes,
-        heart_rate_avg, heart_rate_max):
+        heart_rate_avg, heart_rate_max, inhaler):
     """Record an activity in the database using the specified parameters."""
     route = parse_route(route, route_url)
     params = (activity_date, activity_type_id, equipment_id, route.route_id,
         route.description, route.url, duration_minutes, distance_miles, notes,
-        heart_rate_avg, heart_rate_max)
+        heart_rate_avg, heart_rate_max, inhaler)
     cursor.callproc("record_activity", params)
     (activity_id,) = cursor.fetchone()
     return activity_id
@@ -78,6 +78,8 @@ class OptionParser(BaseOptionParser):
                         help="The equipment used for the session.")
         self.add_option("--hr-avg", default=None, type=float, help="Average heart rate.")
         self.add_option("--hr-max", default=None, type=float, help="Maximum heart rate.")
+        self.add_option("--inhaler", action="store_true", dest="inhaler", help="Inhaler was used before this activity.")
+        self.add_option("--no-inhaler", action="store_false", dest="inhaler", help="No inhaler was used before this activity.")
         self.add_option("--notes", default=None,
                         help="Additional notes on the activity.")
         self.add_option("--url", default=None, help="URL to route map")
@@ -256,7 +258,7 @@ def main():
     with new_connection(options.preview) as database, database.cursor() as cursor:
         ride_id = record_activity(cursor, options.date, options.activity, options.equipment_id, options.route,
                 options.url, options.duration_minutes, options.distance_miles, options.notes,
-                options.hr_avg, options.hr_max)
+                options.hr_avg, options.hr_max, options.inhaler)
         if not options.quiet and ride_id is not None:
             print(ride_id)
 
