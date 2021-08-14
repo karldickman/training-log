@@ -3,12 +3,10 @@
 
 from configparser import ConfigParser
 from datetime import date as Date
-from getpass import getpass as prompt_for_password
-from math import floor
 from optparse import OptionParser as BaseOptionParser
 from os.path import expanduser
-from psycopg2 import connect
 from sys import argv
+from psycopg2 import connect
 
 def config(filename="~/.workout.ini", section="postgresql"):
     filename = expanduser(filename)
