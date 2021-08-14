@@ -92,6 +92,7 @@ class OptionParser(BaseOptionParser):
             self.error("Incorrect number of arguments.")
         options.activity = self.parse_activity_type(arguments.pop(0))
         options.route = arguments.pop(0)
+        # Parse duration
         if any(arguments):
             duration_string = arguments.pop(0)
             options.duration_minutes = self.parse_duration(duration_string)
@@ -99,19 +100,16 @@ class OptionParser(BaseOptionParser):
             options.duration_minutes = self.parse_duration(options.duration)
         else:
             options.duration_minutes = None
+        # Parse distance
         if any(arguments):
-            if any(arguments):
-                distance_string = arguments.pop(0)
-            elif options.distance_miles is not None:
-                distance_string = options.distance_miles
-            else:
-                distance_string = None
-            options.distance_miles = self.parse_distance(distance_string)
-        # Parse equipment
-        if any(arguments):
-            equipment_string = arguments.pop(0)
+            distance_string = arguments.pop(0)
+        elif options.distance_miles is not None:
+            distance_string = options.distance_miles
         else:
-            equipment_string = options.equipment
+            distance_string = None
+        options.distance_miles = self.parse_distance(distance_string)
+        # Parse equipment
+        equipment_string = arguments.pop(0) if any(arguments) else options.equipment
         options.equipment_id = self.parse_equipment(equipment_string)
         # Parse date
         date_needs_parse = False
