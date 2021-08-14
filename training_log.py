@@ -63,7 +63,7 @@ def run_to_bike(distance_miles, duration_minutes):
 class OptionParser(BaseOptionParser):
     """Option parser for this command-line utility."""
     def __init__(self):
-        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [equipment] [<yyyy-mm-dd>] [notes]"
+        usage_string = "%prog <activity> <route> [<duration hh:mm:ss>] [<distance miles>] [equipment] [hr-avg] [hr-max] [<yyyy-mm-dd>] [notes]"
         BaseOptionParser.__init__(self, usage=usage_string)
         self.add_option("--duration", default=None,
                         help="The duration of the session.",
@@ -88,7 +88,9 @@ class OptionParser(BaseOptionParser):
 
     def parse_args(self, arguments):
         options, arguments = BaseOptionParser.parse_args(self, arguments[1:])
-        if len(arguments) < 2 or len(arguments) > 6:
+        num_required_arguments = len(["activity", "route"])
+        num_arguments = len(["activity", "route", "duration", "distance", "equipment", "hr-avg", "hr-max", "date", "notes"])
+        if not (num_required_arguments <= len(arguments) <= num_arguments):
             self.error("Incorrect number of arguments.")
         options.activity = self.parse_activity_type(arguments.pop(0))
         options.route = arguments.pop(0)
@@ -111,6 +113,12 @@ class OptionParser(BaseOptionParser):
         # Parse equipment
         equipment_string = arguments.pop(0) if any(arguments) else options.equipment
         options.equipment_id = self.parse_equipment(equipment_string)
+        # Parse average heart rate
+        if any(arguments):
+            options.hr_avg = self.parse_arg("hr-avg", float, arguments.pop(0))
+        # Parse maximum heart rate
+        if any(arguments):
+            options.hr_max = self.parse_arg("hr-max", float, arguments.pop(0))
         # Parse date
         date_needs_parse = False
         if any(arguments):
@@ -152,6 +160,12 @@ class OptionParser(BaseOptionParser):
                 if activity_type_id is None:
                     self.error(f"No activity type found in database matching {repr(activity_type)}")
                 return activity_type_id
+
+    def parse_arg(self, parameter, parse, arg):
+        try:
+            return parse(arg)
+        except ValueError:
+            self.error(f"Improperly formatted {parameter} \"{arg}\".")
 
     def parse_equipment(self, equipment_string):
         """Convert an equipment string into an equipment id."""
