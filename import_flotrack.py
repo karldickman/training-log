@@ -1,8 +1,6 @@
-#!/usr/bin/python3.8
+#!/usr/bin/python
 from argparse import ArgumentParser
 import csv
-from operator import itemgetter
-from sys import stdin
 
 class workout(object):
     def __init__(self, activity, route, duration_seconds=None, distance_miles=None, date=None, notes=None):
