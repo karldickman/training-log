@@ -9,6 +9,7 @@ BEGIN
 		WHERE routes.route = route_name;
 	RETURN(route_id);
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public;
 
 ALTER FUNCTION get_route_id_by_name OWNER TO postgres;

@@ -1,8 +1,5 @@
 *.pyc
 *.swp
 .cache/
-bike
-hike
-run
-walk
-workout
+bin/
+.~lock*

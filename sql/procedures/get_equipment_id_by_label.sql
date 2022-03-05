@@ -4,11 +4,17 @@ RETURNS integer
 AS $$
 DECLARE equipment_id integer;
 BEGIN
-	SELECT equipment_labels.equipment_id INTO equipment_id
-		FROM equipment_labels
-		WHERE equipment_labels.equipment_label = "label";
+	SELECT equipment_labelled.equipment_id INTO equipment_id
+		FROM equipment_labelled
+		WHERE equipment_label = "label"
+	        AND (is_active
+	            OR NOT is_active
+	                AND equipment_label NOT IN (SELECT equipment_label
+	                        FROM equipment_labelled
+	                        WHERE is_active));
 	RETURN(equipment_id);
 END;
-$$ LANGUAGE plpgsql;
+$$ LANGUAGE plpgsql
+SECURITY DEFINER SET search_path = public;
 
 ALTER FUNCTION get_equipment_id_by_label OWNER TO postgres;
