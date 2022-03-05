@@ -1,6 +1,9 @@
 -- DROP VIEW activity_log;
 CREATE OR REPLACE VIEW activity_log
 AS
+WITH average_heart_rates AS (SELECT activity_id, heart_rate_bpm, summary_statistic_id, activity_heart_rate_id 
+	FROM activity_heart_rate
+	WHERE summary_statistic_id = 1)
 SELECT activity_id
         , activities.activity_date AS date
         , activity_description AS description
@@ -23,12 +26,10 @@ SELECT activity_id
     LEFT JOIN activity_durations USING (activity_id)
     LEFT JOIN activity_distances USING (activity_id)
     LEFT JOIN activity_paces USING (activity_id)
-    LEFT JOIN activity_heart_rate USING (activity_id)
+    LEFT JOIN average_heart_rates USING (activity_id)
     LEFT JOIN activity_equipment USING (activity_id)
     LEFT JOIN equipment_labelled USING (equipment_id)
     LEFT JOIN activity_route_urls USING (activity_id)
-    WHERE activity_heart_rate_id IS NULL
-        OR summary_statistic_id = 1 -- Average
     ORDER BY activities.activity_date DESC, activities.activity_id DESC;
 
 ALTER TABLE activity_log OWNER TO postgres;
