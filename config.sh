@@ -7,7 +7,7 @@ then
 fi
 
 # Install packages
-apt-get -y install postgresql postgresql-client python3-psycopg2 > /dev/null
+apt-get -y install postgresql postgresql-client python3-psycopg2
 
 # Configure database login
 USER=$(logname)
