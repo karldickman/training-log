@@ -3,3 +3,8 @@
 .cache/
 bin/
 .~lock*
+
+# R
+Rplot.png
+.Rproj.user
+**/.Rhistory
