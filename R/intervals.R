@@ -20,5 +20,8 @@ main <- function (argv) {
   intervals %>%
     ggplot() +
     geom_point(aes(interval, lap_split_seconds)) +
-    geom_line(aes(interval, target_lap_split_seconds))
+    geom_line(aes(interval, target_lap_split_seconds)) +
+    labs(title = paste("Lap paces compared with targets,", workout.date)) +
+    xlab("Interval") +
+    ylab("Lap paces (seconds)")
 }
