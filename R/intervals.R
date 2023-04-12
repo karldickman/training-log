@@ -2,14 +2,19 @@ library(ggplot2)
 
 source("database.R")
 
-main <- function () {
+main <- function (argv) {
+  # Parse arguments
+  if (length(argv) != 1) {
+    stop("Incorrect number of arguments")
+  }
+  workout.date <- argv[[1]]
   # Load data
   intervals <- using.database(function (fetch.query.results) {
     "SELECT *
       FROM activity_interval_exceedances
-      WHERE activity_date = '2023-04-05'
+      WHERE activity_date = $1
       ORDER BY interval" %>%
-      fetch.query.results()
+      fetch.query.results(workout.date)
   })
   # Plot data
   intervals %>%
