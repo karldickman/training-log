@@ -25,10 +25,18 @@ main <- function (argv) {
   intervals %>%
     mutate(interval = zero.pad(interval)) %>%
     ggplot(aes(x = interval)) +
-    geom_point(aes(interval, lap_split_seconds)) +
-    geom_line(aes(y = target_lap_split_seconds, group = 1)) +
+    geom_point(aes(interval, lap_split_seconds, color = "Actual")) +
+    geom_line(aes(y = target_lap_split_seconds, group = 1, color = "Target")) +
     scale_x_discrete(labels = paste(intervals$distance_meters, "m")) +
     labs(title = paste("Lap paces compared with targets,", workout.date)) +
     xlab("Interval") +
-    ylab("Lap paces (seconds)")
+    ylab("Lap paces (seconds)") +
+    theme(legend.position = "bottom") +
+    scale_color_manual(
+      name = "",
+      values = c("Actual" = "black", "Target" = "black"),
+      guide = guide_legend(override.aes = list(
+        linetype = c("blank", "solid"),
+        size = c(1.5, NA)
+      )))
 }
