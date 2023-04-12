@@ -22,12 +22,14 @@ main <- function (argv) {
       fetch.query.results(workout.date)
   })
   # Plot data
+  all.dependent.values <- c(intervals$lap_split_seconds, intervals$target_lap_split_seconds)
   intervals %>%
     mutate(interval = zero.pad(interval)) %>%
     ggplot(aes(x = interval)) +
     geom_point(aes(interval, lap_split_seconds, color = "Actual")) +
     geom_line(aes(y = target_lap_split_seconds, group = 1, color = "Target")) +
     scale_x_discrete(labels = paste(intervals$distance_meters, "m")) +
+    scale_y_continuous(breaks = seq(floor(min(all.dependent.values)), ceiling(max(all.dependent.values)), 1)) +
     labs(title = paste("Lap paces compared with targets,", workout.date)) +
     xlab("Interval") +
     ylab("Lap paces (seconds)") +
