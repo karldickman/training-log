@@ -5,6 +5,7 @@ bin/
 .~lock*
 
 # R
-Rplot.png
+Rplot*.pdf
+Rplot*.png
 .Rproj.user
 **/.Rhistory
