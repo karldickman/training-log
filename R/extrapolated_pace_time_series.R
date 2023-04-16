@@ -27,12 +27,14 @@ main <- function (argv) {
   # Plot data
   workout.interval.splits() %>%
     mutate(extrapolated_pace = lap_split_seconds + 5 * log(normalized.race.distance.km / race_distance_km) / log(2)) %>%
-    ggplot(aes(x = activity_date, y = extrapolated_pace)) +
+    ggplot(aes(x = activity_date, y = extrapolated_pace, col = race_distance_km)) +
     geom_point() +
     geom_smooth() +
     labs(
       title = paste("Interval lap paces standardized to", distance.label, "race pace"),
-      subtitle = paste0("pace + 5 lb(", normalized.race.distance.km, " km / target race km)")) +
+      subtitle = paste0("pace + 5 lb(", normalized.race.distance.km, " km / target race km)"),
+      color = "Race pace target (km)") +
     xlab("Workout date") +
-    ylab("Standardized lap paces (seconds)")
+    ylab("Standardized lap paces (seconds)") +
+    theme(legend.position = "bottom")
 }
