@@ -1,7 +1,7 @@
 library(dplyr)
 library(ggplot2)
 
-source("database.R")
+source("data.R")
 
 zero.pad <- function (number) {
   paste0(ifelse(number < 10, "0", ""), number)
@@ -14,14 +14,7 @@ main <- function (argv) {
   }
   workout.date <- argv[[1]]
   # Load data
-  intervals <- using.database(function (fetch.query.results) {
-    "SELECT *
-      FROM activity_interval_exceedances
-      JOIN activity_descriptions USING (activity_id)
-      WHERE activity_date = $1
-      ORDER BY interval" %>%
-      fetch.query.results(workout.date)
-  })
+  intervals <- workout.interval.exceedances(workout.date)
   # Plot data
   workout <- intervals %>% pull(activity_description) %>% unique()
   all.dependent.values <- c(intervals$lap_split_seconds, intervals$target_lap_split_seconds)
