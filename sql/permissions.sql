@@ -1,4 +1,6 @@
 -- Tables
+GRANT SELECT ON activities TO workouts;
+GRANT SELECT ON activity_descriptions TO workouts;
 GRANT SELECT ON activity_types TO workouts;
 
 -- Views
