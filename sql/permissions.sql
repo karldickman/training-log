@@ -1,6 +1,9 @@
 -- Tables
 GRANT SELECT ON activities TO workouts;
 GRANT SELECT ON activity_descriptions TO workouts;
+GRANT SELECT ON activity_intervals TO workouts;
+GRANT SELECT ON activity_interval_splits TO workouts;
+GRANT SELECT ON activity_interval_target_race_distances TO workouts;
 GRANT SELECT ON activity_types TO workouts;
 
 -- Views
