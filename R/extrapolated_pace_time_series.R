@@ -35,7 +35,7 @@ main <- function (argv = 5) {
     scale_y_continuous(breaks = seq(floor(min(data$extrapolated_pace) / 5) * 5, ceiling(max(data$extrapolated_pace) / 5) * 5, 5)) +
     labs(
       title = paste("Interval lap paces standardized to", distance.label, "race pace"),
-      subtitle = paste0("pace + 5 lb(", normalized.race.distance.km, " km / target race km)"),
+      subtitle = paste0("pace + 5 log(", normalized.race.distance.km, " km / target race km) / log(2)"),
       color = "Race pace target (km)") +
     xlab("Workout date") +
     ylab("Standardized lap paces (seconds)") +
