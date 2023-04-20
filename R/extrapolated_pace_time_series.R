@@ -14,7 +14,7 @@ workout.interval.splits <- function () {
   })
 }
 
-main <- function (argv) {
+main <- function (argv = 5) {
   # Parse arguments
   if (length(argv) != 1) {
     stop("Incorrect number of arguments")
