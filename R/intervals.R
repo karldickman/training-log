@@ -7,10 +7,27 @@ zero.pad <- function (number) {
   paste0(ifelse(number < 10, "0", ""), number)
 }
 
-main <- function (argv) {
+usage <- function (error = NULL) {
+  if (!is.null(error)) {
+    cat(error, "\n")
+  }
+  cat("Usage: intervals.R WORKOUT_DATE [OPTIONS]\n")
+  cat("    -h, --help  Display this message and exit\n")
+  opt <- options(show.error.messages = FALSE)
+  on.exit(options(opt))
+  stop()
+}
+
+main <- function (argv = c()) {
   # Parse arguments
-  if (length(argv) != 1) {
-    stop("Incorrect number of arguments")
+  if ("-h" %in% argv | "--help" %in% argv) {
+    usage()
+  }
+  if (length(argv) < 1) {
+    usage("Too few arguments")
+  }
+  if (length(argv) > 1) {
+    usage("Too many arguments")
   }
   workout.date <- argv[[1]]
   # Load data
