@@ -13,6 +13,7 @@ usage <- function (error = NULL) {
   }
   cat("Usage: intervals.R WORKOUT_DATE [OPTIONS]\n")
   cat("    -h, --help  Display this message and exit\n")
+  cat("    --lap-pace  Plot lap pace instead of total time\n")
   cat("    --total     Plot total time instead of lap pace")
   opt <- options(show.error.messages = FALSE)
   on.exit(options(opt))
@@ -32,10 +33,16 @@ main <- function (argv = c()) {
   if (length(arguments) > 1) {
     usage("Too many arguments")
   }
+  if ("--total" %in% options & "--lap-pace" %in% options) {
+    usage("Incompatible options")
+  }
   workout.date <- arguments[[1]]
   show.total <- "--total" %in% options
   # Load data
   intervals <- workout.interval.exceedances(workout.date)
+  if (!("--lap-pace" %in% options) & max(intervals$distance_meters) < 400) {
+    show.total = TRUE
+  }
   if (show.total) {
     subtitle <- paste("Interval splits compared with targets,", workout.date)
     y.axis.label <- "Interval split (seconds)"
