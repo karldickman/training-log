@@ -14,12 +14,16 @@ workout.interval.splits <- function () {
   })
 }
 
-main <- function (argv = 5) {
+main <- function (argv = c(5, 87)) {
   # Parse arguments
-  if (length(argv) != 1) {
-    stop("Incorrect number of arguments")
+  if (length(argv) < 1) {
+    stop("Too many of arguments")
+  }
+  if (length(argv) > 2) {
+    stop("Too few arguments")
   }
   normalized.race.distance.km <- argv[[1]]
+  target.race.pace <- argv[[2]]
   distance.label <- ifelse(
     normalized.race.distance.km >= 2,
     paste(normalized.race.distance.km, "km"),
@@ -31,6 +35,7 @@ main <- function (argv = 5) {
     ggplot(aes(x = activity_date, y = extrapolated_pace, col = race_distance_km)) +
     geom_point() +
     geom_smooth() +
+    geom_hline(yintercept = target.race.pace) +
     scale_x_date(date_breaks = "1 month", date_labels = "%m") +
     scale_y_continuous(breaks = seq(floor(min(data$extrapolated_pace) / 5) * 5, ceiling(max(data$extrapolated_pace) / 5) * 5, 5)) +
     labs(
