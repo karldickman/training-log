@@ -13,6 +13,7 @@ usage <- function (error = NULL) {
   }
   cat("Usage: intervals.R WORKOUT_DATE [OPTIONS]\n")
   cat("    -h, --help  Display this message and exit\n")
+  cat("    --total     Plot total time instead of lap pace")
   opt <- options(show.error.messages = FALSE)
   on.exit(options(opt))
   stop()
@@ -23,30 +24,39 @@ main <- function (argv = c()) {
   if ("-h" %in% argv | "--help" %in% argv) {
     usage()
   }
-  if (length(argv) < 1) {
+  options <- argv[substr(argv, 1, 1) == "-"]
+  arguments <- argv[substr(argv, 1, 1) != "-"]
+  if (length(arguments) < 1) {
     usage("Too few arguments")
   }
-  if (length(argv) > 1) {
+  if (length(arguments) > 1) {
     usage("Too many arguments")
   }
-  workout.date <- argv[[1]]
+  workout.date <- arguments[[1]]
+  show.total <- "--total" %in% options
   # Load data
   intervals <- workout.interval.exceedances(workout.date)
+  if (show.total) {
+    subtitle <- paste("Interval splits compared with targets,", workout.date)
+    y.axis.label <- "Interval split (seconds)"
+  } else {
+    intervals <- intervals %>% mutate(split_seconds = lap_split_seconds, target_split_seconds = target_lap_split_seconds)
+    subtitle <- paste("Lap paces compared with targets,", workout.date)
+    y.axis.label <- "Lap paces (seconds)"
+  }
   # Plot data
   workout <- intervals %>% pull(activity_description) %>% unique()
-  all.dependent.values <- c(intervals$lap_split_seconds, intervals$target_lap_split_seconds)
+  all.dependent.values <- c(intervals$split_seconds, intervals$target_split_seconds)
   intervals %>%
     mutate(interval = zero.pad(interval)) %>%
     ggplot(aes(x = interval)) +
-    geom_point(aes(interval, lap_split_seconds, color = "Actual")) +
-    geom_line(aes(y = target_lap_split_seconds, group = 1, color = "Target")) +
+    geom_point(aes(interval, split_seconds, color = "Actual")) +
+    geom_line(aes(y = target_split_seconds, group = 1, color = "Target")) +
     scale_x_discrete(labels = paste(intervals$distance_meters, "m")) +
     scale_y_continuous(breaks = seq(floor(min(all.dependent.values)), ceiling(max(all.dependent.values)), 1)) +
-    labs(
-      title = workout,
-      subtitle = paste("Lap paces compared with targets,", workout.date)) +
+    labs(title = workout, subtitle = subtitle) +
     xlab("Interval") +
-    ylab("Lap paces (seconds)") +
+    ylab(y.axis.label) +
     theme(legend.position = "bottom") +
     scale_color_manual(
       name = "",
