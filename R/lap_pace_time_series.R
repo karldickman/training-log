@@ -10,7 +10,8 @@ workout.interval.splits <- function () {
       FROM activities
       JOIN activity_intervals USING (activity_id)
       JOIN activity_interval_splits USING (activity_interval_id)
-      JOIN activity_interval_target_race_distances USING (activity_interval_id)" %>%
+      JOIN activity_interval_target_race_distances USING (activity_interval_id)
+      WHERE activity_date >= '2022-07-01'" %>%
       fetch.query.results()
   })
 }
