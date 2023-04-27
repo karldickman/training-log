@@ -15,7 +15,17 @@ workout.interval.splits <- function () {
   })
 }
 
-plot <- function (data, normalized.race.distance.km, target.race.pace) {
+bin.race.distances <- function (data) {
+  data %>%
+    mutate(race_distance_bin = cut(
+      data$race_distance_km,
+      breaks = c(0.141, 0.283, 0.566, 1.090, 2.121, 3.800, 7.071, 14.142, 28.284),
+      labels = c("200 m", "400 m", "800 m", "1500 m", "3k", "5k", "10k", "Threshold")
+    )) %>%
+    filter(race_distance_bin %in% c("1500 m", "3k", "5k", "10k"))
+}
+
+plot <- function (data, normalized.race.distance.km, target.race.pace, discrete.colors = FALSE) {
   if (is.null(normalized.race.distance.km)) {
     data %<>% mutate(lap_pace = lap_split_seconds)
     title <- "Interval lap paces"
@@ -50,6 +60,9 @@ plot <- function (data, normalized.race.distance.km, target.race.pace) {
   }
   if (!is.null(target.race.pace)) {
     plot <- plot + geom_hline(yintercept = target.race.pace)
+  }
+  if (discrete.colors) {
+    plot <- plot + facet_wrap(vars(race_distance), ncol = 1)
   }
   plot
 }
