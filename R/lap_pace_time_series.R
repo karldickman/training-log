@@ -67,18 +67,34 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, discrete.
   plot
 }
 
+usage <- function (error = NULL) {
+  if (!is.null(error)) {
+    cat(error, "\n")
+  }
+  cat("lap_pace_time_series.R [NORMALIZED RACE DISTANCE] [TARGET PACE] [OPTIONS]\n")
+  cat("    -h, --help  Display this message and exit")
+  opt <- options(show.error.messages = FALSE)
+  on.exit(options(opt))
+  stop()
+}
+
 main <- function (argv = c()) {
+  if ("-h" %in% argv | "--help" %in% argv) {
+    usage()
+  }
+  options <- argv[substr(argv, 1, 1) == "-"]
+  arguments <- argv[substr(argv, 1, 1) != "-"]
   # Parse arguments
-  if (length (argv) > 2) {
+  if (length (arguments) > 2) {
     stop("Too many arguments")
   }
   normalized.race.distance.km <- NULL
   target.race.pace <- NULL
-  if (length(argv) >= 1) {
-    normalized.race.distance.km <- argv[[1]]
+  if (length(arguments) >= 1) {
+    normalized.race.distance.km <- arguments[[1]]
   }
-  if (length(argv) == 2) {
-    target.race.pace <- ifelse(length(argv) == 2, argv[[2]], NULL)
+  if (length(arguments) == 2) {
+    target.race.pace <- ifelse(length(arguments) == 2, arguments[[2]], NULL)
   }
   # Plot data
   workout.interval.splits() %>%
