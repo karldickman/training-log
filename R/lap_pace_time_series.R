@@ -32,18 +32,19 @@ plot <- function (data, normalized.race.distance.km, target.race.pace) {
     subtitle <- paste0("pace + 5log(", normalized.race.distance.km, " km / target race km) / log(2)")
     y.axis.label <- "Standardized lap paces (seconds)"
   }
+  step <- 5
   y.axis.breaks <- seq(
-    floor(min(data$lap_pace) / 5) * 5,
-    ceiling(max(data$lap_pace) / 5) * 5, 5)
+    floor(min(data$lap_pace) / step) * step,
+    ceiling(max(data$lap_pace) / step) * step, step)
   plot <- data %>%
     ggplot(aes(x = activity_date, y = lap_pace, col = race_distance_km)) +
     geom_point() +
     scale_x_date(date_breaks = "1 month", date_labels = "%m") +
     scale_y_continuous(breaks = y.axis.breaks) +
-    labs(title = title, subtitle = subtitle, color = "Race pace target (km)") +
+    scale_color_gradient(name = "Race pace target (km)", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10)) +
+    labs(title = title, subtitle = subtitle) +
     xlab("Workout date") +
-    ylab(y.axis.label) +
-    theme(legend.position = "bottom")
+    ylab(y.axis.label)
   if (!is.null(normalized.race.distance.km)) {
     plot <- plot + geom_smooth()
   }
