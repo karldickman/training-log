@@ -7,7 +7,8 @@ GRANT SELECT ON activity_interval_target_race_distances TO workouts;
 GRANT SELECT ON activity_types TO workouts;
 
 -- Views
-grant select on activity_interval_exceedances to workouts;
+GRANT SELECT ON activity_interval_exceedances TO workouts;
+GRANT SELECT ON equivalent_distance_by_day TO workouts;
 GRANT SELECT ON days_since_analysis TO workouts;
 
 -- Functions

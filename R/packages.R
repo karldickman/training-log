@@ -4,6 +4,8 @@ packages <- c(
   "ini",
   # Configuration failed because libpq was not found. Try installing:
   #  * deb: libpq-dev libssl-dev (Debian, Ubuntu, etc)
-  "RPostgres"
+  "magrittr",
+  "RPostgres",
+  "viridis"
 )
 install.packages(packages)
