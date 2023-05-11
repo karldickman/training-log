@@ -1,6 +1,7 @@
 library(dplyr)
 library(ggplot2)
 library(magrittr)
+library(viridis)
 
 source("data.R")
 
@@ -67,9 +68,9 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
     xlab("Workout date") +
     ylab(y.axis.label)
   if (colors == "continuous") {
-    plot <- plot + scale_color_gradient(name = "Race pace target (km)", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10))
+    plot <- plot + scale_color_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10))
   } else if (colors == "discrete") {
-    plot <- plot + scale_color_discrete(name = "Race distance")
+    plot <- plot + scale_color_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
   if ((!is.null(normalized.race.distance.km) & colors != "discrete") | facet.wrap) {
     plot <- plot + geom_smooth()
