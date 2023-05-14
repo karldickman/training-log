@@ -34,6 +34,13 @@ SELECT activity_id
         , run_distance_miles AS distance_miles
         , 1 AS activity_type_id -- run
         , activity_type_id AS equivalent_activity_type_id
-    FROM road_bikes_as_runs;
+    FROM road_bikes_as_runs
+UNION
+SELECT activity_id
+        , activity_date
+        , distance_miles
+        , 1 AS activity_type_id -- run
+        , activity_type_id AS equivalent_activity_type_id
+    FROM deep_water_runs_as_runs;
 
 ALTER VIEW equivalent_distances OWNER TO postgres;
