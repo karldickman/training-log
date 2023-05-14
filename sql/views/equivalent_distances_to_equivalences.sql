@@ -8,7 +8,7 @@ SELECT activity_id
         , equivalent_activity_type_id
         , activity_equivalence_id
         , activity_equivalence
-        , source
+        , "source"
         , activity_equivalence_activity_type_id
     FROM equivalent_distances
     JOIN all_activity_equivalence_activity_types USING (activity_type_id, equivalent_activity_type_id);

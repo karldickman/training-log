@@ -17,6 +17,13 @@ UNION
 SELECT activity_id
         , activity_date
         , distance_miles
+        , activity_type_id
+        , activity_type_id AS equivalent_activity_type_id
+    FROM duration_as_distance
+UNION
+SELECT activity_id
+        , activity_date
+        , distance_miles
         , parent_activity_type_id AS activity_type_id
         , activity_type_id AS equivalent_activity_type_id
     FROM activity_distances
