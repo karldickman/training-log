@@ -39,5 +39,6 @@ main <- function (argv = c()) {
     scale_fill_viridis(name = "Daily distance (miles)", option = "magma") +
     labs(title = "Running, walking, and converted cycling miles", subtitle = subtitle) +
     xlab("Julian day") +
-    ylab("Year")
+    ylab("Year") +
+    theme(legend.position = "bottom")
 }
