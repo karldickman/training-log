@@ -59,7 +59,7 @@ main <- function (argv = c()) {
     ggplot(aes(x = interval)) +
     geom_point(aes(interval, split_seconds, color = "Actual")) +
     geom_line(aes(y = target_split_seconds, group = 1, color = "Target")) +
-    scale_x_discrete(labels = paste(intervals$distance_meters, "m")) +
+    scale_x_discrete(labels = paste(round(intervals$distance_meters), "m")) +
     scale_y_continuous(breaks = seq(floor(min(all.dependent.values)), ceiling(max(all.dependent.values)), 1)) +
     labs(title = workout, subtitle = subtitle) +
     xlab("Interval") +
