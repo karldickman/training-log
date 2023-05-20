@@ -16,6 +16,6 @@ SELECT activity_interval_id
 	FROM activity_intervals
 	JOIN activities USING (activity_id)
 	JOIN activity_interval_splits USING (activity_interval_id)
-	JOIN activity_interval_targets USING (activity_interval_id);
+	LEFT JOIN activity_interval_targets USING (activity_interval_id);
 
 ALTER TABLE activity_interval_exceedances OWNER TO postgres;

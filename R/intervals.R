@@ -40,6 +40,9 @@ main <- function (argv = c()) {
   show.total <- "--total" %in% options
   # Load data
   intervals <- workout.interval.exceedances(workout.date)
+  if (nrow(intervals) == 0) {
+    stop("No intervals found on specified date")
+  }
   if (!("--lap-pace" %in% options) & max(intervals$distance_meters) < 400) {
     show.total = TRUE
   }
@@ -54,6 +57,7 @@ main <- function (argv = c()) {
   # Plot data
   workout <- intervals %>% pull(activity_description) %>% unique()
   all.dependent.values <- c(intervals$split_seconds, intervals$target_split_seconds)
+  all.dependent.values <- all.dependent.values[!is.na(all.dependent.values)]
   intervals %>%
     mutate(interval = zero.pad(interval)) %>%
     ggplot(aes(x = interval)) +
