@@ -1,4 +1,4 @@
-CREATE OR REPLACE VIEW activity_interval_splits 
+CREATE OR REPLACE VIEW activity_interval_splits
 AS
 WITH total_splits_from_laps AS (SELECT activity_interval_id
 		, COUNT(lap_number) AS laps
@@ -8,6 +8,7 @@ WITH total_splits_from_laps AS (SELECT activity_interval_id
 	GROUP BY activity_interval_id),
 "union" AS (SELECT 'total split' AS calculated_from, activity_interval_id, distance_meters, split_seconds
 	FROM activity_interval_total_splits
+	FULL JOIN activity_interval_distances USING (activity_interval_id)
 UNION
 SELECT 'sum of lap splits' AS calculated_from, activity_interval_id, distance_meters, split_seconds
 	FROM total_splits_from_laps)
