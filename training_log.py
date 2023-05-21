@@ -1,25 +1,10 @@
 #!/usr/bin/python
 """Command-line tool to log training to a database."""
 
-from configparser import ConfigParser
 from datetime import date as Date
 from optparse import OptionParser as BaseOptionParser
-from os.path import expanduser
 from sys import argv
-from psycopg2 import connect
-
-def config(filename="~/.workout.ini", section="postgresql"):
-    filename = expanduser(filename)
-    parser = ConfigParser()
-    parser.read(filename)
-    database = {}
-    if parser.has_section(section):
-        params = parser.items(section)
-        for param in params:
-            database[param[0]] = param[1]
-    else:
-        raise Exception(f"Section {section} not found in the {filename} file.")
-    return database
+from training_database import new_connection
 
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
         route, route_url, duration_minutes, distance_miles, notes,
@@ -32,13 +17,6 @@ def record_activity(cursor, activity_date, activity_type_id, equipment_id,
     cursor.callproc("record_activity", params)
     (activity_id,) = cursor.fetchone()
     return activity_id
-
-def new_connection(preview=False):
-    """Open a new connection to the database."""
-    if preview:
-        return PreviewDatabase()
-    params = config()
-    return connect(**params)
 
 def parse_arguments(arguments):
     """Parse the command-line arguments."""
@@ -193,7 +171,6 @@ class OptionParser(BaseOptionParser):
             self.error("Improperly formatted distance.")
         return distance
 
-
     def parse_duration(self, duration_string):
         """Convert a duration string into a decimal duration."""
         try:
@@ -215,37 +192,6 @@ class OptionParser(BaseOptionParser):
         except ValueError:
             self.error("Improperly formatted duration.")
         return duration
-
-class PreviewCursor(object):
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, exc_traceback):
-        pass
-
-    def callproc(self, procedure, arguments):
-        arguments = ", ".join(map(self.db_value, arguments))
-        print(f"SELECT * FROM {procedure}({arguments})")
-
-    def fetchone(self):
-        return (None,)
-
-    def db_value(self, value):
-        if value is None:
-            return "NULL"
-        if isinstance(value, Date):
-            return repr(value.strftime("%Y-%m-%d"))
-        return repr(value)
-
-class PreviewDatabase(object):
-    def __enter__(self):
-        return self
-
-    def __exit__(self, exc_type, exc_value, exc_traceback):
-        pass
-
-    def cursor(self):
-        return PreviewCursor()
 
 class Route(object):
     """Represents information about the route that was taken."""
