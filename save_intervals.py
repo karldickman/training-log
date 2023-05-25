@@ -9,7 +9,7 @@ from training_database import new_connection
 def parse_arguments():
     parser = ArgumentParser(
         prog = "workout-intervals",
-        description = "Reads a CSV file containing workout intervals and saves that to the database.")
+        description = "Reads a CSV file containing workout intervals and saves that to the database.  distance (meters),duration (mm:ss)[,target split (seconds)[,target race (km)]]")
     parser.add_argument("activity_id", type = int, help = "The database ID of the activity whose intervals to record.")
     #parser.add_argument("date", type = lambda d: datetime.strptime(d, "%Y-%m-%d").date(), help = "The date of the interval workout")
     parser.add_argument("-f", "--file", type = FileType("r"), default = stdin, help = "The file containing the splits.  Defaults to STDIN.")
@@ -26,11 +26,11 @@ def main():
                 duration_datetime = datetime.strptime(row[1], "%M:%S.%f")
                 duration_minutes = duration_datetime.minute * 60 + duration_datetime.second + duration_datetime.microsecond / 1_000_000
                 target_split_seconds = float(row[2]) if len(row) > 2 else None
-                target_race_distance_meters = float(row[3]) if len(row) > 3 else None
+                target_race_distance_km = float(row[3]) if len(row) > 3 else None
             except ValueError as e:
                 print("Syntax error in row", interval, row, str(e))
                 return 1
-            params = arguments.activity_id, interval + 1, distance_meters, duration_minutes, target_split_seconds, target_race_distance_meters
+            params = arguments.activity_id, interval + 1, distance_meters, duration_minutes, target_split_seconds, target_race_distance_km
             cursor.callproc("record_interval", params)
     return 0
 
