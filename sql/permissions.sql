@@ -10,6 +10,7 @@ GRANT SELECT ON activity_type_hierarchy TO workouts;
 -- Views
 GRANT SELECT ON activity_interval_exceedances TO workouts;
 GRANT SELECT ON activity_paces TO workouts;
+GRANT SELECT ON activity_paces_and_heart_rates TO workouts;
 GRANT SELECT ON equivalent_distance_by_day TO workouts;
 GRANT SELECT ON days_since_analysis TO workouts;
 
