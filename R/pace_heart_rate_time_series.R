@@ -1,5 +1,5 @@
 library(ggplot2)
-library(tidyquant)
+library(zoo)
 
 source("database.R")
 
@@ -31,7 +31,7 @@ main <- function (argv = c()) {
   data %>%
     ggplot(aes(x = activity_date, y = pace_difference_from_trend)) +
     geom_point(size = 0.5) +
-    geom_ma(ma_fun = SMA, n = 14) +
+    geom_line(aes(y = rollmean(pace_difference_from_trend, 14, na.pad = TRUE)), color = "#888888") +
     geom_hline(yintercept = 0) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m") +
     scale_y_continuous(breaks = y.axis.breaks) +
