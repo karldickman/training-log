@@ -31,7 +31,7 @@ main <- function (argv = c()) {
   data %>%
     ggplot(aes(x = activity_date, y = pace_difference_from_trend)) +
     geom_point(size = 0.5) +
-    geom_line(aes(y = rollmean(pace_difference_from_trend, 14, na.pad = TRUE)), color = "#888888") +
+    geom_line(aes(y = rollmean(pace_difference_from_trend, 14, na.pad = TRUE, align = "right")), color = "#888888") +
     geom_hline(yintercept = 0) +
     geom_vline(xintercept = as.numeric(as.Date(c("2021-07-24", "2022-07-03"))), linetype = 2) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m") +
