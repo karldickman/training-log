@@ -1,5 +1,6 @@
 library(ggplot2)
-library(zoo)
+library(lubridate)
+library(slider)
 
 source("database.R")
 
@@ -14,6 +15,7 @@ add.trend.comparisons <- function (data) {
   factor <- 206
   exponent <- 0.109
   min.hr.bpm <- 72
+  rolling.avg.window <- 7
   data %>%
     filter(!is.na(average_heart_rate_bpm)) %>%
     mutate(
@@ -23,6 +25,12 @@ add.trend.comparisons <- function (data) {
     mutate(
       heart_rate_difference_from_trend = average_heart_rate_bpm - fitted_heart_rate_bpm,
       pace_difference_from_trend = (pace_minutes_per_mile - fitted_pace_min_per_mile) * 60
+    ) %>% mutate(
+      rolling.avg = slide_index_dbl(
+        pace_difference_from_trend,
+        activity_date,
+        ~mean(.x, na.rm = TRUE),
+        .before = days(rolling.avg.window - 1))
     )
 }
 
@@ -36,7 +44,7 @@ main <- function (argv = c()) {
   data %>%
     ggplot(aes(x = activity_date, y = pace_difference_from_trend)) +
     geom_point(size = 0.5) +
-    geom_line(aes(y = rollmean(pace_difference_from_trend, 14, na.pad = TRUE, align = "right")), color = "#888888") +
+    geom_line(aes(y = rolling.avg), color = "#888888") +
     geom_hline(yintercept = 0) +
     geom_vline(xintercept = as.numeric(as.Date(c("2021-07-24", "2022-07-03"))), linetype = 2) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m") +
