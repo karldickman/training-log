@@ -10,12 +10,11 @@ fetch.data <- function () {
   })
 }
 
-main <- function (argv = c()) {
+add.trend.comparisons <- function (data) {
   factor <- 206
   exponent <- 0.109
   min.hr.bpm <- 72
-  step <- 30
-  data <- fetch.data() %>%
+  data %>%
     filter(!is.na(average_heart_rate_bpm)) %>%
     mutate(
       fitted_heart_rate_bpm = factor * exp(-exponent * pace_minutes_per_mile) + min.hr.bpm,
@@ -25,6 +24,12 @@ main <- function (argv = c()) {
       heart_rate_difference_from_trend = average_heart_rate_bpm - fitted_heart_rate_bpm,
       pace_difference_from_trend = (pace_minutes_per_mile - fitted_pace_min_per_mile) * 60
     )
+}
+
+main <- function (argv = c()) {
+  step <- 30
+  data <- fetch.data() %>%
+    add.trend.comparisons()
   y.axis.breaks <- seq(
     floor(min(data$pace_difference_from_trend) / step) * step,
     ceiling(max(data$pace_difference_from_trend) / step) * step, step)
