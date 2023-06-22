@@ -16,21 +16,25 @@ def parse_arguments():
     parser.add_argument("--preview", action = "store_true", help = "Show but do not execute database commands.")
     return parser.parse_args()
 
+def parse_file(file, activity_id):
+    for interval, line in enumerate(file):
+        try:
+            row = line[0:-1].split(",")
+            distance_meters = float(row[0])
+            duration_datetime = datetime.strptime(row[1], "%M:%S.%f")
+            duration_minutes = duration_datetime.minute * 60 + duration_datetime.second + duration_datetime.microsecond / 1_000_000
+            target_split_seconds = float(row[2]) if len(row) > 2 else None
+            target_race_distance_km = float(row[3]) if len(row) > 3 else None
+        except ValueError as e:
+            print("Syntax error in row", interval, row, str(e))
+            return 1
+        yield activity_id, interval + 1, distance_meters, duration_minutes, target_split_seconds, target_race_distance_km
+
 def main():
     arguments = parse_arguments()
+    interval_params = list(parse_file(arguments.file, arguments.activity_id))
     with new_connection(arguments.preview) as database, database.cursor() as cursor:
-        for interval, line in enumerate(arguments.file):
-            try:
-                row = line[0:-1].split(",")
-                distance_meters = float(row[0])
-                duration_datetime = datetime.strptime(row[1], "%M:%S.%f")
-                duration_minutes = duration_datetime.minute * 60 + duration_datetime.second + duration_datetime.microsecond / 1_000_000
-                target_split_seconds = float(row[2]) if len(row) > 2 else None
-                target_race_distance_km = float(row[3]) if len(row) > 3 else None
-            except ValueError as e:
-                print("Syntax error in row", interval, row, str(e))
-                return 1
-            params = arguments.activity_id, interval + 1, distance_meters, duration_minutes, target_split_seconds, target_race_distance_km
+        for params in interval_params:
             cursor.callproc("record_interval", params)
     return 0
 
