@@ -66,7 +66,10 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
     scale_x_date(date_breaks = "1 month", date_labels = "%m") +
     labs(title = title, subtitle = subtitle) +
     xlab("Workout date") +
-    ylab(y.axis.label)
+    ylab(y.axis.label) +
+    theme(
+      panel.background = element_rect(fill = "lightblue", color = "lightblue", size = 0.5, linetype = "solid")
+    )
   if (colors == "continuous") {
     plot <- plot + scale_color_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10))
   } else if (colors == "discrete") {
