@@ -11,11 +11,10 @@ fetch.data <- function () {
   })
 }
 
-add.trend.comparisons <- function (data) {
+add.trend.comparisons <- function (data, rolling.avg.window) {
   factor <- 206
   exponent <- 0.109
   min.hr.bpm <- 72
-  rolling.avg.window <- 7
   data %>%
     filter(!is.na(average_heart_rate_bpm)) %>%
     mutate(
@@ -34,10 +33,11 @@ add.trend.comparisons <- function (data) {
     )
 }
 
-main <- function (argv = c()) {
+main <- function (argv = c(14)) {
+  rolling.avg.window <- argv[[1]]
   step <- 30
   data <- fetch.data() %>%
-    add.trend.comparisons()
+    add.trend.comparisons(rolling.avg.window)
   y.axis.breaks <- seq(
     floor(min(data$pace_difference_from_trend) / step) * step,
     ceiling(max(data$pace_difference_from_trend) / step) * step, step)
