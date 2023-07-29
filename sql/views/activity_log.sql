@@ -1,4 +1,4 @@
--- DROP VIEW activity_log;
+-- DROP VIEW IF EXISTS activity_log;
 CREATE OR REPLACE VIEW activity_log
 AS
 WITH average_heart_rates AS (SELECT activity_id, heart_rate_bpm, summary_statistic_id, activity_heart_rate_id 
@@ -16,6 +16,10 @@ SELECT activity_id
             ELSE TO_CHAR((pace_minutes_per_mile || ' minute')::INTERVAL, 'MI:SS')
             END AS pace
         , heart_rate_bpm AS heart_rate
+        , CASE
+        	WHEN activities.activity_type_id in (1, 14, 15) -- only show trend calculation for run, tempo, race
+        		THEN 60 * (pace_minutes_per_mile + LN((heart_rate_bpm - 72) / 206) / 0.109)
+        	END AS difference_from_trend_s
         , equipment_label AS equipment
         , notes
         , url
