@@ -22,7 +22,7 @@ SELECT activity_id
     WHERE activity_type_id IN (1, 14, 15) -- Run, tempo run, race
         AND distance_miles > 0.5 -- Takes about half a mile to hit modal heart rate
         AND (activity_description != 'Cool down'
-        	OR activity_description == 'Cool down' AND activity_id NOT IN (SELECT activity_id
+        	OR activity_description = 'Cool down' AND activity_id NOT IN (SELECT activity_id
         			FROM activity_workouts))
         AND activity_paces.activity_date >= '2020-01-01'
     ORDER BY activity_paces.activity_date, activity_id;
