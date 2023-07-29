@@ -1,5 +1,6 @@
 library(dplyr)
 library(ggplot2)
+library(ggtext)
 
 source("data.R")
 
@@ -68,7 +69,7 @@ main <- function (argv = c()) {
     labs(title = workout, subtitle = subtitle) +
     xlab("Interval") +
     ylab(y.axis.label) +
-    theme(legend.position = "bottom") +
+    theme(legend.position = "bottom", plot.title = element_textbox_simple()) +
     scale_color_manual(
       name = "",
       values = c("Actual" = "black", "Target" = "black"),
