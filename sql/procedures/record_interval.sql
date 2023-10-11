@@ -17,10 +17,12 @@ begin
         RETURNING activity_intervals.activity_interval_id
         INTO activity_interval_id;
     -- Split
-   	INSERT INTO activity_interval_total_splits
-   		(activity_interval_id, split_seconds)
-   		VALUES
-   		(activity_interval_id, split_seconds);
+	IF split_seconds IS NOT NULL THEN
+		INSERT INTO activity_interval_total_splits
+			(activity_interval_id, split_seconds)
+			VALUES
+			(activity_interval_id, split_seconds);
+	END IF;
    	-- Distance
    	INSERT INTO activity_interval_distances
    		(activity_interval_id, distance_meters)

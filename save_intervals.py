@@ -21,8 +21,11 @@ def parse_file(file, activity_id):
         try:
             row = line[0:-1].split(",")
             distance_meters = float(row[0])
-            duration_datetime = datetime.strptime(row[1], "%M:%S.%f")
-            duration_minutes = duration_datetime.minute * 60 + duration_datetime.second + duration_datetime.microsecond / 1_000_000
+            if row[1] != "":
+                duration_datetime = datetime.strptime(row[1], "%M:%S.%f")
+                duration_minutes = duration_datetime.minute * 60 + duration_datetime.second + duration_datetime.microsecond / 1_000_000
+            else:
+                duration_minutes = None
             target_split_seconds = float(row[2]) if len(row) > 2 else None
             target_race_distance_km = float(row[3]) if len(row) > 3 else None
         except ValueError as e:
@@ -34,8 +37,12 @@ def main():
     arguments = parse_arguments()
     interval_params = list(parse_file(arguments.file, arguments.activity_id))
     with new_connection(arguments.preview) as database, database.cursor() as cursor:
-        for params in interval_params:
-            cursor.callproc("record_interval", params)
+        try:
+            for params in interval_params:
+                cursor.callproc("record_interval", params)
+        except:
+            database.rollback()
+            raise
     return 0
 
 if __name__ == "__main__":

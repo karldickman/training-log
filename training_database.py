@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 from preview_database import PreviewDatabase
 from psycopg2 import connect
+from psycopg2.extensions import connection
 from os.path import expanduser
 
 def config(filename="~/.workout.ini", section="postgresql"):
@@ -16,7 +17,7 @@ def config(filename="~/.workout.ini", section="postgresql"):
         raise Exception(f"Section {section} not found in the {filename} file.")
     return database
 
-def new_connection(preview=False):
+def new_connection(preview=False) -> connection:
     """Open a new connection to the database."""
     if preview:
         return PreviewDatabase()
