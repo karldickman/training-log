@@ -71,7 +71,7 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
       panel.background = element_rect(fill = "lightblue", color = "lightblue", size = 0.5, linetype = "solid")
     )
   if (colors == "continuous") {
-    plot <- plot + scale_color_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10))
+    plot <- plot + scale_color_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10, 20))
   } else if (colors == "discrete") {
     plot <- plot + scale_color_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
