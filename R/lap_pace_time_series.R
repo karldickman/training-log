@@ -48,9 +48,10 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
       filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m")))
   }
   step <- 5
+  lap.paces <- data$lap_pace[!is.na(data$lap_pace)]
   y.axis.breaks <- seq(
-    floor(min(data$lap_pace) / step) * step,
-    ceiling(max(data$lap_pace) / step) * step, step)
+    floor(min(lap.paces) / step) * step,
+    ceiling(max(lap.paces) / step) * step, step)
   if (colors == "continuous") {
     plot <- data %>%
       ggplot(aes(x = activity_date, y = lap_pace, col = race_distance_km))
