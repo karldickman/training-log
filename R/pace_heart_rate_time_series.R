@@ -118,5 +118,5 @@ main <- function (argv = c()) {
     labs(title = "Difference from heart rate–pace trend") +
     xlab("Run date") +
     ylab("Difference from Trend (s/mi)") +
-    theme(axis.text.x = element_text(angle = 315, vjust = 0.5, hjust=1))
+    theme(axis.text.x = element_text(angle = 315, hjust = 0))
 }
