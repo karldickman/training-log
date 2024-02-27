@@ -36,7 +36,7 @@ usage <- function (error = NULL) {
     cat("Error:", error, "\n")
   }
   cat("Usage: pace_heart_rate_time_series.R [OPTIONS]")
-  cat("\n    --from      The start date for loading activity data.  Default: 2022-07-03.")
+  cat("\n    --from      The start date for loading activity data.  Default: 2023-05-15.")
   cat("\n    -h, --help  Display this message and exit.")
   cat("\n    --no-from   Do not pass a value for FROM.")
   cat("\n    --window    The number of days to include in the rolling average window.  Default: 14.")
@@ -72,7 +72,7 @@ parse.args <- function (argv) {
     from <- from[[1]][2]
   }
   else {
-    from <- as.Date("2022-07-03")
+    from <- as.Date("2023-05-15")
   }
   window <- str_subset(argv, pattern = "--window")
   if (length(window) > 1) {
