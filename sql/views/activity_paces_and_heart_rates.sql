@@ -16,7 +16,8 @@ SELECT activity_id
         , activity_type_id
         , average_heart_rate_bpm
         , maximum_heart_rate_bpm
-        , 60 * (activity_paces.pace_minutes_per_mile + ln((activity_heart_rate.average_heart_rate_bpm - 72) / 206) / 0.109) AS fitted_pace_min_per_mile
+        , -ln((average_heart_rate_bpm - 72) / 206) / 0.109 AS fitted_pace_min_per_mile
+        , 60 * (activity_paces.pace_minutes_per_mile + ln((activity_heart_rate.average_heart_rate_bpm - 72) / 206) / 0.109) AS pace_difference_from_fit_seconds_per_mile
     FROM activity_paces
     LEFT JOIN activities_labelled USING (activity_id)
     JOIN activity_heart_rate USING (activity_id)
