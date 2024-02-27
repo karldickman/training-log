@@ -9,3 +9,6 @@ Rplot*.pdf
 Rplot*.png
 .Rproj.user
 **/.Rhistory
+
+# data input
+today.csv
