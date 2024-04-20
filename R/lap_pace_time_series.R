@@ -38,10 +38,10 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
       paste(normalized.race.distance.km, "km"),
       paste(normalized.race.distance.km * 1000, "m"))
     title <- paste("Interval lap paces standardized to", distance.label, "race pace")
-    subtitle <- paste0("pace + 5log(", normalized.race.distance.km, " km / target race km) / log(2)")
+    subtitle <- paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
     y.axis.label <- "Standardized lap paces (seconds)"
     data %<>%
-      mutate(lap_pace = lap_split_seconds + 5 * log(normalized.race.distance.km / race_distance_km) / log(2))
+      mutate(lap_pace = lap_split_seconds + 4 * log(normalized.race.distance.km / race_distance_km) / log(2))
   }
   if (facet.wrap) {
     data %<>%
