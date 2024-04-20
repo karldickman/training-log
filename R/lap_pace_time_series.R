@@ -1,6 +1,8 @@
 library(dplyr)
 library(ggplot2)
+library(lubridate)
 library(magrittr)
+library(slider)
 library(viridis)
 
 source("data.R")
@@ -12,9 +14,18 @@ workout.interval.splits <- function () {
       JOIN activity_intervals USING (activity_id)
       JOIN activity_interval_splits USING (activity_interval_id)
       JOIN activity_interval_target_race_distances USING (activity_interval_id)
-      WHERE activity_date >= '2022-07-01'" %>%
+      WHERE activity_date >= '2022-07-01'
+      ORDER BY activity_date" %>%
       fetch.query.results()
   })
+}
+
+calculate.rolling.average <- function (dates, lap_split_seconds, rolling.avg.window) {
+  slide_index_dbl(
+    lap_split_seconds,
+    dates,
+    ~mean(.x, na.rm = TRUE),
+    .before = days(rolling.avg.window - 1))
 }
 
 bin.race.distances <- function (data) {
@@ -77,7 +88,8 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
     plot <- plot + scale_color_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
   if ((!is.null(normalized.race.distance.km) & colors != "discrete") | facet.wrap) {
-    plot <- plot + geom_smooth()
+    rolling_avg <- calculate.rolling.average(data$activity_date, data$lap_pace, 30)
+    plot <- plot + geom_line(aes(y = rolling_avg), color = "#000000")
   }
   if (!is.null(target.race.pace) & !facet.wrap) {
     plot <- plot + geom_hline(yintercept = target.race.pace)
