@@ -37,7 +37,7 @@ bin.race.distances <- function (data) {
     ))
 }
 
-plot <- function (data, normalized.race.distance.km, target.race.pace, colors, facet.wrap = FALSE) {
+plot <- function (data, normalized.race.distance.km, target.finish.time, colors, facet.wrap = FALSE) {
   title <- "Interval lap paces"
   subtitle <- NULL
   y.axis.label <- "Lap paces (seconds)"
@@ -91,8 +91,8 @@ plot <- function (data, normalized.race.distance.km, target.race.pace, colors, f
     rolling_avg <- calculate.rolling.average(data$activity_date, data$lap_pace, 30)
     plot <- plot + geom_line(aes(y = rolling_avg), color = "#000000")
   }
-  if (!is.null(target.race.pace) & !facet.wrap) {
-    plot <- plot + geom_hline(yintercept = target.race.pace)
+  if (!is.null(target.finish.time) & !facet.wrap) {
+    plot <- plot + geom_hline(yintercept = target.finish.time * 60 / (normalized.race.distance.km / 0.4))
   }
   if (facet.wrap) {
     plot <- plot + facet_wrap(vars(race_distance_bin), ncol = 1)
@@ -106,7 +106,7 @@ usage <- function (error = NULL) {
   if (!is.null(error)) {
     cat(error, "\n")
   }
-  cat("lap_pace_time_series.R [NORMALIZED RACE DISTANCE] [TARGET PACE] [OPTIONS]\n")
+  cat("lap_pace_time_series.R [NORMALIZED RACE DISTANCE] [TARGET FINISH TIME] [OPTIONS]\n")
   cat("    --colors=continuous  Show colors on a continuous scale (default)\n")
   cat("            =discrete    Show colors on a discrete scale\n")
   cat("            =none        Do not use colors\n")
@@ -128,12 +128,12 @@ main <- function (argv = c()) {
     stop("Too many arguments")
   }
   normalized.race.distance.km <- NULL
-  target.race.pace <- NULL
+  target.finish.time <- NULL
   if (length(arguments) >= 1) {
     normalized.race.distance.km <- as.numeric(arguments[[1]])
   }
   if (length(arguments) == 2) {
-    target.race.pace <- as.numeric(arguments[[2]])
+    target.finish.time <- as.numeric(arguments[[2]])
   }
   facet.wrap <- "--facet-wrap" %in% options
   if (facet.wrap & length(arguments) > 0) {
@@ -157,5 +157,5 @@ main <- function (argv = c()) {
     bin.race.distances()
   # Plot data
   data %>%
-    plot(normalized.race.distance.km, target.race.pace, colors, facet.wrap)
+    plot(normalized.race.distance.km, target.finish.time, colors, facet.wrap)
 }
