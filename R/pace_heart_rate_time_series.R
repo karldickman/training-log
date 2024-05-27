@@ -40,6 +40,8 @@ usage <- function (error = NULL) {
   cat("\n    -h, --help  Display this message and exit.")
   cat("\n    --no-from   Do not pass a value for FROM.")
   cat("\n    --window    The number of days to include in the rolling average window.  Default: 14.")
+  opt <- options(show.error.messages = FALSE)
+  on.exit(options(opt))
   stop()
 }
 
