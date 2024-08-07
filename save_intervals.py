@@ -3,6 +3,7 @@
 
 from argparse import ArgumentParser, FileType
 from datetime import datetime
+from io import TextIOWrapper
 from sys import exit, stdin
 from training_database import new_connection
 
@@ -16,7 +17,7 @@ def parse_arguments():
     parser.add_argument("--preview", action = "store_true", help = "Show but do not execute database commands.")
     return parser.parse_args()
 
-def parse_file(file, activity_id):
+def parse_file(file: TextIOWrapper, activity_id: int):
     for interval, line in enumerate(file):
         try:
             row = line[0:-1].split(",")
@@ -29,7 +30,7 @@ def parse_file(file, activity_id):
             target_split_seconds = float(row[2]) if len(row) > 2 else None
             target_race_distance_km = float(row[3]) if len(row) > 3 else None
         except ValueError as e:
-            print("Syntax error in row", interval, row, str(e))
+            print("Syntax error in row", interval, line, str(e))
             return 1
         yield activity_id, interval + 1, distance_meters, duration_minutes, target_split_seconds, target_race_distance_km
 
