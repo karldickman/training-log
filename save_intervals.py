@@ -27,8 +27,8 @@ def parse_file(file: TextIOWrapper, activity_id: int):
                 duration_minutes = duration_datetime.minute * 60 + duration_datetime.second + duration_datetime.microsecond / 1_000_000
             else:
                 duration_minutes = None
-            target_split_seconds = float(row[2]) if len(row) > 2 else None
-            target_race_distance_km = float(row[3]) if len(row) > 3 else None
+            target_split_seconds = float(row[2]) if len(row) > 2 and row[2] != "" else None
+            target_race_distance_km = float(row[3]) if len(row) > 3 and row[3] != "" else None
         except ValueError as e:
             print("Syntax error in row", interval, line, str(e))
             return 1
