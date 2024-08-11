@@ -31,7 +31,7 @@ add.trend.comparisons <- function (data, rolling.avg.window) {
     )
 }
 
-plot <- function (data, step = 30) {
+plot <- function (data, covid.infections, joined.rctc, step = 30) {
   y.axis.breaks <- seq(
     floor(min(data$pace_difference_from_fit_seconds_per_mile) / step) * step,
     ceiling(max(data$pace_difference_from_fit_seconds_per_mile) / step) * step, step)
@@ -39,7 +39,8 @@ plot <- function (data, step = 30) {
     geom_point(size = 0.5) +
     geom_line(aes(y = rolling.avg), color = "#888888") +
     geom_hline(yintercept = 0) +
-    geom_vline(xintercept = as.numeric(as.Date(c("2021-07-24", "2022-07-03", "2024-02-19"))), linetype = 2) +
+    geom_vline(xintercept = as.numeric(covid.infections), linetype = 2) +
+    geom_vline(xintercept = as.numeric(joined.rctc), linetype = 3) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m") +
     scale_y_continuous(breaks = y.axis.breaks) +
     labs(title = "Difference from heart rate–pace trend") +
@@ -120,7 +121,9 @@ main <- function (argv = c()) {
   args <- parse.args(argv)
   rolling.avg.window <- args$window
   from <- args$from
+  covid.infections <- as.Date(c("2021-07-24", "2024-02-19"))
+  joined.rctc <- as.Date("2022-07-03")
   fetch.data(from) |>
     add.trend.comparisons(rolling.avg.window) |>
-    plot()
+    plot(covid.infections, joined.rctc)
 }
