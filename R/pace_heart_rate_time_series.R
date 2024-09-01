@@ -24,7 +24,7 @@ add.trend.comparisons <- function (data, rolling.avg.window) {
     filter(!is.na(average_heart_rate_bpm)) %>%
     mutate(
       rolling.avg = slide_index_dbl(
-        pace_difference_from_fit_seconds_per_mile,
+        easy_pace_minutes_per_mile,
         activity_date,
         ~mean(.x, na.rm = TRUE),
         .before = days(rolling.avg.window - 1))
@@ -60,25 +60,25 @@ annotate.injuries <- function (injuries, y.min, y.max) {
   annotate("rect", xmin = injuries[["start"]], xmax = injuries[["end"]], ymin = y.min, ymax = y.max, alpha = 0.1, fill = "red")
 }
 
-plot <- function (data, covid.infections, joined.rctc, breaks, injuries, step = 30) {
+plot <- function (data, baseline.easy.pace.min.per.mile, covid.infections, joined.rctc, breaks, injuries, step = 0.5) {
   y.axis.breaks <- seq(
-    floor(min(data$pace_difference_from_fit_seconds_per_mile) / step) * step,
-    ceiling(max(data$pace_difference_from_fit_seconds_per_mile) / step) * step, step)
+    floor(min(data$easy_pace_minutes_per_mile) / step) * step,
+    ceiling(max(data$easy_pace_minutes_per_mile) / step) * step, step)
   y.min <- min(y.axis.breaks)
   y.max <- max(y.axis.breaks)
-  ggplot(data, aes(x = activity_date, y = pace_difference_from_fit_seconds_per_mile)) +
+  ggplot(data, aes(x = activity_date, y = easy_pace_minutes_per_mile)) +
     annotate.injuries(injuries, y.min, y.max) +
     annotate.breaks(breaks, y.min, y.max) +
     geom_point(size = 0.5) +
     geom_line(aes(y = rolling.avg), color = "#888888") +
-    geom_hline(yintercept = 0) +
+    geom_hline(yintercept = baseline.easy.pace.min.per.mile) +
     geom_vline(xintercept = as.numeric(covid.infections), linetype = 2) +
     geom_vline(xintercept = as.numeric(joined.rctc), linetype = 3) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m", expand = c(0.01, 0.01)) +
     scale_y_continuous(breaks = y.axis.breaks, limits = c(y.min, y.max), expand = c(0, 0)) +
-    labs(title = "Difference from heart rate–pace trend") +
+    labs(title = "Estimated easy pace over time") +
     xlab("Run date") +
-    ylab("Difference from Trend (s/mi)") +
+    ylab("Easy pace (min/mi)") +
     theme(axis.text.x = element_text(angle = 315, hjust = 0))
 }
 
@@ -155,7 +155,9 @@ main <- function (argv = c()) {
   rolling.avg.window <- args$window
   from <- args$from
   # Fetch data from database
-  data <- fetch.data(from)
+  baseline.easy.pace.min.per.mile <- - log((145 - 72) / 206) / 0.109
+  data <- fetch.data(from) |>
+    mutate(easy_pace_minutes_per_mile = pace_difference_from_fit_seconds_per_mile / 60 + baseline.easy.pace.min.per.mile)
   # Dates of interest
   covid.infections <- as.Date(c("2021-07-24", "2024-02-19"))
   joined.rctc <- as.Date("2022-07-03")
@@ -175,5 +177,5 @@ main <- function (argv = c()) {
   # Draw the plot
   data |>
     add.trend.comparisons(rolling.avg.window) |>
-    plot(covid.infections, joined.rctc, breaks, injuries)
+    plot(baseline.easy.pace.min.per.mile, covid.infections, joined.rctc, breaks, injuries)
 }
