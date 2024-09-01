@@ -65,7 +65,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     ceiling(max(lap.paces) / step) * step, step)
   if (colors == "continuous") {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace, col = race_distance_km))
+      ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_km))
   } else if (colors == "discrete") {
     plot <- data %>%
       ggplot(aes(x = activity_date, y = lap_pace, col = race_distance_bin))
@@ -74,18 +74,15 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       ggplot(aes(x = activity_date, y = lap_pace))
   }
   plot <- plot +
-    geom_point() +
+    geom_point(stroke = 0.1, shape = 21) +
     scale_x_date(date_breaks = "1 month", date_labels = "%m") +
     labs(title = title, subtitle = subtitle) +
     xlab("Workout date") +
-    ylab(y.axis.label) +
-    theme(
-      panel.background = element_rect(fill = "lightblue", color = "lightblue", size = 0.5, linetype = "solid")
-    )
+    ylab(y.axis.label)
   if (colors == "continuous") {
-    plot <- plot + scale_color_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10, 20))
+    plot <- plot + scale_fill_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10, 20))
   } else if (colors == "discrete") {
-    plot <- plot + scale_color_viridis(name = "Race distance", option = "magma", discrete = TRUE)
+    plot <- plot + scale_fill_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
   if ((!is.null(normalized.race.distance.km) & colors != "discrete") | facet.wrap) {
     rolling_avg <- calculate.rolling.average(data$activity_date, data$lap_pace, 30)
