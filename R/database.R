@@ -10,7 +10,8 @@ connect <- function () {
     dbname = settings$database,
     host = settings$host,
     user = settings$user,
-    password = settings$password
+    password = settings$password,
+    sslmode = settings$sslmode
   )
 }
 
