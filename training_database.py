@@ -4,11 +4,11 @@ from psycopg2 import connect
 from psycopg2.extensions import connection
 from os.path import expanduser
 
-def config(filename="~/.workout.ini", section="postgresql"):
+def config(filename: str = "~/.workout.ini", section: str = "postgresql") -> "dict[str, str]":
     filename = expanduser(filename)
     parser = ConfigParser()
     parser.read(filename)
-    database = {}
+    database: "dict[str, str]" = {}
     if parser.has_section(section):
         params = parser.items(section)
         for param in params:
@@ -17,7 +17,7 @@ def config(filename="~/.workout.ini", section="postgresql"):
         raise Exception(f"Section {section} not found in the {filename} file.")
     return database
 
-def new_connection(preview=False) -> connection:
+def new_connection(preview: bool = False) -> connection:
     """Open a new connection to the database."""
     if preview:
         return PreviewDatabase()

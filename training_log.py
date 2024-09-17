@@ -8,7 +8,7 @@ from training_database import new_connection
 
 def record_activity(cursor, activity_date, activity_type_id, equipment_id,
         route, route_url, duration_minutes, distance_miles, notes,
-        heart_rate_avg, heart_rate_max, inhaler):
+        heart_rate_avg, heart_rate_max, inhaler) -> int:
     """Record an activity in the database using the specified parameters."""
     route = parse_route(route, route_url)
     params = (activity_date, activity_type_id, equipment_id, route.route_id,
@@ -23,7 +23,7 @@ def parse_arguments(arguments):
     option_parser = OptionParser()
     return option_parser.parse_args(arguments)
 
-def parse_route(route_string, route_url):
+def parse_route(route_string: str, route_url: str):
     """Convert a route string into route information."""
     with new_connection() as database, database.cursor() as cursor:
         cursor.callproc("get_route_id_by_name", (route_string,))
@@ -32,7 +32,7 @@ def parse_route(route_string, route_url):
             return Route(description=route_string, url=route_url)
         return Route(route_id=route_id, url=route_url)
 
-def run_to_bike(distance_miles, duration_minutes):
+def run_to_bike(distance_miles: float, duration_minutes: float) -> float:
     """Convert a bike ride to running miles."""
     duration_hours = duration_minutes / 60.0
     speed_mph = distance_miles / duration_hours
@@ -127,7 +127,7 @@ class OptionParser(BaseOptionParser):
             options.notes = arguments.pop()
         return options, arguments
 
-    def parse_activity_type(self, activity_type):
+    def parse_activity_type(self, activity_type: int | str) -> int:
         """Convert an activity type string into a database identifier."""
         try:
             return int(activity_type)
@@ -145,7 +145,7 @@ class OptionParser(BaseOptionParser):
         except ValueError:
             self.error(f"Improperly formatted {parameter} \"{arg}\".")
 
-    def parse_equipment(self, equipment_string):
+    def parse_equipment(self, equipment_string: str | None) -> int | None:
         """Convert an equipment string into an equipment id."""
         if equipment_string is None:
             return None
@@ -159,7 +159,7 @@ class OptionParser(BaseOptionParser):
             except ValueError:
                 self.error("Improperly formatted equipment.")
 
-    def parse_distance(self, distance_string):
+    def parse_distance(self, distance_string: str | None) -> float | None:
         """Convert a distance string into a decimal distance."""
         if distance_string is None:
             return None
@@ -167,11 +167,11 @@ class OptionParser(BaseOptionParser):
             distance = 0.0
             for segment_distance_string in distance_string.split("+"):
                 distance += float(segment_distance_string)
+            return distance
         except ValueError:
             self.error("Improperly formatted distance.")
-        return distance
 
-    def parse_duration(self, duration_string):
+    def parse_duration(self, duration_string: str) -> float | None:
         """Convert a duration string into a decimal duration."""
         try:
             duration = 0.0
@@ -189,14 +189,18 @@ class OptionParser(BaseOptionParser):
                 else:
                     hours = 0
                 duration += hours * 60.0 + minutes + seconds / 60.0
+            return duration
         except ValueError:
             self.error("Improperly formatted duration.")
-        return duration
 
 class Route(object):
     """Represents information about the route that was taken."""
 
-    def __init__(self, route_id=None, description=None, url=None):
+    description: str | None
+    route_id: int | None
+    url: str | None
+
+    def __init__(self, route_id: int | None = None, description: str | None = None, url: str | None = None):
         self.route_id = route_id
         self.description = description
         self.url = url
