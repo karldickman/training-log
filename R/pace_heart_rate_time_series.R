@@ -159,16 +159,16 @@ main <- function (argv = c()) {
   data <- fetch.data(from) |>
     mutate(easy_pace_minutes_per_mile = pace_difference_from_fit_seconds_per_mile / 60 + baseline.easy.pace.min.per.mile)
   # Dates of interest
-  covid.infections <- as.Date(c("2021-07-24", "2024-02-19"))
+  covid.infections <- as.Date(c("2021-07-24", "2024-02-19", "2024-10-07"))
   joined.rctc <- as.Date("2022-07-03")
   # Breaks and injuries
   breaks <- list(
-    start = as.Date(c("2022-11-07", "2023-06-26", "2023-11-19", "2024-02-20", "2024-06-16")),
-    end = as.Date(c("2022-11-20", "2023-07-11", "2023-12-01", "2024-03-07", "2024-06-29"))
+    start = as.Date(c("2022-11-07", "2023-06-26", "2023-11-19", "2024-02-20", "2024-06-16", "2024-10-05")),
+    end = as.Date(c("2022-11-20", "2023-07-11", "2023-12-01", "2024-03-07", "2024-06-29", "2024-10-12"))
   )
   injuries <- list(
     start = as.Date(c("2021-05-20", "2022-08-22", "2023-04-15", "2024-08-31")),
-    end = as.Date(c("2021-06-15", "2022-09-13", "2024-04-16", as.character(Sys.Date())))
+    end = as.Date(c("2021-06-15", "2022-09-13", "2024-04-16", "2024-10-03"))
   )
   min.date <- min(data$activity_date)
   max.date <- max(data$activity_date)
