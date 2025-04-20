@@ -11,10 +11,12 @@ workout.interval.splits <- function () {
   using.database(function (fetch.query.results) {
     "SELECT *
       FROM activities
+      JOIN activity_types USING (activity_type_id)
       JOIN activity_intervals USING (activity_id)
       JOIN activity_interval_splits USING (activity_interval_id)
       JOIN activity_interval_target_race_distances USING (activity_interval_id)
       WHERE activity_date >= '2022-07-01'
+        AND activity_type NOT IN ('race')
       ORDER BY activity_date" %>%
       fetch.query.results()
   })
