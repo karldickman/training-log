@@ -53,13 +53,26 @@ bin.race.distances <- function (data) {
     ))
 }
 
+prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap = FALSE) {
+  if (is.null(normalized.race.distance.km)) {
+    data <- data |>
+      mutate(lap_pace = lap_split_seconds)
+  } else {
+    data <- data |>
+      mutate(lap_pace = lap_split_seconds + 4 * log(normalized.race.distance.km / race_distance_km) / log(2))
+  }
+  if (facet.wrap) {
+    data <- data |>
+      filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m")))
+  }
+  data
+}
+
 plot <- function (data, normalized.race.distance.km, target.finish.time, colors, facet.wrap = FALSE) {
   title <- "Interval lap paces"
   subtitle <- NULL
   y.axis.label <- "Lap paces (seconds)"
-  if (is.null(normalized.race.distance.km)) {
-    data %<>% mutate(lap_pace = lap_split_seconds)
-  } else {
+  if (!is.null(normalized.race.distance.km)) {
     distance.label <- ifelse(
       normalized.race.distance.km >= 2,
       paste(normalized.race.distance.km, "km"),
@@ -67,12 +80,6 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     title <- paste("Interval lap paces standardized to", distance.label, "race pace")
     subtitle <- paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
     y.axis.label <- "Standardized lap paces (seconds)"
-    data %<>%
-      mutate(lap_pace = lap_split_seconds + 4 * log(normalized.race.distance.km / race_distance_km) / log(2))
-  }
-  if (facet.wrap) {
-    data %<>%
-      filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m")))
   }
   step <- 5
   lap.paces <- data$lap_pace[!is.na(data$lap_pace)]
@@ -169,6 +176,7 @@ main <- function (argv = c()) {
   data <- workout.interval.splits() %>%
     bin.race.distances()
   # Plot data
-  data %>%
+  data |>
+    prepare.data.for.plot(normalized.race.distance.km, facet.wrap) |>
     plot(normalized.race.distance.km, target.finish.time, colors, facet.wrap)
 }
