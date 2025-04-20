@@ -86,14 +86,17 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   y.axis.breaks <- seq(
     floor(min(lap.paces) / step) * step,
     ceiling(max(lap.paces) / step) * step, step)
-  if (colors == "continuous") {
-    plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_km)) +
-      geom_point(stroke = 0.1, shape = 21)
-  } else if (colors == "discrete") {
-    plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_bin)) +
-      geom_point(stroke = 0.1, shape = 21)
+  if (colors == "continuous" | colors == "discrete") {
+    if (colors == "continuous") {
+      plot <- data %>%
+        ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_km, size = activity_type))
+    } else if (colors == "discrete") {
+      plot <- data %>%
+        ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_bin, size = activity_type))
+    }
+    plot <- plot +
+      geom_point(stroke = 0.1, shape = 21) +
+      scale_size_manual(name = "Type", values = c(2, 4))
   } else {
     plot <- data %>%
       ggplot(aes(x = activity_date, y = lap_pace)) +
@@ -120,7 +123,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       summarise(rolling_avg = min(rolling_avg)) |>
       mutate(race_distance_km = NA, race_distance_bin = NA)
     plot <- plot +
-      geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000")
+      geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5)
   }
   if (!is.null(target.finish.time) & !facet.wrap) {
     plot <- plot + geom_hline(yintercept = target.finish.time * 60 / (normalized.race.distance.km / 0.4))
