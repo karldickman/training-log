@@ -88,16 +88,18 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     ceiling(max(lap.paces) / step) * step, step)
   if (colors == "continuous") {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_km))
+      ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_km)) +
+      geom_point(stroke = 0.1, shape = 21)
   } else if (colors == "discrete") {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace, col = race_distance_bin))
+      ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_bin)) +
+      geom_point(stroke = 0.1, shape = 21)
   } else {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace))
+      ggplot(aes(x = activity_date, y = lap_pace)) +
+      geom_point()
   }
   plot <- plot +
-    geom_point(stroke = 0.1, shape = 21) +
     scale_x_date(date_breaks = "3 month", date_labels = "%Y-%m") +
     labs(title = title, subtitle = subtitle) +
     xlab("Workout date") +
