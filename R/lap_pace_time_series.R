@@ -63,7 +63,7 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
   }
   if (facet.wrap) {
     data <- data |>
-      filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m")))
+      filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m", "Marathon")))
   }
   data
 }
