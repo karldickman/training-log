@@ -9,7 +9,7 @@ source("data.R")
 
 race.results <- function () {
   using.database(function (fetch.query.reslts) {
-    "SELECT activity_id, activity_date, distance_miles, duration_minutes
+    "SELECT activity_id, activity_date, activity_type, distance_miles, duration_minutes
       FROM activities
       JOIN activity_types USING (activity_type_id)
       JOIN activity_non_route_distances USING (activity_id)
@@ -110,8 +110,17 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     plot <- plot + scale_fill_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
   if ((!is.null(normalized.race.distance.km) & colors != "discrete") | facet.wrap) {
-    rolling_avg <- calculate.rolling.average(data$activity_date, data$lap_pace, 30)
-    plot <- plot + geom_line(aes(y = rolling_avg), color = "#000000")
+    workout.data <- data |> filter(activity_type == "intervals")
+    rolling_avg <- tibble(
+      activity_date = workout.data$activity_date,
+      activity_type = "intervals",
+      rolling_avg = calculate.rolling.average(workout.data$activity_date, workout.data$lap_pace, 30)
+    ) |>
+      group_by(activity_date, activity_type) |>
+      summarise(rolling_avg = min(rolling_avg)) |>
+      mutate(race_distance_km = NA, race_distance_bin = NA)
+    plot <- plot +
+      geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000")
   }
   if (!is.null(target.finish.time) & !facet.wrap) {
     plot <- plot + geom_hline(yintercept = target.finish.time * 60 / (normalized.race.distance.km / 0.4))
@@ -175,10 +184,19 @@ main <- function (argv = c()) {
     colors = "none"
   }
   # Load data
-  data <- workout.interval.splits() %>%
+  workouts <- workout.interval.splits() |>
+    mutate(activity_type = ifelse(activity_type == "tempo", "intervals", activity_type))
+  races <- race.results() |>
+    mutate(race_distance_km = distance_miles * 1.609334) |>
+    mutate(lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4)
+  bind_rows(workouts, races)
+  data <- bind_rows(workouts, races) |>
+    select(activity_date, activity_type, lap_split_seconds, race_distance_km) |>
+    arrange(activity_date) |>
     bin.race.distances()
   # Plot data
   data |>
+    select(activity_date, activity_type, lap_split_seconds, race_distance_km, race_distance_bin) |>
     prepare.data.for.plot(normalized.race.distance.km, facet.wrap) |>
     plot(normalized.race.distance.km, target.finish.time, colors, facet.wrap)
 }
