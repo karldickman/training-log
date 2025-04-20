@@ -7,6 +7,20 @@ library(viridis)
 
 source("data.R")
 
+race.results <- function () {
+  using.database(function (fetch.query.reslts) {
+    "SELECT activity_id, activity_date, distance_miles, duration_minutes
+      FROM activities
+      JOIN activity_types USING (activity_type_id)
+      JOIN activity_non_route_distances USING (activity_id)
+      JOIN activity_durations USING (activity_id)
+      WHERE activity_date >= '2022-07-01'
+        AND activity_type = 'race'
+      ORDER BY activity_date" |>
+      fetch.query.reslts()
+  })
+}
+
 workout.interval.splits <- function () {
   using.database(function (fetch.query.results) {
     "SELECT *
