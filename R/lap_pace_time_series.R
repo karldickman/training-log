@@ -59,7 +59,10 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
       mutate(lap_pace = lap_split_seconds)
   } else {
     data <- data |>
-      mutate(lap_pace = lap_split_seconds + 4 * log(normalized.race.distance.km / race_distance_km) / log(2))
+      mutate(
+        lap_pace = lap_split_seconds + 4 * log(normalized.race.distance.km / race_distance_km) / log(2),
+        total_time = lap_split_seconds * normalized.race.distance.km / 0.4 / 60
+      )
   }
   if (facet.wrap) {
     data <- data |>
@@ -68,38 +71,57 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
   data
 }
 
-plot <- function (data, normalized.race.distance.km, target.finish.time, colors, facet.wrap = FALSE) {
-  title <- "Interval lap paces"
-  subtitle <- NULL
-  y.axis.label <- "Lap paces (seconds)"
-  if (!is.null(normalized.race.distance.km)) {
-    distance.label <- ifelse(
-      normalized.race.distance.km >= 2,
-      paste(normalized.race.distance.km, "km"),
-      paste(normalized.race.distance.km * 1000, "m"))
-    title <- paste("Interval lap paces standardized to", distance.label, "race pace")
-    subtitle <- paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
-    y.axis.label <- "Standardized lap paces (seconds)"
+plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE, facet.wrap = FALSE) {
+  distance.label <- ifelse(
+    normalized.race.distance.km >= 2,
+    paste(normalized.race.distance.km, "km"),
+    paste(normalized.race.distance.km * 1000, "m"))
+  if (!total) {
+    step <- 5
+    data <- rename(data, duration = lap_pace)
+    if (is.null(normalized.race.distance.km)) {
+      title <- "Interval lap paces"
+      y.axis.label <- "Lap paces (seconds)"
+    } else {
+      title <- paste("Interval lap paces standardized to", distance.label, "race pace")
+      y.axis.label <- "Standardized lap paces (seconds)"
+    }
+  } else {
+    step <- 1
+    data <- rename(data, duration = total_time)
+    if (is.null(normalized.race.distance.km)) {
+      title <- "Race pace equivalents"
+      y.axis.label <- "Finish time (minutes)"
+    } else {
+      title <- paste("Race pace equivalents standardized to", distance.label, "race pace")
+      y.axis.label <- "Standardized finish time (minutes)"
+    }
   }
-  step <- 5
-  lap.paces <- data$lap_pace[!is.na(data$lap_pace)]
+  if (is.null(normalized.race.distance.km)) {
+    subtitle <- NULL
+  } else {
+    subtitle <- paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
+  }
+  durations <- data |>
+    filter(!is.na(duration)) |>
+    pull(duration)
   y.axis.breaks <- seq(
-    floor(min(lap.paces) / step) * step,
-    ceiling(max(lap.paces) / step) * step, step)
+    floor(min(durations) / step) * step,
+    ceiling(max(durations) / step) * step, step)
   if (colors == "continuous" | colors == "discrete") {
     if (colors == "continuous") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_km, size = activity_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, size = activity_type))
     } else if (colors == "discrete") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = lap_pace, fill = race_distance_bin, size = activity_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, size = activity_type))
     }
     plot <- plot +
       geom_point(stroke = 0.1, shape = 21) +
       scale_size_manual(name = "Type", values = c(2, 4))
   } else {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = lap_pace)) +
+      ggplot(aes(x = activity_date, y = duration)) +
       geom_point()
   }
   plot <- plot +
@@ -117,7 +139,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     rolling_avg <- tibble(
       activity_date = workout.data$activity_date,
       activity_type = "intervals",
-      rolling_avg = calculate.rolling.average(workout.data$activity_date, workout.data$lap_pace, 30)
+      rolling_avg = calculate.rolling.average(workout.data$activity_date, workout.data$duration, 30)
     ) |>
       group_by(activity_date, activity_type) |>
       summarise(rolling_avg = min(rolling_avg)) |>
@@ -126,7 +148,10 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5)
   }
   if (!is.null(target.finish.time) & !facet.wrap) {
-    plot <- plot + geom_hline(yintercept = target.finish.time * 60 / (normalized.race.distance.km / 0.4))
+    if (!total) {
+      target.finish.time <- target.finish.time * 60 / (normalized.race.distance.km / 0.4)
+    }
+    plot <- plot + geom_hline(yintercept = target.finish.time, linetype = "dashed")
   }
   if (facet.wrap) {
     plot <- plot + facet_wrap(vars(race_distance_bin), ncol = 1)
@@ -198,8 +223,9 @@ main <- function (argv = c()) {
     arrange(activity_date) |>
     bin.race.distances()
   # Plot data
+  total <- !is.null(normalized.race.distance.km)
   data |>
     select(activity_date, activity_type, lap_split_seconds, race_distance_km, race_distance_bin) |>
     prepare.data.for.plot(normalized.race.distance.km, facet.wrap) |>
-    plot(normalized.race.distance.km, target.finish.time, colors, facet.wrap)
+    plot(normalized.race.distance.km, target.finish.time, colors, total, facet.wrap)
 }
