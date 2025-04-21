@@ -118,8 +118,8 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     }
     plot <- plot +
       geom_point(stroke = 0.1) +
-      scale_shape_manual(name = "Type", values = c(21, 22)) +
-      scale_size_manual(name = "Type", values = c(2, 4))
+      scale_shape_manual(name = "Type", values = c(21, 23)) +
+      scale_size_manual(name = "Type", values = c(2, 6))
   } else {
     plot <- data %>%
       ggplot(aes(x = activity_date, y = duration, shape = activity_type, size = activity_type)) +
