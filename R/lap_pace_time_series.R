@@ -111,17 +111,18 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   if (colors == "continuous" | colors == "discrete") {
     if (colors == "continuous") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, size = activity_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, shape = activity_type, size = activity_type))
     } else if (colors == "discrete") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, size = activity_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, shape = activity_type, size = activity_type))
     }
     plot <- plot +
-      geom_point(stroke = 0.1, shape = 21) +
+      geom_point(stroke = 0.1) +
+      scale_shape_manual(name = "Type", values = c(21, 22)) +
       scale_size_manual(name = "Type", values = c(2, 4))
   } else {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = duration)) +
+      ggplot(aes(x = activity_date, y = duration, shape = activity_type, size = activity_type)) +
       geom_point()
   }
   plot <- plot +
