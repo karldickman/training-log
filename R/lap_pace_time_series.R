@@ -146,7 +146,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       summarise(rolling_avg = min(rolling_avg)) |>
       mutate(race_distance_km = NA, race_distance_bin = NA)
     plot <- plot +
-      geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5)
+      geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5, linetype = "longdash")
   }
   if (!is.null(target.finish.time) & !facet.wrap) {
     if (!total) {
