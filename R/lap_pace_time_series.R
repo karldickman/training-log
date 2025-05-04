@@ -14,7 +14,7 @@ race.results <- function () {
       JOIN activity_types USING (activity_type_id)
       JOIN activity_non_route_distances USING (activity_id)
       JOIN activity_durations USING (activity_id)
-      WHERE activity_date >= '2022-07-01'
+      WHERE activity_date >= '2022-01-01'
         AND activity_type = 'race'
       ORDER BY activity_date" |>
       fetch.query.reslts()
@@ -29,7 +29,7 @@ workout.interval.splits <- function () {
       JOIN activity_intervals USING (activity_id)
       JOIN activity_interval_splits USING (activity_interval_id)
       JOIN activity_interval_target_race_distances USING (activity_interval_id)
-      WHERE activity_date >= '2022-07-01'
+      WHERE activity_date >= '2022-01-01'
         AND activity_type NOT IN ('race')
       ORDER BY activity_date" %>%
       fetch.query.results()
