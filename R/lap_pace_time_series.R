@@ -16,6 +16,7 @@ race.results <- function () {
       JOIN activity_durations USING (activity_id)
       WHERE activity_date >= '2022-01-01'
         AND activity_type = 'race'
+        AND distance_miles >= 0.24
       ORDER BY activity_date" |>
       fetch.query.reslts()
   })
@@ -53,16 +54,48 @@ bin.race.distances <- function (data) {
     ))
 }
 
+interpolate <- function (x, x1, x2, y1, y2) {
+  m <- (y2 - y1) / (x2 - x1)
+  m * (x - x1) + y1
+}
+
+two_to_four <- function (lap_split_seconds) {
+  x1 <- 200
+  x2 <- 400
+  y1 <- 28.30
+  y2 <- 62.91
+  lap_split_seconds * interpolate(x2, x1, x2, y1, y2) / interpolate(x1, x1, x2, y1, y2) |>
+    four_to_eight()
+}
+
+four_to_eight <- function (lap_split_seconds) {
+  x1 <- 400
+  x2 <- 800
+  y1 <- 62.91
+  y2 <- (2 * 60 + 27) / 2
+  lap_split_seconds * interpolate(x2, x1, x2, y1, y2) / interpolate(x1, x1, x2, y1, y2)
+}
+
+horwill <- function (lap_split_seconds, race_distance_km, normalized_race_distance_km) {
+  lap_split_seconds + 4 * log(normalized_race_distance_km / race_distance_km) / log(2)
+}
+
 prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap = FALSE) {
   if (is.null(normalized.race.distance.km)) {
     data <- data |>
       mutate(lap_pace = lap_split_seconds)
   } else {
     data <- data |>
-      mutate(
-        lap_pace = lap_split_seconds + 4 * log(normalized.race.distance.km / race_distance_km) / log(2),
-        total_time = lap_split_seconds * normalized.race.distance.km / 0.4 / 60
-      )
+      mutate(lap_pace = ifelse(
+        race_distance_km >= 0.8,
+        horwill(lap_split_seconds, race_distance_km, normalized.race.distance.km),
+        ifelse(
+          race_distance_km >= 0.282,
+          horwill(four_to_eight(lap_split_seconds), 0.8, normalized.race.distance.km),
+          horwill(two_to_four(lap_split_seconds), 0.4, normalized.race.distance.km)
+        )
+      )) |>
+      mutate(total_time = lap_pace * normalized.race.distance.km / 0.4 / 60)
   }
   if (facet.wrap) {
     data <- data |>
@@ -218,7 +251,6 @@ main <- function (argv = c()) {
   races <- race.results() |>
     mutate(race_distance_km = distance_miles * 1.609334) |>
     mutate(lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4)
-  bind_rows(workouts, races)
   data <- bind_rows(workouts, races) |>
     select(activity_date, activity_type, lap_split_seconds, race_distance_km) |>
     arrange(activity_date) |>
