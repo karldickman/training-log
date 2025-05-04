@@ -93,7 +93,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       title <- "Finish time equivalents"
       y.axis.label <- "Finish time (minutes)"
     } else {
-      title <- paste("Finish equivalents standardized to", distance.label, "race pace")
+      title <- paste("Finish time equivalents standardized to", distance.label, "race pace")
       y.axis.label <- "Standardized finish time (minutes)"
     }
   }
