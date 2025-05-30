@@ -9,7 +9,7 @@ source("database.R")
 fetch.data <- function () {
   using.database(function (fetch.query.results) {
     "WITH all_dates AS (SELECT date_trunc('day', dates):: date AS activity_date, 3 AS activity_equivalence_id -- Loose
-	    FROM generate_series((SELECT MIN(activity_date) FROM activities), date_trunc('day', NOW()), '1 day'::interval) dates)
+	    FROM generate_series('2009-05-08', date_trunc('day', NOW()), '1 day'::interval) dates)
     SELECT activity_date, COALESCE(distance_miles, 0) AS distance_miles
       FROM all_dates
       LEFT JOIN equivalent_distance_by_day USING (activity_date, activity_equivalence_id)
