@@ -106,9 +106,14 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
 
 plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE, facet.wrap = FALSE) {
   distance.label <- ifelse(
-    normalized.race.distance.km >= 2,
-    paste(normalized.race.distance.km, "km"),
-    paste(normalized.race.distance.km * 1000, "m"))
+    abs(normalized.race.distance.km - 1.609334) < 0.0001,
+    "1 mi",
+    ifelse(
+      normalized.race.distance.km >= 2,
+      paste(normalized.race.distance.km, "km"),
+      paste(normalized.race.distance.km * 1000, "m")
+    )
+  )
   if (!total) {
     step <- 5
     data <- rename(data, duration = lap_pace)
