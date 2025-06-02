@@ -9,11 +9,13 @@ source("data.R")
 
 race.results <- function () {
   using.database(function (fetch.query.reslts) {
-    "SELECT activity_id, activity_date, activity_type, distance_miles, duration_minutes
+    "SELECT activity_id, activity_date, activity_type, race_discipline, distance_miles, duration_minutes
       FROM activities
       JOIN activity_types USING (activity_type_id)
       JOIN activity_non_route_distances USING (activity_id)
       JOIN activity_durations USING (activity_id)
+      LEFT JOIN activity_race_discipline USING (activity_id)
+      LEFT JOIN race_disciplines USING (race_discipline_id)
       WHERE activity_date >= '2022-01-01'
         AND activity_type = 'race'
         AND distance_miles >= 0.24
@@ -101,7 +103,16 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
     data <- data |>
       filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m", "Marathon")))
   }
-  data
+  data |>
+    mutate(interval_type = factor(ifelse(
+      activity_type == "race",
+      ifelse(
+        race_discipline == "Cross-Country",
+        "cross-country",
+        "road or track"
+      ),
+      activity_type
+    ), levels = c("intervals", "road or track", "cross-country")))
 }
 
 plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE, facet.wrap = FALSE) {
@@ -149,22 +160,22 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   if (colors == "continuous" | colors == "discrete") {
     if (colors == "continuous") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, shape = activity_type, size = activity_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, shape = interval_type, size = interval_type))
     } else if (colors == "discrete") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, shape = activity_type, size = activity_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, shape = interval_type, size = interval_type))
     }
     plot <- plot +
       geom_point(stroke = 0.1) +
-      scale_shape_manual(name = "Type", values = c(21, 23)) +
-      scale_size_manual(name = "Type", values = c(2, 6))
+      scale_shape_manual(name = "Type", values = c(21, 23, 22)) +
+      scale_size_manual(name = "Type", values = c(2, 6, 6))
   } else {
     plot <- data %>%
-      ggplot(aes(x = activity_date, y = duration, shape = activity_type, size = activity_type)) +
+      ggplot(aes(x = activity_date, y = duration, shape = interval_type, size = interval_type)) +
       geom_point()
   }
   plot <- plot +
-    scale_x_date(date_breaks = "3 month", date_labels = "%Y-%m") +
+    scale_x_date(date_breaks = "3 month", date_labels = "%Y-%b") +
     labs(title = title, subtitle = subtitle) +
     xlab("Workout date") +
     ylab(y.axis.label)
@@ -177,10 +188,10 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     workout.data <- data |> filter(activity_type == "intervals")
     rolling_avg <- tibble(
       activity_date = workout.data$activity_date,
-      activity_type = "intervals",
+      interval_type = "intervals",
       rolling_avg = calculate.rolling.average(workout.data$activity_date, workout.data$duration, 30)
     ) |>
-      group_by(activity_date, activity_type) |>
+      group_by(activity_date, interval_type) |>
       summarise(rolling_avg = min(rolling_avg)) |>
       mutate(race_distance_km = NA, race_distance_bin = NA)
     plot <- plot +
@@ -257,13 +268,13 @@ main <- function (argv = c()) {
     mutate(race_distance_km = distance_miles * 1.609334) |>
     mutate(lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4)
   data <- bind_rows(workouts, races) |>
-    select(activity_date, activity_type, lap_split_seconds, race_distance_km) |>
+    select(activity_date, activity_type, race_discipline, lap_split_seconds, race_distance_km) |>
     arrange(activity_date) |>
     bin.race.distances()
   # Plot data
   total <- !is.null(normalized.race.distance.km)
   data |>
-    select(activity_date, activity_type, lap_split_seconds, race_distance_km, race_distance_bin) |>
+    select(activity_date, activity_type, race_discipline, lap_split_seconds, race_distance_km, race_distance_bin) |>
     prepare.data.for.plot(normalized.race.distance.km, facet.wrap) |>
     plot(normalized.race.distance.km, target.finish.time, colors, total, facet.wrap)
 }
