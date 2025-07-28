@@ -168,7 +168,7 @@ main <- function (argv = c()) {
   )
   injuries <- list(
     start = as.Date(c("2021-05-20", "2022-08-22", "2023-04-15", "2024-08-31", "2025-03-15")),
-    end = as.Date(c("2021-06-15", "2022-09-13", "2024-04-16", "2024-10-03", as.character(Sys.Date())))
+    end = as.Date(c("2021-06-15", "2022-09-13", "2024-04-16", "2024-10-03", "2025-07-11"))
   )
   min.date <- min(data$activity_date)
   max.date <- max(data$activity_date)
