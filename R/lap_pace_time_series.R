@@ -6,6 +6,7 @@ library(slider)
 library(viridis)
 
 source("data.R")
+source("breaks_and_injuries.R")
 
 race.results <- function () {
   using.database(function (fetch.query.reslts) {
@@ -116,6 +117,10 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
 }
 
 plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE, facet.wrap = FALSE) {
+  date.min <- min(data$activity_date)
+  date.max <- max(data$activity_date)
+  breaks <- trim.annotations.to.time.series(breaks, date.min, date.max)
+  injuries <- trim.annotations.to.time.series(injuries, date.min, date.max)
   distance.label <- ifelse(
     abs(normalized.race.distance.km - 1.609334) < 0.0001,
     "1 mi",
@@ -157,13 +162,19 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   y.axis.breaks <- seq(
     floor(min(durations) / step) * step,
     ceiling(max(durations) / step) * step, step)
+  y.min <- min(y.axis.breaks)
+  y.max <- max(y.axis.breaks)
   if (colors == "continuous" | colors == "discrete") {
     if (colors == "continuous") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, shape = interval_type, size = interval_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, shape = interval_type, size = interval_type)) +
+        annotate.injuries(injuries, y.min, y.max) +
+        annotate.breaks(breaks, y.min, y.max)
     } else if (colors == "discrete") {
       plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, shape = interval_type, size = interval_type))
+        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, shape = interval_type, size = interval_type)) +
+        annotate.injuries(injuries, y.min, y.max) +
+        annotate.breaks(breaks, y.min, y.max)
     }
     plot <- plot +
       geom_point(stroke = 0.1) +
@@ -172,6 +183,8 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   } else {
     plot <- data %>%
       ggplot(aes(x = activity_date, y = duration, shape = interval_type, size = interval_type)) +
+      annotate.injuries(injuries, y.min, y.max) +
+      annotate.breaks(breaks, y.min, y.max) +
       geom_point()
   }
   plot <- plot +
