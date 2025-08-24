@@ -8,35 +8,35 @@ library(viridis)
 source("data.R")
 source("breaks_and_injuries.R")
 
-race.results <- function () {
-  using.database(function (fetch.query.reslts) {
-    "SELECT activity_id, activity_date, activity_type, race_discipline, distance_miles, duration_minutes
+race.results <- function (since) {
+  using.database(function (fetch.query.results) {
+    query <- "SELECT activity_id, activity_date, activity_type, race_discipline, distance_miles, duration_minutes
       FROM activities
       JOIN activity_types USING (activity_type_id)
       JOIN activity_non_route_distances USING (activity_id)
       JOIN activity_durations USING (activity_id)
       LEFT JOIN activity_race_discipline USING (activity_id)
       LEFT JOIN race_disciplines USING (race_discipline_id)
-      WHERE activity_date >= '2022-01-01'
+      WHERE activity_date >= $1
         AND activity_type = 'race'
         AND distance_miles >= 0.24
-      ORDER BY activity_date" |>
-      fetch.query.reslts()
+      ORDER BY activity_date"
+    fetch.query.results(query, since)
   })
 }
 
-workout.interval.splits <- function () {
+workout.interval.splits <- function (since) {
   using.database(function (fetch.query.results) {
-    "SELECT *
+    query <- "SELECT *
       FROM activities
       JOIN activity_types USING (activity_type_id)
       JOIN activity_intervals USING (activity_id)
       JOIN activity_interval_splits USING (activity_interval_id)
       JOIN activity_interval_target_race_distances USING (activity_interval_id)
-      WHERE activity_date >= '2022-01-01'
+      WHERE activity_date >= $1
         AND activity_type NOT IN ('race')
-      ORDER BY activity_date" %>%
-      fetch.query.results()
+      ORDER BY activity_date"
+    fetch.query.results(query, since)
   })
 }
 
@@ -275,9 +275,10 @@ main <- function (argv = c()) {
     colors = "none"
   }
   # Load data
-  workouts <- workout.interval.splits() |>
+  since <- Sys.Date() - 365
+  workouts <- workout.interval.splits(since) |>
     mutate(activity_type = ifelse(activity_type == "tempo", "intervals", activity_type))
-  races <- race.results() |>
+  races <- race.results(since) |>
     mutate(race_distance_km = distance_miles * 1.609334) |>
     mutate(lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4)
   data <- bind_rows(workouts, races) |>
