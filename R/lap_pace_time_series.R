@@ -281,7 +281,7 @@ main <- function (argv = c()) {
     colors = "none"
   }
   # Load data
-  since <- Sys.Date() - 365
+  since <- as.Date("2023-09-01")
   workouts <- workout.interval.splits(since) |>
     mutate(activity_type = ifelse(activity_type == "tempo", "intervals", activity_type))
   races <- race.results(since) |>
