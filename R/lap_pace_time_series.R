@@ -193,7 +193,13 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     xlab("Workout date") +
     ylab(y.axis.label)
   if (colors == "continuous") {
-    plot <- plot + scale_fill_viridis(name = "Race pace target (km)", option = "magma", trans = "log", breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10, 20))
+    plot <- plot + scale_fill_viridis(
+      name = "Race pace target (km)",
+      option = "magma",
+      trans = "log",
+      breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10, 21.0975, 42.195),
+      labels = scales::label_number(accuracy = 0.1)
+    )
   } else if (colors == "discrete") {
     plot <- plot + scale_fill_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
