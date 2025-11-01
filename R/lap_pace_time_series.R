@@ -188,7 +188,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       geom_point()
   }
   plot <- plot +
-    scale_x_date(date_breaks = "3 month", date_labels = "%Y-%b") +
+    scale_x_date(date_breaks = "3 month", date_labels = "%Y-%m") +
     labs(title = title, subtitle = subtitle) +
     xlab("Workout date") +
     ylab(y.axis.label)
