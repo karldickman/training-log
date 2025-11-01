@@ -8,6 +8,7 @@ SELECT activity_id
         , activities.activity_date AS date
         , activity_description AS description
         , activity_type AS "type"
+        , race_discipline AS discipline
         , TO_CHAR((activity_durations.duration_minutes || ' minute')::INTERVAL, 'HH24:MI:SS') AS duration
         , ROUND(activity_distances.distance_miles::NUMERIC, 1) AS distance
         , CASE
@@ -38,6 +39,8 @@ SELECT activity_id
     LEFT JOIN activity_equipment USING (activity_id)
     LEFT JOIN equipment_labelled USING (equipment_id)
     LEFT JOIN activity_route_urls USING (activity_id)
+    LEFT JOIN activity_race_discipline USING (activity_id)
+    LEFT JOIN race_disciplines USING (race_discipline_id)
     ORDER BY activities.activity_date DESC, activities.activity_id DESC;
 
 ALTER TABLE activity_log OWNER TO postgres;
