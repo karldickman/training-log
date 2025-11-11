@@ -1,14 +1,14 @@
 -- DROP VIEW pretty.equivalent_run_distance_by_month_loose
 CREATE OR REPLACE VIEW pretty.equivalent_run_distance_by_month_loose
 AS
-WITH equivalent_run_distance_by_year AS (SELECT year
+WITH equivalent_run_distance_by_year AS (SELECT "year"
             , activity_type_id
             , activity_equivalence_id
             , distance_miles
         FROM equivalent_distance_by_year
         WHERE equivalent_distance_by_year.activity_type_id = 1 -- run
             AND activity_equivalence_id = 3), -- loose
-"crosstab" AS (SELECT year
+"crosstab" AS (SELECT "year"
         , Jan
         , Feb
         , Mar
@@ -21,8 +21,8 @@ WITH equivalent_run_distance_by_year AS (SELECT year
         , Oct
         , Nov
         , Dec
-    FROM CROSSTAB('WITH equivalent_run_distance_by_month AS (SELECT year
-            , month
+    FROM CROSSTAB('WITH equivalent_run_distance_by_month AS (SELECT "year"
+            , "month"
             , activity_type_id
             , activity_equivalence_id
             , distance_miles
@@ -33,10 +33,11 @@ WITH equivalent_run_distance_by_year AS (SELECT year
             , month
             , ROUND(CAST(distance_miles AS NUMERIC), 1) AS distance_miles
         FROM months
-        LEFT JOIN equivalent_run_distance_by_month USING (year, month)
-        ORDER BY year, month',
-        'SELECT DISTINCT month FROM months ORDER BY month')
-    AS (year INT
+        LEFT JOIN equivalent_run_distance_by_month USING ("year", "month")
+		WHERE ("year" > 2009 OR "month" >= 5 AND "year" = 2009)
+        ORDER BY "year", "month"',
+        'SELECT DISTINCT "month" FROM months ORDER BY month')
+    AS ("year" INT
         , Jan NUMERIC
         , Feb NUMERIC
         , Mar NUMERIC
@@ -49,7 +50,7 @@ WITH equivalent_run_distance_by_year AS (SELECT year
         , Oct NUMERIC
         , Nov NUMERIC
         , Dec NUMERIC))
-SELECT year
+SELECT "year"
         , Jan
         , Feb
         , Mar
@@ -64,7 +65,7 @@ SELECT year
         , Dec
         , ROUND(CAST(distance_miles AS NUMERIC), 1) AS total
     FROM "crosstab"
-    LEFT JOIN equivalent_run_distance_by_year USING (year)
+    LEFT JOIN equivalent_run_distance_by_year USING ("year")
     ORDER BY year DESC;
 
 ALTER VIEW pretty.equivalent_run_distance_by_month_loose OWNER TO postgres;
