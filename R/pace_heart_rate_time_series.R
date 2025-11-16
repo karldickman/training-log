@@ -127,17 +127,18 @@ main <- function (argv = c()) {
   rolling.avg.window <- args$window
   from <- args$from
   # Fetch data from database
-  baseline.easy.pace.min.per.mile <- - log((145 - 72) / 206) / 0.109
+  baseline.easy.pace.min.per.mile <- -log((145 - 72) / 206) / 0.109
   data <- fetch.data(from) |>
     mutate(easy_pace_minutes_per_mile = pace_difference_from_fit_seconds_per_mile / 60 + baseline.easy.pace.min.per.mile)
-  # Dates of interest
-  covid.infections <- as.Date(c("2021-07-24", "2024-02-19", "2024-10-07"))
-  joined.rctc <- as.Date("2022-07-03")
   # Breaks and injuries
   min.date <- min(data$activity_date)
   max.date <- max(data$activity_date)
-  breaks <- trim.annotations.to.time.series(breaks, min.date, max.date)
-  injuries <- trim.annotations.to.time.series(injuries, min.date, max.date)
+  covid.infections <- trim_annotations_to_time_series(covid.infections, min.date, max.date)
+  breaks <- trim_annotations_to_time_series(breaks, min.date, max.date)
+  injuries <- trim_annotations_to_time_series(injuries, min.date, max.date)
+  # Dates of interest
+  joined.rctc <- as.Date("2022-07-03") |>
+    trim_annotations_to_time_series(min.date, max.date)
   # Draw the plot
   data |>
     add.trend.comparisons(rolling.avg.window) |>
