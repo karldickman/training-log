@@ -1,7 +1,6 @@
 library(dplyr)
 library(ggplot2)
 library(lubridate)
-library(magrittr)
 library(viridis)
 
 source("database.R")
@@ -15,7 +14,7 @@ fetch.data <- function (activity.equivalence = "loose") {
       FROM all_dates
       LEFT JOIN equivalent_distance_by_day USING (activity_date, activity_equivalence_id)
       LEFT JOIN activity_equivalences USING (activity_equivalence_id)
-      WHERE activity_equivalence = $1" %>%
+      WHERE activity_equivalence = $1" |>
       fetch.query.results(activity.equivalence)
   })
 }
@@ -28,12 +27,12 @@ plottable_yday <- function(date) {
 
 main <- function (argv = c()) {
   max.miles <- 15
-  data <- fetch.data() %>%
+  data <- fetch.data() |>
     mutate(year = year(activity_date), day = plottable_yday(activity_date))
   min.year <- min(data$year)
   max.year <- max(data$year)
   subtitle <- paste0(min.year, "–", max.year)
-  data %>%
+  data |>
     ggplot(aes(day, year, fill = ifelse(distance_miles <= max.miles, distance_miles, max.miles))) +
     geom_tile() +
     scale_x_date(date_breaks = "1 month", date_labels = "%b") +

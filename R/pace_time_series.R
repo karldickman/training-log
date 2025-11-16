@@ -6,13 +6,14 @@ library(slider)
 source("database.R")
 
 plot <- function (data, rolling.avg.window) {
-  data %>% mutate(
-    rolling_avg = slide_index_dbl(
-      pace_minutes_per_mile,
-      activity_date,
-      ~mean(.x, na.rm = TRUE),
-      .before = days(rolling.avg.window - 1))
-  ) %>%
+  data |>
+    mutate(
+      rolling_avg = slide_index_dbl(
+        pace_minutes_per_mile,
+        activity_date,
+        ~mean(.x, na.rm = TRUE),
+        .before = days(rolling.avg.window - 1))
+    ) |>
     ggplot(aes(x = activity_date, y = pace_minutes_per_mile)) +
     geom_point(size = 0.5, alpha = 0.5) +
     geom_line(aes(y = rolling_avg), color = "black") +
@@ -33,7 +34,7 @@ main <- function (argv = c(90)) {
       WHERE distance_miles > 1
         AND activity_description != 'Cool down'
         AND activity_type_id = 1 -- Run
-      ORDER BY activity_date" %>%
+      ORDER BY activity_date" |>
       fetch.query.results()
   })
   # Plot data

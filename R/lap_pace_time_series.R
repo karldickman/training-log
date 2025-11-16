@@ -49,7 +49,7 @@ calculate.rolling.average <- function (dates, lap_split_seconds, rolling.avg.win
 }
 
 bin.race.distances <- function (data) {
-  data %>%
+  data |>
     mutate(race_distance_bin = cut(
       data$race_distance_km,
       breaks = c(0.141, 0.283, 0.566, 1.090, 2.121, 3.800, 7.071, 14.142, 28.284, 56),
@@ -181,7 +181,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       scale_shape_manual(name = "Type", values = c(21, 23, 22)) +
       scale_size_manual(name = "Type", values = c(2, 6, 6))
   } else {
-    plot <- data %>%
+    plot <- data |>
       ggplot(aes(x = activity_date, y = duration, shape = interval_type, size = interval_type)) +
       annotate.injuries(injuries, y.min, y.max) +
       annotate.breaks(breaks, y.min, y.max) +
@@ -204,7 +204,8 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     plot <- plot + scale_fill_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
   if ((!is.null(normalized.race.distance.km) & colors != "discrete") | facet.wrap) {
-    workout.data <- data |> filter(activity_type == "intervals")
+    workout.data <- data |>
+      filter(activity_type == "intervals")
     rolling_avg <- tibble(
       activity_date = workout.data$activity_date,
       interval_type = "intervals",

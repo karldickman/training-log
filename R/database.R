@@ -21,7 +21,7 @@ using.database <- function (operation) {
   withCallingHandlers({
     database <- connect()
     result <- operation(function (query, params = NULL) {
-      dbGetQuery(database, query, params = params) %>%
+      dbGetQuery(database, query, params = params) |>
         as_tibble()
     })
     if (!is.null(database)) {

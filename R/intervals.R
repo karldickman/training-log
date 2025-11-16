@@ -51,16 +51,19 @@ main <- function (argv = c()) {
     subtitle <- paste("Interval splits compared with targets,", workout.date)
     y.axis.label <- "Interval split (seconds)"
   } else {
-    intervals <- intervals %>% mutate(split_seconds = lap_split_seconds, target_split_seconds = target_lap_split_seconds)
+    intervals <- intervals |>
+      mutate(split_seconds = lap_split_seconds, target_split_seconds = target_lap_split_seconds)
     subtitle <- paste("Lap paces compared with targets,", workout.date)
     y.axis.label <- "Lap paces (seconds)"
   }
   # Plot data
-  workout <- intervals %>% pull(activity_description) %>% unique()
+  workout <- intervals |>
+    pull(activity_description) |>
+    unique()
   all.dependent.values <- c(intervals$split_seconds, intervals$target_split_seconds)
   all.dependent.values <- all.dependent.values[!is.na(all.dependent.values)]
-  intervals %>%
-    mutate(interval = zero.pad(interval)) %>%
+  intervals |>
+    mutate(interval = zero.pad(interval)) |>
     ggplot(aes(x = interval)) +
     geom_point(aes(interval, split_seconds, color = "Actual")) +
     geom_line(aes(y = target_split_seconds, group = 1, color = "Target")) +

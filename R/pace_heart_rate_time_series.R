@@ -21,8 +21,8 @@ fetch.data <- function (from) {
 }
 
 add.trend.comparisons <- function (data, rolling.avg.window) {
-  data %>%
-    filter(!is.na(average_heart_rate_bpm)) %>%
+  data |>
+    filter(!is.na(average_heart_rate_bpm)) |>
     mutate(
       rolling.avg = slide_index_dbl(
         easy_pace_minutes_per_mile,
