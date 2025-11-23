@@ -119,8 +119,8 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
 plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE, facet.wrap = FALSE) {
   date.min <- min(data$activity_date)
   date.max <- max(data$activity_date)
-  breaks <- trim.annotations.to.time.series(breaks, date.min, date.max)
-  injuries <- trim.annotations.to.time.series(injuries, date.min, date.max)
+  breaks <- trim_annotations_to_time_series(breaks, date.min, date.max)
+  injuries <- trim_annotations_to_time_series(injuries, date.min, date.max)
   distance.label <- ifelse(
     abs(normalized.race.distance.km - 1.609334) < 0.0001,
     "1 mi",
