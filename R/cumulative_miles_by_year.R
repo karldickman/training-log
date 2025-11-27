@@ -1,18 +1,23 @@
 library(dplyr)
 library(ggplot2)
 library(ggrepel)
+library(lubridate)
 library(viridis)
 
 source("lifetime_running_miles.R")
 
-main <- function () {
-  data <- fetch.data() |>
+prepare_cumulative_miles <- function (data) {
+  data |>
     mutate(year = year(activity_date), day = plottable_yday(activity_date)) |>
     arrange(year, day) |>
     group_by(year) |>
     mutate(cumulative_distance_mi = cumsum(distance_miles)) |>
-    ungroup() |>
-    mutate(line_size = if_else(year == 2025, 2, 0.5))
+    ungroup()
+}
+
+plot_cumulative_miles <- function (data) {
+  data <- data |>
+    mutate(line_size = if_else(year == year(Sys.Date()), 2, 0.5))
   labels <- data |>
     group_by(year) |>
     filter(day == max(day)) |>
@@ -42,4 +47,10 @@ main <- function () {
       x = "Day of year",
       y = "Cumulative miles"
     )
+}
+
+main <- function () {
+  data <- fetch.data() |>
+    prepare_cumulative_miles()
+  plot_cumulative_miles(data)
 }
