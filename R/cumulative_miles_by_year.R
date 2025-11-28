@@ -17,7 +17,7 @@ prepare_cumulative_miles <- function (data) {
 
 plot_cumulative_miles <- function (data) {
   data <- data |>
-    mutate(line_size = if_else(year == year(Sys.Date()), 2, 0.5))
+    mutate(line_size = if_else(year == year(Sys.Date()), 1.5, 0.5))
   labels <- data |>
     group_by(year) |>
     filter(day == max(day)) |>
@@ -40,13 +40,15 @@ plot_cumulative_miles <- function (data) {
       nudge_x = 5
     ) +
     scale_x_date(date_breaks = "1 month", date_labels = "%b") +
-    scale_color_viridis(name = "Year", direction = -1) +
+    scale_color_viridis(option = "mako", begin = 0.8, end = 0) +
     scale_linewidth_identity() +
     labs(
       title = "Cumulative miles per year",
       x = "Day of year",
-      y = "Cumulative miles"
-    )
+      y = "Cumulative miles",
+      color = "Year"
+    ) +
+    theme(legend.position = "bottom")
 }
 
 main <- function () {
