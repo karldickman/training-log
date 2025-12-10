@@ -211,7 +211,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       rolling_avg = calculate.rolling.average(workout.data$activity_date, workout.data$duration, 30)
     ) |>
       group_by(activity_date, interval_type) |>
-      summarise(rolling_avg = min(rolling_avg)) |>
+      summarise(rolling_avg = min(rolling_avg), .groups = "drop") |>
       mutate(race_distance_km = NA, race_distance_bin = NA)
     plot <- plot +
       geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5, linetype = "longdash")
