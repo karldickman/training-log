@@ -223,11 +223,10 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     plot <- plot + geom_hline(yintercept = target.finish.time, linetype = "dashed")
   }
   if (facet.wrap) {
-    plot <- plot + facet_wrap(vars(race_distance_bin), ncol = 1)
+    plot + facet_wrap(vars(race_distance_bin), ncol = 1)
   } else {
-    plot <- plot + scale_y_continuous(breaks = y.axis.breaks)
+    plot + scale_y_continuous(breaks = y.axis.breaks)
   }
-  plot
 }
 
 usage <- function (error = NULL) {
