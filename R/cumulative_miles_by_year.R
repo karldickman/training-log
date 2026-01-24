@@ -39,6 +39,15 @@ plot_cumulative_miles <- function (data) {
       point.padding = 0.5,
       nudge_x = 5
     ) +
+    geom_line(
+      data = tibble(
+        day = as.Date("2020-01-01") + 0:364,
+        cumulative_distance_mi = (1500 / 365) * (0:364)
+      ),
+      aes(x = day, y = cumulative_distance_mi),
+      inherit.aes = FALSE,
+      linetype = "dashed"
+    ) +
     scale_x_date(date_breaks = "1 month", date_labels = "%b") +
     scale_color_viridis(option = "mako", begin = 0.8, end = 0) +
     scale_linewidth_identity() +
