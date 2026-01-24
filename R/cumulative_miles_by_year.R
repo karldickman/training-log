@@ -51,8 +51,8 @@ plot_cumulative_miles <- function (data) {
     theme(legend.position = "bottom")
 }
 
-main <- function () {
-  data <- fetch.data() |>
+main <- function (activity.equivalence = "loose") {
+  data <- fetch.data(activity.equivalence) |>
     prepare_cumulative_miles()
   plot_cumulative_miles(data)
 }
