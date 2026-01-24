@@ -1,3 +1,5 @@
+library(dplyr)
+
 source("database.R")
 
 workout.interval.exceedances <- function (workout.date) {
@@ -22,5 +24,27 @@ fetch_lifetime_running_miles <- function (activity.equivalence = "loose") {
       LEFT JOIN activity_equivalences USING (activity_equivalence_id)
       WHERE activity_equivalence = $1" |>
       fetch.query.results(activity.equivalence)
+  })
+}
+
+fetch_running_equivalent_mileage <- function () {
+  using.database(function (fetch_query_results) {
+    "SELECT activity_id
+        , activity_date
+        , distance_miles
+        , activity_type_id
+        , equivalent_activity_type_id
+    FROM equivalent_distances" |>
+      fetch_query_results()
+  })
+}
+
+fetch_activity_equivalences <- function () {
+  using.database(function (fetch_query_results) {
+    "SELECT activity_equivalence, equivalent_activity_type_id
+    FROM all_activity_equivalence_activity_types
+    WHERE activity_type_id = 1" |>
+      fetch_query_results() |>
+      mutate(activity_equivalence = factor(activity_equivalence, levels = c("strict", "elevated heart rate", "loose")))
   })
 }
