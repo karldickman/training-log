@@ -14,6 +14,7 @@ plottable_yday <- function(date) {
 main <- function (argv = c()) {
   max.miles <- 15
   data <- fetch_lifetime_running_miles() |>
+    filter(activity_equivalence == "loose") |>
     mutate(year = year(activity_date), day = plottable_yday(activity_date))
   min.year <- min(data$year)
   max.year <- max(data$year)

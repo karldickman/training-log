@@ -62,7 +62,8 @@ plot_cumulative_miles <- function (data) {
 }
 
 main <- function (activity.equivalence = "loose") {
-  data <- fetch_lifetime_running_miles(activity.equivalence) |>
+  data <- fetch_lifetime_running_miles() |>
+    filter(activity_equivalence == activity.equivalence) |>
     prepare_cumulative_miles()
   plot_cumulative_miles(data)
 }
