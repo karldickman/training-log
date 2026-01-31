@@ -1,8 +1,6 @@
 library(dplyr)
 library(ggplot2)
-library(ggrepel)
 library(lubridate)
-library(viridis)
 
 source("data.R")
 source("lifetime_running_miles.R")
@@ -17,8 +15,6 @@ prepare_cumulative_miles <- function (data) {
 }
 
 plot_cumulative_miles <- function (data) {
-  data <- data |>
-    mutate(line_size = if_else(year == year(Sys.Date()), 1.5, 0.5))
   labels <- data |>
     group_by(year) |>
     filter(day == max(day)) |>
@@ -26,20 +22,9 @@ plot_cumulative_miles <- function (data) {
   data |>
     ggplot(aes(
       x = day,
-      y = cumulative_distance_mi,
-      group = year,
-      color = year,
-      linewidth = line_size
+      y = cumulative_distance_mi
     )) +
     geom_line() +
-    geom_text_repel(
-      data = labels,
-      aes(label = year),
-      color = "black",
-      box.padding = 0.5,
-      point.padding = 0.5,
-      nudge_x = 5
-    ) +
     geom_line(
       data = tibble(
         day = as.Date("2020-01-01") + 0:364,
@@ -49,8 +34,8 @@ plot_cumulative_miles <- function (data) {
       inherit.aes = FALSE,
       linetype = "dashed"
     ) +
-    scale_x_date(date_breaks = "1 month", date_labels = "%b") +
-    scale_color_viridis(option = "mako", begin = 0.8, end = 0) +
+    facet_wrap(~ year) +
+    scale_x_date(date_breaks = "3 month", date_labels = "%b") +
     scale_linewidth_identity() +
     labs(
       title = "Cumulative miles per year",
