@@ -30,6 +30,7 @@ main <- function () {
     geom_point(size = 0.5) +
     geom_line(aes(y = rolling_average), color = "#3366ff", linewidth = 0.5) +
     scale_x_date(date_breaks = "1 year", date_labels = "%Y") +
+    scale_y_continuous(breaks = 10*(0:10)) +
     labs(
       x = "Date",
       y = "Weekly distance (miles)",
