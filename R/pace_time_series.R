@@ -19,9 +19,11 @@ plot <- function (data, rolling.avg.window) {
     geom_line(aes(y = rolling_avg), color = "black") +
     scale_x_date(date_breaks = "1 years", date_labels = "%Y") +
     scale_y_continuous(breaks = c(6, 7, 8, 9, 10, 11, 12)) +
-    labs(title = "Running mile pace time series") +
-    xlab("Run date") +
-    ylab("Pace (minutes/mile)")
+    labs(
+      title = "Running mile pace time series",
+      x = "Run date",
+      y = "Pace (minutes/mile)"
+    )
 }
 
 main <- function (argv = c(90)) {
