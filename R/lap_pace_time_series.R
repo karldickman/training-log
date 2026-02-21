@@ -82,8 +82,8 @@ horwill <- function (lap_split_seconds, race_distance_km, normalized_race_distan
   lap_split_seconds + 4 * log(normalized_race_distance_km / race_distance_km) / log(2)
 }
 
-prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap = FALSE) {
-  if (is.null(normalized.race.distance.km)) {
+prepare.data.for.plot <- function (data, normalized.race.distance.km) {
+  if (is.na(normalized.race.distance.km)) {
     data <- data |>
       mutate(lap_pace = lap_split_seconds)
   } else {
@@ -99,10 +99,6 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
       )) |>
       mutate(total_time = lap_pace * normalized.race.distance.km / 0.4 / 60)
   }
-  if (facet.wrap) {
-    data <- data |>
-      filter(!(race_distance_bin %in% c("100 m", "200 m", "400 m", "Marathon")))
-  }
   data |>
     mutate(interval_type = factor(ifelse(
       activity_type == "race",
@@ -115,7 +111,7 @@ prepare.data.for.plot <- function (data, normalized.race.distance.km, facet.wrap
     ), levels = c("intervals", "road or track", "cross-country")))
 }
 
-plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE, facet.wrap = FALSE) {
+plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE) {
   date.min <- min(data$activity_date)
   date.max <- max(data$activity_date)
   breaks <- trim_annotations_to_time_series(breaks, date.min, date.max)
@@ -132,7 +128,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   if (!total) {
     step <- 5
     data <- rename(data, duration = lap_pace)
-    if (is.null(normalized.race.distance.km)) {
+    if (is.na(normalized.race.distance.km)) {
       title <- "Interval lap paces"
       y.axis.label <- "Lap paces (seconds)"
     } else {
@@ -142,7 +138,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   } else {
     step <- 1
     data <- rename(data, duration = total_time)
-    if (is.null(normalized.race.distance.km)) {
+    if (is.na(normalized.race.distance.km)) {
       title <- "Finish time equivalents"
       y.axis.label <- "Finish time (minutes)"
     } else {
@@ -150,7 +146,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
       y.axis.label <- "Standardized finish time (minutes)"
     }
   }
-  if (is.null(normalized.race.distance.km)) {
+  if (is.na(normalized.race.distance.km)) {
     subtitle <- NULL
   } else {
     subtitle <- paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
@@ -202,7 +198,7 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
   } else if (colors == "discrete") {
     plot <- plot + scale_fill_viridis(name = "Race distance", option = "magma", discrete = TRUE)
   }
-  if ((!is.null(normalized.race.distance.km) & colors != "discrete") | facet.wrap) {
+  if (!is.na(normalized.race.distance.km) & colors != "discrete") {
     workout.data <- data |>
       filter(activity_type == "intervals")
     rolling_avg <- tibble(
@@ -216,68 +212,19 @@ plot <- function (data, normalized.race.distance.km, target.finish.time, colors,
     plot <- plot +
       geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5, linetype = "longdash")
   }
-  if (!is.null(target.finish.time) & !facet.wrap) {
+  if (!is.na(target.finish.time)) {
     if (!total) {
       target.finish.time <- target.finish.time * 60 / (normalized.race.distance.km / 0.4)
     }
     plot <- plot + geom_hline(yintercept = target.finish.time, linetype = "dashed")
   }
-  if (facet.wrap) {
-    plot + facet_wrap(vars(race_distance_bin), ncol = 1)
-  } else {
-    plot + scale_y_continuous(breaks = y.axis.breaks)
-  }
+  plot +
+    scale_y_continuous(breaks = y.axis.breaks)
 }
 
-usage <- function (error = NULL) {
-  if (!is.null(error)) {
-    cat(error, "\n")
-  }
-  cat("lap_pace_time_series.R [NORMALIZED RACE DISTANCE] [TARGET FINISH TIME] [OPTIONS]\n")
-  cat("    --colors=continuous  Show colors on a continuous scale (default)\n")
-  cat("            =discrete    Show colors on a discrete scale\n")
-  cat("            =none        Do not use colors\n")
-  cat("    --facet-wrap         Facet wrap the race distnace bins\n")
-  cat("    -h, --help           Display this message and exit")
-  opt <- options(show.error.messages = FALSE)
-  on.exit(options(opt))
-  stop()
-}
-
-main <- function (argv = c()) {
-  if ("-h" %in% argv | "--help" %in% argv) {
-    usage()
-  }
-  options <- argv[substr(argv, 1, 1) == "-"]
-  arguments <- argv[substr(argv, 1, 1) != "-"]
-  # Parse arguments
-  if (length (arguments) > 2) {
-    stop("Too many arguments")
-  }
-  normalized.race.distance.km <- NULL
-  target.finish.time <- NULL
-  if (length(arguments) >= 1) {
-    normalized.race.distance.km <- as.numeric(arguments[[1]])
-  }
-  if (length(arguments) == 2) {
-    target.finish.time <- as.numeric(arguments[[2]])
-  }
-  facet.wrap <- "--facet-wrap" %in% options
-  if (facet.wrap & length(arguments) > 0) {
-    usage("--facet-wrap is incompatible with normalized paces")
-  }
-  if (facet.wrap) {
-    colors = "discrete"
-  } else {
-    colors = "continuous"
-  }
-  if ("--colors=continuous" %in% options) {
-    colors = "continuous"
-  }
-  if ("--colors=discrete" %in% options) {
-    colors = "discrete"
-  } else if ("--colors=none" %in% options) {
-    colors = "none"
+main <- function (normalized.race.distance.km = NA, target.finish.time = NA, colors = "continuous") {
+  if (!(colors %in% c("continuous", "discrete", "none"))) {
+    stop(paste("Invalid color option", colors))
   }
   # Load data
   since <- as.Date(Sys.Date() - 365 * 2)
@@ -291,9 +238,9 @@ main <- function (argv = c()) {
     arrange(activity_date) |>
     bin.race.distances()
   # Plot data
-  total <- !is.null(normalized.race.distance.km)
+  total <- !is.na(normalized.race.distance.km)
   data |>
     select(activity_date, activity_type, race_discipline, lap_split_seconds, race_distance_km, race_distance_bin) |>
-    prepare.data.for.plot(normalized.race.distance.km, facet.wrap) |>
-    plot(normalized.race.distance.km, target.finish.time, colors, total, facet.wrap)
+    prepare.data.for.plot(normalized.race.distance.km) |>
+    plot(normalized.race.distance.km, target.finish.time, colors, total)
 }
