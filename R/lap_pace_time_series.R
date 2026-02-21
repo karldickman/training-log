@@ -7,44 +7,53 @@ library(viridis)
 source("data.R")
 source("breaks_and_injuries.R")
 
-race.results <- function (since) {
+race.results <- function () {
   using.database(function (fetch.query.results) {
-    query <- "SELECT activity_id, activity_date, activity_type, race_discipline, distance_miles, duration_minutes
+    "SELECT activity_id, activity_date, activity_type, race_discipline, distance_miles, duration_minutes
       FROM activities
       JOIN activity_types USING (activity_type_id)
       JOIN activity_non_route_distances USING (activity_id)
       JOIN activity_durations USING (activity_id)
       LEFT JOIN activity_race_discipline USING (activity_id)
       LEFT JOIN race_disciplines USING (race_discipline_id)
-      WHERE activity_date >= $1
-        AND activity_type = 'race'
+      WHERE activity_type = 'race'
         AND distance_miles >= 0.24
-      ORDER BY activity_date"
-    fetch.query.results(query, since)
+      ORDER BY activity_date" |>
+      fetch.query.results()
   })
 }
 
 workout.interval.splits <- function (since) {
   using.database(function (fetch.query.results) {
-    query <- "SELECT *
+    "SELECT *
       FROM activities
       JOIN activity_types USING (activity_type_id)
       JOIN activity_intervals USING (activity_id)
       JOIN activity_interval_splits USING (activity_interval_id)
       JOIN activity_interval_target_race_distances USING (activity_interval_id)
-      WHERE activity_date >= $1
-        AND activity_type NOT IN ('race')
-      ORDER BY activity_date"
-    fetch.query.results(query, since)
+      WHERE activity_type = 'intervals'
+        AND split_seconds IS NOT NULL
+      ORDER BY activity_date" |>
+      fetch.query.results()
   })
 }
 
-calculate.rolling.average <- function (dates, lap_split_seconds, rolling.avg.window) {
-  slide_index_dbl(
-    lap_split_seconds,
-    dates,
-    ~mean(.x, na.rm = TRUE),
-    .before = days(rolling.avg.window - 1))
+calculate_rolling_average <- function (data, normalized.race.distance.km, rolling.avg.window = 30) {
+  data |>
+    filter(interval_type == "intervals") |>
+    transmute(
+      activity_date,
+      interval_type,
+      rolling_avg_lap_pace = slide_index_dbl(
+        lap_pace_normalized,
+        activity_date,
+        ~mean(.x, na.rm = TRUE),
+        .before = days(rolling.avg.window - 1)
+      )
+    ) |>
+    group_by(activity_date) |>
+    summarise(rolling_avg_lap_pace = min(rolling_avg_lap_pace)) |>
+    mutate(rolling_avg_total_time = rolling_avg_lap_pace * normalized.race.distance.km / 0.4 / 60)
 }
 
 bin.race.distances <- function (data) {
@@ -83,143 +92,138 @@ horwill <- function (lap_split_seconds, race_distance_km, normalized_race_distan
 }
 
 prepare.data.for.plot <- function (data, normalized.race.distance.km) {
-  if (is.na(normalized.race.distance.km)) {
-    data <- data |>
-      mutate(lap_pace = lap_split_seconds)
-  } else {
-    data <- data |>
-      mutate(lap_pace = ifelse(
-        race_distance_km >= 0.8,
-        horwill(lap_split_seconds, race_distance_km, normalized.race.distance.km),
-        ifelse(
-          race_distance_km >= 0.282,
-          horwill(four_to_eight(lap_split_seconds), 0.8, normalized.race.distance.km),
-          horwill(two_to_four(lap_split_seconds), 0.4, normalized.race.distance.km)
-        )
-      )) |>
-      mutate(total_time = lap_pace * normalized.race.distance.km / 0.4 / 60)
-  }
   data |>
-    mutate(interval_type = factor(ifelse(
-      activity_type == "race",
-      ifelse(
-        race_discipline == "Cross-Country",
-        "cross-country",
-        "road or track"
+    mutate(
+      lap_pace = lap_split_seconds,
+      lap_pace_5k = case_when(
+        race_distance_km >= 0.8 ~ horwill(lap_split_seconds, race_distance_km, 5),
+        race_distance_km >= 0.282 ~ horwill(four_to_eight(lap_pace), 0.8, 5),
+        race_distance_km < 0.282 ~ horwill(two_to_four(lap_pace), 0.4, 5),
       ),
-      activity_type
-    ), levels = c("intervals", "road or track", "cross-country")))
+      lap_pace_normalized = case_when(
+        race_distance_km >= 0.8 ~ horwill(lap_split_seconds, race_distance_km, normalized.race.distance.km),
+        race_distance_km >= 0.282 ~ horwill(four_to_eight(lap_pace), 0.8, normalized.race.distance.km),
+        race_distance_km < 0.282 ~ horwill(two_to_four(lap_pace), 0.4, normalized.race.distance.km),
+      ),
+      total_time = lap_pace_normalized * normalized.race.distance.km / 0.4 / 60,
+      interval_type = case_when(
+        activity_type == "race" & race_discipline == "Cross-Country" ~ "cross-country",
+        activity_type == "race" & race_discipline != "Cross-Country" ~ "road or track",
+        .default = activity_type,
+      ) |> factor(levels = c("intervals", "road or track", "cross-country"))
+    )
 }
 
-plot <- function (data, normalized.race.distance.km, target.finish.time, colors, total = FALSE) {
-  date.min <- min(data$activity_date)
-  date.max <- max(data$activity_date)
-  breaks <- trim_annotations_to_time_series(breaks, date.min, date.max)
-  injuries <- trim_annotations_to_time_series(injuries, date.min, date.max)
-  distance.label <- ifelse(
-    abs(normalized.race.distance.km - 1.609334) < 0.0001,
-    "1 mi",
-    ifelse(
-      normalized.race.distance.km >= 2,
-      paste(normalized.race.distance.km, "km"),
-      paste(normalized.race.distance.km * 1000, "m")
-    )
+get_distance_label <- function (race.distance.km) {
+  case_when(
+    abs(race.distance.km - 1.609334) < 0.0001 ~ "1 mi",
+    race.distance.km >= 2 ~ paste(race.distance.km, "km"),
+    is.na(race.distance.km) ~ NA,
+    .default = paste(race.distance.km * 1000, "m")
   )
-  if (!total) {
-    step <- 5
-    data <- rename(data, duration = lap_pace)
-    if (is.na(normalized.race.distance.km)) {
-      title <- "Interval lap paces"
-      y.axis.label <- "Lap paces (seconds)"
-    } else {
-      title <- paste("Interval lap paces standardized to", distance.label, "race pace")
-      y.axis.label <- "Standardized lap paces (seconds)"
-    }
-  } else {
-    step <- 1
-    data <- rename(data, duration = total_time)
-    if (is.na(normalized.race.distance.km)) {
-      title <- "Finish time equivalents"
-      y.axis.label <- "Finish time (minutes)"
-    } else {
-      title <- paste("Finish time equivalents standardized to", distance.label, "race pace")
-      y.axis.label <- "Standardized finish time (minutes)"
-    }
-  }
+}
+
+get_plot_title <- function (distance.label, total) {
+  case_when(
+    is.na(distance.label) & total ~ "Finish time equivalents",
+    is.na(distance.label) & !total ~ "Interval lap paces",
+    !is.na(distance.label) & total ~ paste("Finish time equivalents standardized to", distance.label, "race pace"),
+    !is.na(distance.label) & !total ~ paste("Interval lap paces standardized to", distance.label, "race pace"),
+  )
+}
+
+get_plot_subtitle <- function (normalized.race.distance.km) {
   if (is.na(normalized.race.distance.km)) {
-    subtitle <- NULL
+    waiver()
   } else {
-    subtitle <- paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
+    paste0("pace + 4log₂(", normalized.race.distance.km, " km / target race km)")
   }
-  durations <- data |>
-    filter(!is.na(duration)) |>
-    pull(duration)
+}
+
+get_y_axis_label <- function (distance.label, total) {
+  case_when(
+    is.na(distance.label) & total ~ "Finish time (minutes)",
+    is.na(distance.label) & !total ~ "Lap paces (seconds)",
+    !is.na(distance.label) & total ~ "Standardized finish time (minutes)",
+    !is.na(distance.label) & !total ~ "Standardized lap paces (seconds)",
+  )
+}
+
+plot <- function (data, normalized.race.distance.km, rolling.average, target.finish.time, colors, total = FALSE) {
+  # Simplify target columns
+  data <- data |>
+    mutate(
+      duration = if (total) { total_time } else { lap_pace },
+      race_distance = if (colors == "continuous") { race_distance_km } else { race_distance_bin },
+    ) |>
+    select(!c(lap_pace, race_distance_km, race_distance_bin))
+  # Customize chart and axis titles
+  distance.label <- get_distance_label(normalized.race.distance.km)
+  title <- get_plot_title(distance.label, total)
+  subtitle <- get_plot_subtitle(normalized.race.distance.km)
+  y.axis.label <- get_y_axis_label(distance.label, total)
+  # Define y-axis steps
+  step <- if_else(total, 1, 5)
+  dates <- data$activity_date
   y.axis.breaks <- seq(
-    floor(min(durations) / step) * step,
-    ceiling(max(durations) / step) * step, step)
+    floor(min(data$duration) / step) * step,
+    ceiling(max(data$duration) / step) * step, step)
   y.min <- min(y.axis.breaks)
   y.max <- max(y.axis.breaks)
-  if (colors == "continuous" | colors == "discrete") {
-    if (colors == "continuous") {
-      plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_km, shape = interval_type, size = interval_type)) +
-        annotate.injuries(injuries, y.min, y.max) +
-        annotate.breaks(breaks, y.min, y.max)
-    } else if (colors == "discrete") {
-      plot <- data %>%
-        ggplot(aes(x = activity_date, y = duration, fill = race_distance_bin, shape = interval_type, size = interval_type)) +
-        annotate.injuries(injuries, y.min, y.max) +
-        annotate.breaks(breaks, y.min, y.max)
-    }
-    plot <- plot +
-      geom_point(stroke = 0.1) +
-      scale_shape_manual(name = "Type", values = c(21, 23, 22)) +
-      scale_size_manual(name = "Type", values = c(2, 4, 4))
-  } else {
-    plot <- data |>
-      ggplot(aes(x = activity_date, y = duration, shape = interval_type, size = interval_type)) +
-      annotate.injuries(injuries, y.min, y.max) +
-      annotate.breaks(breaks, y.min, y.max) +
-      geom_point()
-  }
-  plot <- plot +
+  # Create plot
+  plot <- data |>
+    ggplot(if (colors == "none") {
+      aes(x = activity_date, y = duration, shape = interval_type, size = interval_type)
+    } else {
+      aes(x = activity_date, y = duration, fill = race_distance, shape = interval_type, size = interval_type)
+    }) +
+    annotate_injuries(dates, y.min, y.max) +
+    annotate_breaks(dates, y.min, y.max) +
+    geom_point(stroke = 0.1) +
+    scale_size_manual(values = c(2, 4, 4)) +
     scale_x_date(date_breaks = "3 month", date_labels = "%Y-%m") +
-    labs(title = title, subtitle = subtitle) +
-    xlab("Workout date") +
-    ylab(y.axis.label)
+    scale_y_continuous(breaks = y.axis.breaks) +
+    labs(
+      title = title,
+      subtitle = subtitle,
+      x = "Workout date",
+      y = y.axis.label,
+      fill = case_when(
+        colors == "continuous" ~ "Race distance (km)",
+        colors == "discrete" ~ "Race distance",
+        .default = NA,
+      ),
+      shape = "Type",
+      size = "Type",
+    )
+  if (colors == "continuous" | colors == "discrete") {
+    plot <- plot + scale_shape_manual(values = c(21, 23, 22))
+  }
   if (colors == "continuous") {
     plot <- plot + scale_fill_viridis(
-      name = "Race pace target (km)",
       option = "magma",
       trans = "log",
       breaks = c(0.2, 0.4, 0.8, 1.5, 3, 5, 10, 21.0975, 42.195),
       labels = scales::label_number(accuracy = 0.1)
     )
   } else if (colors == "discrete") {
-    plot <- plot + scale_fill_viridis(name = "Race distance", option = "magma", discrete = TRUE)
+    plot <- plot + guides(fill = guide_legend(override.aes = list(shape = 21, size = 2)))
   }
-  if (!is.na(normalized.race.distance.km) & colors != "discrete") {
-    workout.data <- data |>
-      filter(activity_type == "intervals")
-    rolling_avg <- tibble(
-      activity_date = workout.data$activity_date,
-      interval_type = "intervals",
-      rolling_avg = calculate.rolling.average(workout.data$activity_date, workout.data$duration, 30)
-    ) |>
-      group_by(activity_date, interval_type) |>
-      summarise(rolling_avg = min(rolling_avg), .groups = "drop") |>
-      mutate(race_distance_km = NA, race_distance_bin = NA)
+  if (!is.na(normalized.race.distance.km)) {
     plot <- plot +
-      geom_line(data = rolling_avg, aes(x = activity_date, y = rolling_avg), color = "#000000", linewidth = 0.5, linetype = "longdash")
-  }
-  if (!is.na(target.finish.time)) {
-    if (!total) {
-      target.finish.time <- target.finish.time * 60 / (normalized.race.distance.km / 0.4)
+      geom_line(
+        data = rolling.average,
+        aes(x = activity_date, y = rolling_avg_total_time),
+        inherit.aes = FALSE,
+        color = "#000000",
+        linewidth = 0.5,
+        linetype = "longdash",
+      )
+    if (!is.na(target.finish.time)) {
+      plot <- plot + geom_hline(yintercept = target.finish.time, linetype = "dashed")
     }
-    plot <- plot + geom_hline(yintercept = target.finish.time, linetype = "dashed")
   }
-  plot +
-    scale_y_continuous(breaks = y.axis.breaks)
+  plot
 }
 
 main <- function (normalized.race.distance.km = NA, target.finish.time = NA, colors = "continuous") {
@@ -228,9 +232,9 @@ main <- function (normalized.race.distance.km = NA, target.finish.time = NA, col
   }
   # Load data
   since <- as.Date(Sys.Date() - 365 * 2)
-  workouts <- workout.interval.splits(since) |>
-    mutate(activity_type = ifelse(activity_type == "tempo", "intervals", activity_type))
-  races <- race.results(since) |>
+  workouts <- workout.interval.splits() |>
+    mutate(activity_type = if_else(activity_type == "tempo", "intervals", activity_type))
+  races <- race.results() |>
     mutate(race_distance_km = distance_miles * 1.609334) |>
     mutate(lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4)
   data <- bind_rows(workouts, races) |>
@@ -239,8 +243,11 @@ main <- function (normalized.race.distance.km = NA, target.finish.time = NA, col
     bin.race.distances()
   # Plot data
   total <- !is.na(normalized.race.distance.km)
+  data <- data |>
+    prepare.data.for.plot(normalized.race.distance.km)
+  rolling.average <- calculate_rolling_average(data, normalized.race.distance.km) |>
+    filter(activity_date >= since)
   data |>
-    select(activity_date, activity_type, race_discipline, lap_split_seconds, race_distance_km, race_distance_bin) |>
-    prepare.data.for.plot(normalized.race.distance.km) |>
-    plot(normalized.race.distance.km, target.finish.time, colors, total)
+    filter(activity_date >= since) |>
+    plot(normalized.race.distance.km, rolling.average, target.finish.time, colors, total)
 }

@@ -13,16 +13,17 @@ injuries <- tibble(
 
 covid.infections <- as.Date(c("2021-07-24", "2024-02-19", "2024-10-07"))
 
-annotate.time.period <- function (data, y.min, y.max, alpha, fill) {
-  annotate("rect", xmin = data$start, xmax = data$end, ymin = y.min, ymax = y.max, alpha = alpha, fill = fill)
+annotate_time_period <- function (data, dates, y.min, y.max, alpha, fill) {
+  trimmed <- trim_annotations_to_time_series(data, min(dates), max(dates))
+  annotate("rect", xmin = trimmed$start, xmax = trimmed$end, ymin = y.min, ymax = y.max, alpha = alpha, fill = fill)
 }
 
-annotate.breaks <- function (data, y.min, y.max) {
-  annotate.time.period(data, y.min, y.max, 0.3, "black")
+annotate_breaks <- function (dates, y.min, y.max) {
+  annotate_time_period(breaks, dates, y.min, y.max, 0.3, "black")
 }
 
-annotate.injuries <- function (data, y.min, y.max) {
-  annotate.time.period(data, y.min, y.max, 0.1, "red")
+annotate_injuries <- function (dates, y.min, y.max) {
+  annotate_time_period(injuries, dates, y.min, y.max, 0.1, "red")
 }
 
 trim_annotations_to_time_series <- function (x, date.min, date.max) {
@@ -35,13 +36,4 @@ trim_annotations_to_time_series.default <- function (annotations, date.min, date
   }
   annotations |>
     keep(~ . <= date.max & . > date.min)
-}
-
-trim_annotations_to_time_series.data.frame <- function (annotations, date.min, date.max) {
-  annotations |>
-    filter(start <= date.max & end > date.min) |>
-    mutate(
-      start = as.Date(if_else(start <= date.min, date.min, start)),
-      end = as.Date(if_else(end > date.max, date.max, end))
-    )
 }
