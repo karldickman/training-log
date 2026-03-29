@@ -17,7 +17,7 @@ race.results <- function () {
       LEFT JOIN activity_race_discipline USING (activity_id)
       LEFT JOIN race_disciplines USING (race_discipline_id)
       WHERE activity_type = 'race'
-        AND distance_miles >= 0.24
+        AND distance_miles >= 0.48
       ORDER BY activity_date" |>
       fetch.query.results()
   })
