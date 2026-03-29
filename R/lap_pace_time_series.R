@@ -235,8 +235,10 @@ main <- function (normalized.race.distance.km = NA, target.finish.time = NA, col
   workouts <- workout.interval.splits() |>
     mutate(activity_type = if_else(activity_type == "tempo", "intervals", activity_type))
   races <- race.results() |>
-    mutate(race_distance_km = distance_miles * 1.609334) |>
-    mutate(lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4)
+    mutate(
+      race_distance_km = distance_miles * 1.609334,
+      lap_split_seconds = duration_minutes * 60 / race_distance_km * 0.4,
+    )
   data <- bind_rows(workouts, races) |>
     select(activity_date, activity_type, race_discipline, lap_split_seconds, race_distance_km) |>
     arrange(activity_date) |>
