@@ -29,7 +29,7 @@ main <- function (argv = c()) {
   options <- argv[substr(argv, 1, 1) == "-"]
   arguments <- argv[substr(argv, 1, 1) != "-"]
   if (length(arguments) < 1) {
-    usage("Too few arguments")
+    arguments <- Sys.Date()
   }
   if (length(arguments) > 1) {
     usage("Too many arguments")
