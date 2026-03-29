@@ -39,8 +39,8 @@ plot <- function (data, baseline.easy.pace.min.per.mile, covid.infections, joine
   y.min <- min(y.axis.breaks)
   y.max <- max(y.axis.breaks)
   ggplot(data, aes(x = activity_date, y = easy_pace_minutes_per_mile)) +
-    annotate.injuries(injuries, y.min, y.max) +
-    annotate.breaks(breaks, y.min, y.max) +
+    annotate_injuries(data$activity_date, y.min, y.max) +
+    annotate_breaks(data$activity_date, y.min, y.max) +
     geom_point(size = 0.5) +
     geom_line(aes(y = rolling.avg), color = "#888888") +
     geom_hline(yintercept = baseline.easy.pace.min.per.mile) +
@@ -134,8 +134,6 @@ main <- function (argv = c()) {
   min.date <- min(data$activity_date)
   max.date <- max(data$activity_date)
   covid.infections <- trim_annotations_to_time_series(covid.infections, min.date, max.date)
-  breaks <- trim_annotations_to_time_series(breaks, min.date, max.date)
-  injuries <- trim_annotations_to_time_series(injuries, min.date, max.date)
   # Dates of interest
   joined.rctc <- as.Date("2022-07-03") |>
     trim_annotations_to_time_series(min.date, max.date)

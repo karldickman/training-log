@@ -37,3 +37,12 @@ trim_annotations_to_time_series.default <- function (annotations, date.min, date
   annotations |>
     keep(~ . <= date.max & . > date.min)
 }
+
+trim_annotations_to_time_series.data.frame <- function (annotations, date.min, date.max) {
+  annotations |>
+  filter(start <= date.max & end > date.min) |>
+  mutate(
+    start = as.Date(if_else(start <= date.min, date.min, start)),
+    end = as.Date(if_else(end > date.max, date.max, end))
+  )
+}
