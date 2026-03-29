@@ -69,9 +69,12 @@ main <- function (argv = c()) {
     geom_line(aes(y = target_split_seconds, group = 1, color = "Target")) +
     scale_x_discrete(labels = paste(round(intervals$distance_meters), "m")) +
     scale_y_continuous(breaks = seq(floor(min(all.dependent.values)), ceiling(max(all.dependent.values)), 1)) +
-    labs(title = workout, subtitle = subtitle) +
-    xlab("Interval") +
-    ylab(y.axis.label) +
+    labs(
+      title = workout,
+      subtitle = subtitle,
+      x = "Interval",
+      y = y.axis.label,
+    ) +
     theme(legend.position = "bottom", plot.title = element_textbox_simple()) +
     scale_color_manual(
       name = "",
