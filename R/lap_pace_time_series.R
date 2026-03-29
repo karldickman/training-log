@@ -226,12 +226,12 @@ plot <- function (data, normalized.race.distance.km, rolling.average, target.fin
   plot
 }
 
-main <- function (normalized.race.distance.km = NA, target.finish.time = NA, colors = "continuous") {
+main <- function (normalized.race.distance.km = NA, target.finish.time = NA, colors = "continuous", since = NA) {
   if (!(colors %in% c("continuous", "discrete", "none"))) {
     stop(paste("Invalid color option", colors))
   }
   # Load data
-  since <- as.Date(Sys.Date() - 365 * 2)
+  since <- coalesce(as.Date(since), Sys.Date() - 365 * 2)
   workouts <- workout.interval.splits() |>
     mutate(activity_type = if_else(activity_type == "tempo", "intervals", activity_type))
   races <- race.results() |>
