@@ -90,6 +90,7 @@ main <- function (plot.type = "faceted", activity.equivalence = "loose") {
       plot_cumulative_miles_faceted()
   } else if (plot.type == "single") {
     data |>
+      filter(day <= plottable_yday(today())) |>
       plot_cumulative_miles_combined()
   } else {
     stop(paste("Unknown plot type", plot.type))
