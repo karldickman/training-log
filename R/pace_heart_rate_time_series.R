@@ -44,8 +44,8 @@ plot <- function (data, baseline.easy.pace.min.per.mile, covid.infections, joine
     geom_point(size = 0.5) +
     geom_line(aes(y = rolling.avg), color = "#888888") +
     geom_hline(yintercept = baseline.easy.pace.min.per.mile) +
-    geom_vline(xintercept = as.numeric(covid.infections), linetype = 2) +
-    geom_vline(xintercept = as.numeric(joined.rctc), linetype = 3) +
+    geom_vline(xintercept = covid.infections, linetype = "dashed") +
+    geom_vline(xintercept = joined.rctc, linetype = 3) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m", expand = c(0.01, 0.01)) +
     scale_y_continuous(breaks = y.axis.breaks, limits = c(y.min, y.max), expand = c(0, 0)) +
     labs(title = "Estimated easy pace over time") +
