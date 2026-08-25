@@ -129,7 +129,8 @@ main <- function (argv = c()) {
   rolling.avg.window <- args$window
   from <- args$from
   # Fetch data from database
-  baseline.easy.pace.min.per.mile <- -log((145 - 72) / 206) / 0.109
+  heart.rate <- 145
+  baseline.easy.pace.min.per.mile <- -log((heart.rate - 72) / 206) / 0.109
   data <- fetch.data(from) |>
     mutate(easy_pace_minutes_per_mile = pace_difference_from_fit_seconds_per_mile / 60 + baseline.easy.pace.min.per.mile)
   # Breaks and injuries
