@@ -68,9 +68,13 @@ main <- function (by = "week", show.averages = FALSE) {
     ) +
     theme(legend.position = "bottom")
   if (by == "year") {
-    plot <- plot + labs(x = "Year")
+    plot <- plot +
+      scale_x_continuous(breaks = 2009:year(today())) +
+      labs(x = "Year")
   } else if (by == "week") {
-    plot <- plot + labs(x = "Date")
+    plot <- plot +
+      scale_y_continuous(breaks = 10*(0:10)) +
+      labs(x = "Date")
     if (show.averages) {
       plot <- plot + annotate_averages(data)
     }
