@@ -48,9 +48,11 @@ plot <- function (data, baseline.easy.pace.min.per.mile, covid.infections, joine
     geom_vline(xintercept = joined.rctc, linetype = 3) +
     scale_x_date(date_breaks = "1 month", date_labels = "%Y-%m", expand = c(0.01, 0.01)) +
     scale_y_continuous(breaks = y.axis.breaks, limits = c(y.min, y.max), expand = c(0, 0)) +
-    labs(title = "Estimated easy pace over time") +
-    xlab("Run date") +
-    ylab("Easy pace (min/mi)") +
+    labs(
+      title = "Estimated easy pace over time",
+      x = "Run date",
+      y = "Easy pace (min/mi)",
+    ) +
     theme(axis.text.x = element_text(angle = 315, hjust = 0))
 }
 
