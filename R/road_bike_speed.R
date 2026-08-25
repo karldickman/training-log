@@ -14,5 +14,9 @@ main <- function () {
   rides() |>
     filter(!is.na(speed_miles_per_hour)) |>
     ggplot(aes(x = activity_date, y = speed_miles_per_hour)) +
-    geom_point()
+    geom_point(size = 0.5) +
+    labs(
+      x = "Date",
+      y = "Speed (mph)",
+    )
 }
